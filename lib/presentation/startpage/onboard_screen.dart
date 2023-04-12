@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/common/custom_btn.dart';
 import 'package:social_app/core/consts.dart';
-import 'package:social_app/presentation/auth/auth_screen.dart';
+import 'package:social_app/presentation/auth/login_screen.dart';
 import '../../core/colors/colors.dart';
 
 class OnBoardScreen extends StatelessWidget {
@@ -104,7 +104,7 @@ class OnBoardScreen extends StatelessWidget {
                           text: 'JOIN NOW',
                           onPress: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                AuthScreen.routeName, (route) => false);
+                                LoginScreen.routeName, (route) => false);
                           },
                         ),
                       ),

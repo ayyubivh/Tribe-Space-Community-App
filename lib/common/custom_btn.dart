@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/colors/colors.dart';
-import '../presentation/auth/auth_screen.dart';
+import '../presentation/auth/login_screen.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

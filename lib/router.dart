@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/auth/auth_screen.dart';
+import 'package:social_app/presentation/auth/login_screen.dart';
+import 'package:social_app/presentation/home/home_screen.dart';
 
 import 'presentation/auth/signup_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case AuthScreen.routeName:
+    case LoginScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (context) => const AuthScreen(),
+        builder: (context) => const LoginScreen(),
       );
     case SignupScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (context) => const SignupScreen(),
+      );
+    case HomeScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (context) => const HomeScreen(),
       );
     default:
       return MaterialPageRoute(
