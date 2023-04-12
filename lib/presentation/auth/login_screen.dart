@@ -1,18 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/common/custom_btn.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/consts.dart';
 import 'package:social_app/core/utils/loader.dart';
+import 'package:social_app/domain/auth/auth_method.dart';
 import 'package:social_app/presentation/auth/signup_screen.dart';
 import 'package:social_app/presentation/home/home_screen.dart';
 import '../../common/text_form_field.dart';
 import '../../core/utils/utils.dart';
-import '../../domain/auth/auth_methods.dart';
-import '../../domain/auth/database_service.dart';
-import '../../helper/helper_functions.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/auth-screen";
@@ -25,9 +21,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _userNameController = TextEditingController();
   bool _isLoading = false;
-  final AuthService authService = AuthService();
+  final AuthMethods authMethods = AuthMethods();
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -171,37 +166,26 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   login() async {
-    if (formkey.currentState!.validate()) {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == 'success') {
+      // ignore: use_build_context_synchronously
+      showSnackbar(context, Colors.green, res);
+
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
-      await authService
-          .loginWithEmailandPassword(
-              _emailController.text, _passwordController.text)
-          .then((value) async {
-        if (value == true) {
-          QuerySnapshot snapshot =
-              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                  .gettingUserData(_emailController.text);
-          await HelperFunctions.saveUserLoggedInStatus(true);
-          await HelperFunctions.saveUserEmailSF(_emailController.text);
-          await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
-          // ignore: use_build_context_synchronously
-          // nextScreenReplace(context, const HomePage());
-          // ignore: use_build_context_synchronously
-          Navigator.pushReplacementNamed(
-            context,
-            HomeScreen.routeName,
-          );
-          // ignore: use_build_context_synchronously
-          showSnackbar(context, Colors.green, 'Login Successfully!');
-        } else {
-          showSnackbar(context, Colors.red, value);
-          setState(() {
-            _isLoading = false;
-          });
-        }
+    } else {
+      setState(() {
+        _isLoading = false;
       });
+      // ignore: use_build_context_synchronously
+      showSnackbar(context, Colors.red, res);
     }
   }
 }

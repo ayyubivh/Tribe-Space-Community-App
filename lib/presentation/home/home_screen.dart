@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/common/custom_btn.dart';
+import 'package:social_app/domain/auth/auth_method.dart';
 import 'package:social_app/domain/auth/auth_methods.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
             CustomButton(
                 text: 'logout',
                 onPress: () {
-                  AuthService().signOut(context);
+                  AuthMethods().signOut();
                 },
                 textSize: 25),
             Text('Home screen'),
