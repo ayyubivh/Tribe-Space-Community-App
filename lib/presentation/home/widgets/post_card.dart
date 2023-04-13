@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/consts.dart';
+import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
+import 'package:social_app/presentation/comment/comment_screen.dart';
 import 'package:social_app/presentation/home/widgets/like_animation.dart';
 
 import '../../../domain/auth/model/user.dart';
@@ -18,11 +21,30 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  int commentLen = 0;
+  @override
+  void initState() {
+    super.initState();
+    fetchCommentLen();
+  }
+
+  fetchCommentLen() async {
+    try {
+      QuerySnapshot snap = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snap['postId'])
+          .collection('comments')
+          .get();
+      commentLen = snap.docs.length;
+    } catch (err) {
+      showSnackbar(context, Colors.red, err.toString());
+    }
+    setState(() {});
+  }
+
   bool isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
-
     final screenHeight = MediaQuery.of(context).size.height;
     final screenwidth = MediaQuery.of(context).size.width;
 
@@ -83,7 +105,14 @@ class _PostCardState extends State<PostCard> {
             kWidth,
             postReactRow(
                 icon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) {
+                          return CommentsScreen(
+                              postId: widget.snap['postId'].toString());
+                        },
+                      ));
+                    },
                     icon: Icon(
                       Icons.chat_outlined,
                       color: gTextClr,
@@ -128,7 +157,7 @@ class _PostCardState extends State<PostCard> {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'view all 200 comments',
+                  'view all $commentLen comments',
                   style: TextStyle(
                     fontSize: 16,
                     color: textGrey.withOpacity(0.7),
