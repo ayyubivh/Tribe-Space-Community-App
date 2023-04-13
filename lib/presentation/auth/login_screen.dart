@@ -9,6 +9,7 @@ import 'package:social_app/presentation/auth/signup_screen.dart';
 import 'package:social_app/presentation/home/home_screen.dart';
 import '../../common/text_form_field.dart';
 import '../../core/utils/utils.dart';
+import '../mainpage/main_page.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/auth-screen";
@@ -166,26 +167,28 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   login() async {
-    setState(() {
-      _isLoading = true;
-    });
-    String res = await AuthMethods().loginUser(
-        email: _emailController.text, password: _passwordController.text);
-    if (res == 'success') {
-      // ignore: use_build_context_synchronously
-      showSnackbar(context, Colors.green, res);
+    if (formkey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      String res = await AuthMethods().loginUser(
+          email: _emailController.text, password: _passwordController.text);
+      if (res == 'success') {
+        // ignore: use_build_context_synchronously
+        showSnackbar(context, Colors.green, res);
 
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-      setState(() {
-        _isLoading = false;
-      });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      // ignore: use_build_context_synchronously
-      showSnackbar(context, Colors.red, res);
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacementNamed(MainPage.routeName);
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        // ignore: use_build_context_synchronously
+        showSnackbar(context, Colors.red, res);
+      }
     }
   }
 }

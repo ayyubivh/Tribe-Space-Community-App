@@ -9,14 +9,14 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // get user details
-  // Future<model.User> getUserDetails() async {
-  //   User currentUser = _auth.currentUser!;
+  Future<model.User> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
 
-  //   DocumentSnapshot documentSnapshot =
-  //       await _firestore.collection('users').doc(currentUser.uid).get();
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('users').doc(currentUser.uid).get();
 
-  //   return model.User.fromSnap(documentSnapshot);
-  // }
+    return model.User.fromSnap(documentSnapshot);
+  }
 
   // Signing Up User
 
@@ -91,5 +91,15 @@ class AuthMethods {
 
   Future<void> signOut() async {
     await _auth.signOut();
-  }
+  } //get user data
+
+  // final CollectionReference userCollection =
+  //     FirebaseFirestore.instance.collection("user");
+
+  // Future gettingUserData(String email) async {
+  //   QuerySnapshot snapshot =
+  //       await userCollection.where("email", isEqualTo: email).get();
+
+  //   return snapshot;
+  // }
 }

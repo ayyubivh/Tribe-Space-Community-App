@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,9 +9,11 @@ import 'package:social_app/common/custom_btn.dart';
 import 'package:social_app/common/text_form_field.dart';
 import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/core/utils/utils.dart';
+import 'package:social_app/helper/helper_functions.dart';
 import '../../core/colors/colors.dart';
 import '../../domain/auth/auth_method.dart';
 import '../home/home_screen.dart';
+import '../mainpage/main_page.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = "/sign-up-screen";
@@ -18,6 +24,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String userName = '';
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
@@ -193,34 +201,34 @@ class _SignupScreenState extends State<SignupScreen> {
       if (_image == null) {
         return;
       }
-      // set loading to true
       setState(() {
         _isLoading = true;
       });
 
-      // signup user using our authmethodds
       String res = await AuthMethods().signUpUser(
           email: _emailController.text,
           password: _passwordController.text,
           fullName: _userNameController.text,
           file: _image!);
-      // if string returned is sucess, user has been created
       if (res == "success") {
+        DocumentSnapshot snap = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .get();
+
+        await HelperFunctions.saveUserNameSF(
+            (snap.data() as Map<String, dynamic>)['fullName']);
         setState(() {
           _isLoading = false;
         });
-        // navigate to the home screen
-        // ignore: use_build_context_synchronously
+
         showSnackbar(context, Colors.green, res);
 
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+        Navigator.of(context).pushReplacementNamed(MainPage.routeName);
       } else {
         setState(() {
           _isLoading = false;
         });
-        // show the error
-        // ignore: use_build_context_synchronously
         showSnackbar(context, Colors.red, res);
       }
     }
