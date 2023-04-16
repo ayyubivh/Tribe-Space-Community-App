@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +64,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 .collection('posts')
                 .doc(widget.postId)
                 .collection('comments')
+                .orderBy('datePublished', descending: true)
                 .snapshots(),
             builder: (context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

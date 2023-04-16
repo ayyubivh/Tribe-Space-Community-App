@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/helper/helper_functions.dart';
+import 'package:social_app/presentation/home/widgets/story_part.dart';
+import 'package:social_app/presentation/home/widgets/top_part.dart';
+import '../../core/colors/colors.dart';
 import 'widgets/post_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String userName = '';
+  // String userName = '';
 
   @override
   void initState() {
@@ -25,14 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   addData() async {
-    UserProvider _userProvider = Provider.of(context, listen: false);
-    await _userProvider.refreshUser();
+    UserProvider userProvider = Provider.of(context, listen: false);
+    await userProvider.refreshUser();
   }
 
   void getUserName() async {
     await HelperFunctions.getUserNameFromSF().then((value) {
       setState(() {
-        userName = value!;
+        // userName = value!;
       });
     });
   }
@@ -41,21 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Loader();
-          }
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) {
-              return PostCard(
-                snap: snapshot.data!.docs[index].data(),
-              );
-            },
-          );
-        },
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const TopBar(),
+              const StoryPart(),
+              StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('posts').snapshots(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Loader();
+                  } else {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return PostCard(
+                          snap: snapshot.data!.docs[index].data(),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:social_app/common/profile_screen.dart';
 import 'package:social_app/presentation/home/home_screen.dart';
 
 import '../../core/colors/colors.dart';
@@ -18,8 +21,8 @@ class _MainPageState extends State<MainPage> {
   List<Widget> pages = [
     HomeScreen(),
     SearchScreen(),
-    Text('notification'),
     Text('accoutn'),
+    ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
   ];
   @override
   void initState() {

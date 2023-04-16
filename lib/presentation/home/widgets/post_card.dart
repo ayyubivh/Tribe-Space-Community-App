@@ -9,7 +9,6 @@ import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
 import 'package:social_app/presentation/comment/comment_screen.dart';
 import 'package:social_app/presentation/home/widgets/like_animation.dart';
-
 import '../../../domain/auth/model/user.dart';
 
 class PostCard extends StatefulWidget {
@@ -143,10 +142,11 @@ class _PostCardState extends State<PostCard> {
                   style: TextStyle(color: textGrey),
                   children: [
                     TextSpan(
-                        text: widget.snap['userName'],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
+                      text: widget.snap['userName'],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     TextSpan(
                       text: widget.snap['description'],
                     ),
@@ -292,7 +292,11 @@ class _PostCardState extends State<PostCard> {
                         ]
                             .map(
                               (e) => InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  FirestoreMethods()
+                                      .deletePost(widget.snap['postId']);
+                                  Navigator.pop(context);
+                                },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 12,
