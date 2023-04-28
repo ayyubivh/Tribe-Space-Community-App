@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/common/follow_botton.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/consts.dart';

@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 const kBlack = Colors.black;
 const kWhite = Colors.white;
 const kRed = Colors.red;
+const kGrey = Colors.grey;
 
 //Hexcolours
 final primaryColor = HexColor('3B9678');

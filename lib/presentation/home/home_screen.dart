@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:social_app/application/provider/user_provider.dart';
+// import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/utils/loader.dart';
-import 'package:social_app/helper/helper_functions.dart';
+import 'package:social_app/presentation/auth/login_screen.dart';
 import 'package:social_app/presentation/home/widgets/story_part.dart';
 import 'package:social_app/presentation/home/widgets/top_part.dart';
 import '../../core/colors/colors.dart';
@@ -23,22 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    addData();
-    getUserName();
+    // addData();
+    // getUserName();
   }
 
-  addData() async {
-    UserProvider userProvider = Provider.of(context, listen: false);
-    await userProvider.refreshUser();
-  }
+  // addData() async {
+  //   UserProvider userProvider = Provider.of(context, listen: false);
+  //   await userProvider.refreshUser();
+  // }
 
-  void getUserName() async {
-    await HelperFunctions.getUserNameFromSF().then((value) {
-      setState(() {
-        // userName = value!;
-      });
-    });
-  }
+  // void getUserName() async {
+  //   await HelperFunctions.getUserNameFromSF().then((value) {
+  //     setState(() {
+  //       // userName = value!;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const TopBar(),
               const StoryPart(),
+              ElevatedButton(
+                  onPressed: () {
+                    print('>>>>>>hitt ');
+                    Navigator.of(context).pushNamed(LoginScreen.routeName);
+                  },
+                  child: Text('Sample')),
               StreamBuilder(
                 stream:
                     FirebaseFirestore.instance.collection('posts').snapshots(),

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:social_app/application/provider/user_provider.dart';
+// import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
@@ -128,7 +128,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    // final User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Scaffold(
             body: Center(
@@ -153,18 +153,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   ),
                 ),
                 actions: [
-                  TextButton(
-                    child: Text("post",
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 16,
-                        )),
-                    onPressed: () => postImage(
-                      user.uid,
-                      user.fullName,
-                      user.photoUrl,
-                    ),
-                  ),
+                  // TextButton(
+                  //   child: Text("post",
+                  //       style: TextStyle(
+                  //         color: Theme.of(context).primaryColor,
+                  //         fontSize: 16,
+                  //       )),
+                  //   // onPressed: () => postImage(
+                  //   //   user.uid,
+                  //   //   user.fullName,
+                  //   //   user.photoUrl,
+                  //   // ),
+                  // ),
                 ]),
             body: Column(
               children: [
@@ -178,8 +178,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(user.photoUrl),
-                    ),
+                        // backgroundImage: NetworkImage(user.photoUrl),
+                        ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.45,
                       child: TextField(

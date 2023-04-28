@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
+import 'package:social_app/core/consts.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String text;
-  final VoidCallback onPress;
-  const CustomAppBar({super.key, required this.text, required this.onPress});
+  final VoidCallback? onPress;
+  const CustomAppBar({super.key, required this.text, this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -13,40 +14,36 @@ class CustomAppBar extends StatelessWidget {
 
     return Container(
       width: screenWidth,
-      height: screenHeight / 7,
+      height: screenHeight / 6,
       color: primaryColor,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: 4,
-              top: screenHeight / 28,
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: onPress,
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: kWhite,
-                  ),
+          Row(
+            children: [
+              IconButton(
+                onPressed: onPress,
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: kWhite,
                 ),
-                SizedBox(
-                  width: screenWidth / 14,
-                ),
-                Text(
+              ),
+              kWidth10,
+              Center(
+                child: Text(
                   text,
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     color: kWhite,
+                    fontWeight: FontWeight.bold,
                   ),
-                )
-              ],
-            ),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
           ),
           Positioned(
-            top: screenHeight / 8.5,
+            top: screenHeight / 7,
             child: Container(
               decoration: const BoxDecoration(
                 color: kWhite,
