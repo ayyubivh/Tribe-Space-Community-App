@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:social_app/domain/auth/storage_methods.dart';
@@ -32,7 +33,8 @@ class FirestoreMethods {
       );
       _firestore.collection('posts').doc(postId).set(post.toJson());
       res = "success";
-    } catch (e) {
+    } on FirebaseException catch (e) {
+      log(e.toString());
       res = e.toString();
     }
     return res;

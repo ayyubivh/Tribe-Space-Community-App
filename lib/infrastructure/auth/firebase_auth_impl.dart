@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 // ignore: depend_on_referenced_packages
 import 'package:injectable/injectable.dart';
-import 'package:social_app/application/auth/database/data_base_service.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';
 import 'package:social_app/domain/auth/storage_methods.dart';
 import 'package:social_app/infrastructure/auth/database/data_base_impl.dart';
 import '../../domain/auth/database/data_base_repo.dart';
+import '../../domain/auth/database/database_service.dart';
 import '../../domain/auth/model/user.dart';
 
 @LazySingleton(as: IAuthRepo)

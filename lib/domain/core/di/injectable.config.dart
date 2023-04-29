@@ -12,6 +12,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:social_app/application/auth/auth_bloc.dart' as _i8;
+import 'package:social_app/application/auth/database/database_bloc.dart' as _i9;
 import 'package:social_app/application/auth/sign_in_form/sign_in_bloc.dart'
     as _i7;
 import 'package:social_app/domain/auth/database/data_base_repo.dart' as _i3;
@@ -38,6 +39,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i3.DatabaseReopsitory>(),
         ));
     gh.factory<_i8.AuthBloc>(() => _i8.AuthBloc(gh<_i5.IAuthRepo>()));
+    gh.factory<_i9.DatabaseBloc>(
+        () => _i9.DatabaseBloc(gh<_i3.DatabaseReopsitory>()));
     return this;
   }
 }

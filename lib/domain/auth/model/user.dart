@@ -64,6 +64,7 @@ class UserModels {
       'age': age,
       'followers': followers,
       'following': following,
+      'uid': uid
     };
   }
 
@@ -75,6 +76,20 @@ class UserModels {
         followers = doc.data()!["followers"],
         following = doc.data()!["following"],
         photoUrl = doc.data()!['photoUrl'];
+
+  static UserModels fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return UserModels(
+      userName: snapshot["userName"],
+      uid: snapshot["uid"],
+      email: snapshot["email"],
+      photoUrl: snapshot["photoUrl"],
+      followers: snapshot["followers"],
+      following: snapshot["following"],
+    );
+  }
+
   UserModels copyWith(
       {bool? isVerified,
       String? uid,

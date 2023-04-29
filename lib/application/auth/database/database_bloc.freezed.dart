@@ -16,20 +16,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DatabaseEvent {
-  String get userName => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userName) databaseFetched,
+    required TResult Function() databaseFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userName)? databaseFetched,
+    TResult? Function()? databaseFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userName)? databaseFetched,
+    TResult Function()? databaseFetched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,10 +48,6 @@ mixin _$DatabaseEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $DatabaseEventCopyWith<DatabaseEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,8 +55,6 @@ abstract class $DatabaseEventCopyWith<$Res> {
   factory $DatabaseEventCopyWith(
           DatabaseEvent value, $Res Function(DatabaseEvent) then) =
       _$DatabaseEventCopyWithImpl<$Res, DatabaseEvent>;
-  @useResult
-  $Res call({String userName});
 }
 
 /// @nodoc
@@ -73,30 +66,13 @@ class _$DatabaseEventCopyWithImpl<$Res, $Val extends DatabaseEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userName = null,
-  }) {
-    return _then(_value.copyWith(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$DatabaseFetchedCopyWith<$Res>
-    implements $DatabaseEventCopyWith<$Res> {
+abstract class _$$DatabaseFetchedCopyWith<$Res> {
   factory _$$DatabaseFetchedCopyWith(
           _$DatabaseFetched value, $Res Function(_$DatabaseFetched) then) =
       __$$DatabaseFetchedCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String userName});
 }
 
 /// @nodoc
@@ -106,76 +82,51 @@ class __$$DatabaseFetchedCopyWithImpl<$Res>
   __$$DatabaseFetchedCopyWithImpl(
       _$DatabaseFetched _value, $Res Function(_$DatabaseFetched) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userName = null,
-  }) {
-    return _then(_$DatabaseFetched(
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$DatabaseFetched implements DatabaseFetched {
-  const _$DatabaseFetched({required this.userName});
-
-  @override
-  final String userName;
+  const _$DatabaseFetched();
 
   @override
   String toString() {
-    return 'DatabaseEvent.databaseFetched(userName: $userName)';
+    return 'DatabaseEvent.databaseFetched()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DatabaseFetched &&
-            (identical(other.userName, userName) ||
-                other.userName == userName));
+        (other.runtimeType == runtimeType && other is _$DatabaseFetched);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userName);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DatabaseFetchedCopyWith<_$DatabaseFetched> get copyWith =>
-      __$$DatabaseFetchedCopyWithImpl<_$DatabaseFetched>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userName) databaseFetched,
+    required TResult Function() databaseFetched,
   }) {
-    return databaseFetched(userName);
+    return databaseFetched();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userName)? databaseFetched,
+    TResult? Function()? databaseFetched,
   }) {
-    return databaseFetched?.call(userName);
+    return databaseFetched?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userName)? databaseFetched,
+    TResult Function()? databaseFetched,
     required TResult orElse(),
   }) {
     if (databaseFetched != null) {
-      return databaseFetched(userName);
+      return databaseFetched();
     }
     return orElse();
   }
@@ -210,65 +161,19 @@ class _$DatabaseFetched implements DatabaseFetched {
 }
 
 abstract class DatabaseFetched implements DatabaseEvent {
-  const factory DatabaseFetched({required final String userName}) =
-      _$DatabaseFetched;
-
-  @override
-  String get userName;
-  @override
-  @JsonKey(ignore: true)
-  _$$DatabaseFetchedCopyWith<_$DatabaseFetched> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory DatabaseFetched() = _$DatabaseFetched;
 }
 
 /// @nodoc
 mixin _$DatabaseState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() databaseError,
-    required TResult Function(String userName, List<dynamic> listOfListUserData)
-        databaseSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? databaseError,
-    TResult? Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? databaseError,
-    TResult Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(DatabaseError value) databaseError,
-    required TResult Function(DatabaseSuccess value) databaseSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(DatabaseError value)? databaseError,
-    TResult? Function(DatabaseSuccess value)? databaseSuccess,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(DatabaseError value)? databaseError,
-    TResult Function(DatabaseSuccess value)? databaseSuccess,
-    required TResult orElse(),
-  }) =>
+  bool get databaseError => throw _privateConstructorUsedError;
+  String get userData => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DatabaseStateCopyWith<DatabaseState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -277,6 +182,13 @@ abstract class $DatabaseStateCopyWith<$Res> {
   factory $DatabaseStateCopyWith(
           DatabaseState value, $Res Function(DatabaseState) then) =
       _$DatabaseStateCopyWithImpl<$Res, DatabaseState>;
+  @useResult
+  $Res call(
+      {bool databaseError,
+      String userData,
+      String userName,
+      String email,
+      String uid});
 }
 
 /// @nodoc
@@ -288,388 +200,171 @@ class _$DatabaseStateCopyWithImpl<$Res, $Val extends DatabaseState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? databaseError = null,
+    Object? userData = null,
+    Object? userName = null,
+    Object? email = null,
+    Object? uid = null,
+  }) {
+    return _then(_value.copyWith(
+      databaseError: null == databaseError
+          ? _value.databaseError
+          : databaseError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userData: null == userData
+          ? _value.userData
+          : userData // ignore: cast_nullable_to_non_nullable
+              as String,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialCopyWith<$Res> {
-  factory _$$InitialCopyWith(_$Initial value, $Res Function(_$Initial) then) =
-      __$$InitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialCopyWithImpl<$Res>
-    extends _$DatabaseStateCopyWithImpl<$Res, _$Initial>
-    implements _$$InitialCopyWith<$Res> {
-  __$$InitialCopyWithImpl(_$Initial _value, $Res Function(_$Initial) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$Initial implements Initial {
-  const _$Initial();
-
+abstract class _$$_DatabaseStateCopyWith<$Res>
+    implements $DatabaseStateCopyWith<$Res> {
+  factory _$$_DatabaseStateCopyWith(
+          _$_DatabaseState value, $Res Function(_$_DatabaseState) then) =
+      __$$_DatabaseStateCopyWithImpl<$Res>;
   @override
-  String toString() {
-    return 'DatabaseState.initial()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$Initial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() databaseError,
-    required TResult Function(String userName, List<dynamic> listOfListUserData)
-        databaseSuccess,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? databaseError,
-    TResult? Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? databaseError,
-    TResult Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(DatabaseError value) databaseError,
-    required TResult Function(DatabaseSuccess value) databaseSuccess,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(DatabaseError value)? databaseError,
-    TResult? Function(DatabaseSuccess value)? databaseSuccess,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(DatabaseError value)? databaseError,
-    TResult Function(DatabaseSuccess value)? databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Initial implements DatabaseState {
-  const factory Initial() = _$Initial;
-}
-
-/// @nodoc
-abstract class _$$DatabaseErrorCopyWith<$Res> {
-  factory _$$DatabaseErrorCopyWith(
-          _$DatabaseError value, $Res Function(_$DatabaseError) then) =
-      __$$DatabaseErrorCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DatabaseErrorCopyWithImpl<$Res>
-    extends _$DatabaseStateCopyWithImpl<$Res, _$DatabaseError>
-    implements _$$DatabaseErrorCopyWith<$Res> {
-  __$$DatabaseErrorCopyWithImpl(
-      _$DatabaseError _value, $Res Function(_$DatabaseError) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$DatabaseError implements DatabaseError {
-  const _$DatabaseError();
-
-  @override
-  String toString() {
-    return 'DatabaseState.databaseError()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DatabaseError);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() databaseError,
-    required TResult Function(String userName, List<dynamic> listOfListUserData)
-        databaseSuccess,
-  }) {
-    return databaseError();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? databaseError,
-    TResult? Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-  }) {
-    return databaseError?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? databaseError,
-    TResult Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (databaseError != null) {
-      return databaseError();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(DatabaseError value) databaseError,
-    required TResult Function(DatabaseSuccess value) databaseSuccess,
-  }) {
-    return databaseError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(DatabaseError value)? databaseError,
-    TResult? Function(DatabaseSuccess value)? databaseSuccess,
-  }) {
-    return databaseError?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(DatabaseError value)? databaseError,
-    TResult Function(DatabaseSuccess value)? databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (databaseError != null) {
-      return databaseError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DatabaseError implements DatabaseState {
-  const factory DatabaseError() = _$DatabaseError;
-}
-
-/// @nodoc
-abstract class _$$DatabaseSuccessCopyWith<$Res> {
-  factory _$$DatabaseSuccessCopyWith(
-          _$DatabaseSuccess value, $Res Function(_$DatabaseSuccess) then) =
-      __$$DatabaseSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({String userName, List<dynamic> listOfListUserData});
+  $Res call(
+      {bool databaseError,
+      String userData,
+      String userName,
+      String email,
+      String uid});
 }
 
 /// @nodoc
-class __$$DatabaseSuccessCopyWithImpl<$Res>
-    extends _$DatabaseStateCopyWithImpl<$Res, _$DatabaseSuccess>
-    implements _$$DatabaseSuccessCopyWith<$Res> {
-  __$$DatabaseSuccessCopyWithImpl(
-      _$DatabaseSuccess _value, $Res Function(_$DatabaseSuccess) _then)
+class __$$_DatabaseStateCopyWithImpl<$Res>
+    extends _$DatabaseStateCopyWithImpl<$Res, _$_DatabaseState>
+    implements _$$_DatabaseStateCopyWith<$Res> {
+  __$$_DatabaseStateCopyWithImpl(
+      _$_DatabaseState _value, $Res Function(_$_DatabaseState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? databaseError = null,
+    Object? userData = null,
     Object? userName = null,
-    Object? listOfListUserData = null,
+    Object? email = null,
+    Object? uid = null,
   }) {
-    return _then(_$DatabaseSuccess(
+    return _then(_$_DatabaseState(
+      databaseError: null == databaseError
+          ? _value.databaseError
+          : databaseError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userData: null == userData
+          ? _value.userData
+          : userData // ignore: cast_nullable_to_non_nullable
+              as String,
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
-      listOfListUserData: null == listOfListUserData
-          ? _value._listOfListUserData
-          : listOfListUserData // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$DatabaseSuccess implements DatabaseSuccess {
-  const _$DatabaseSuccess(
-      {required this.userName, required final List<dynamic> listOfListUserData})
-      : _listOfListUserData = listOfListUserData;
+class _$_DatabaseState implements _DatabaseState {
+  const _$_DatabaseState(
+      {required this.databaseError,
+      required this.userData,
+      required this.userName,
+      required this.email,
+      required this.uid});
 
   @override
-  final String userName;
-  final List<dynamic> _listOfListUserData;
+  final bool databaseError;
   @override
-  List<dynamic> get listOfListUserData {
-    if (_listOfListUserData is EqualUnmodifiableListView)
-      return _listOfListUserData;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_listOfListUserData);
-  }
+  final String userData;
+  @override
+  final String userName;
+  @override
+  final String email;
+  @override
+  final String uid;
 
   @override
   String toString() {
-    return 'DatabaseState.databaseSuccess(userName: $userName, listOfListUserData: $listOfListUserData)';
+    return 'DatabaseState(databaseError: $databaseError, userData: $userData, userName: $userName, email: $email, uid: $uid)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DatabaseSuccess &&
+            other is _$_DatabaseState &&
+            (identical(other.databaseError, databaseError) ||
+                other.databaseError == databaseError) &&
+            (identical(other.userData, userData) ||
+                other.userData == userData) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
-            const DeepCollectionEquality()
-                .equals(other._listOfListUserData, _listOfListUserData));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.uid, uid) || other.uid == uid));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userName,
-      const DeepCollectionEquality().hash(_listOfListUserData));
+  int get hashCode =>
+      Object.hash(runtimeType, databaseError, userData, userName, email, uid);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DatabaseSuccessCopyWith<_$DatabaseSuccess> get copyWith =>
-      __$$DatabaseSuccessCopyWithImpl<_$DatabaseSuccess>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() databaseError,
-    required TResult Function(String userName, List<dynamic> listOfListUserData)
-        databaseSuccess,
-  }) {
-    return databaseSuccess(userName, listOfListUserData);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? databaseError,
-    TResult? Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-  }) {
-    return databaseSuccess?.call(userName, listOfListUserData);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? databaseError,
-    TResult Function(String userName, List<dynamic> listOfListUserData)?
-        databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (databaseSuccess != null) {
-      return databaseSuccess(userName, listOfListUserData);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(DatabaseError value) databaseError,
-    required TResult Function(DatabaseSuccess value) databaseSuccess,
-  }) {
-    return databaseSuccess(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(DatabaseError value)? databaseError,
-    TResult? Function(DatabaseSuccess value)? databaseSuccess,
-  }) {
-    return databaseSuccess?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(DatabaseError value)? databaseError,
-    TResult Function(DatabaseSuccess value)? databaseSuccess,
-    required TResult orElse(),
-  }) {
-    if (databaseSuccess != null) {
-      return databaseSuccess(this);
-    }
-    return orElse();
-  }
+  _$$_DatabaseStateCopyWith<_$_DatabaseState> get copyWith =>
+      __$$_DatabaseStateCopyWithImpl<_$_DatabaseState>(this, _$identity);
 }
 
-abstract class DatabaseSuccess implements DatabaseState {
-  const factory DatabaseSuccess(
-      {required final String userName,
-      required final List<dynamic> listOfListUserData}) = _$DatabaseSuccess;
+abstract class _DatabaseState implements DatabaseState {
+  const factory _DatabaseState(
+      {required final bool databaseError,
+      required final String userData,
+      required final String userName,
+      required final String email,
+      required final String uid}) = _$_DatabaseState;
 
+  @override
+  bool get databaseError;
+  @override
+  String get userData;
+  @override
   String get userName;
-  List<dynamic> get listOfListUserData;
+  @override
+  String get email;
+  @override
+  String get uid;
+  @override
   @JsonKey(ignore: true)
-  _$$DatabaseSuccessCopyWith<_$DatabaseSuccess> get copyWith =>
+  _$$_DatabaseStateCopyWith<_$_DatabaseState> get copyWith =>
       throw _privateConstructorUsedError;
 }

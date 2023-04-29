@@ -6,9 +6,9 @@ const kBlack = Colors.black;
 const kWhite = Colors.white;
 const kRed = Colors.red;
 const kGrey = Colors.grey;
-
+const kDarkGreen = Color.fromARGB(222, 43, 71, 44);
 //Hexcolours
-final primaryColor = HexColor('3B9678');
+final primaryColor = HexColor('3b9678');
 final onBoardColor = HexColor('E7F0FF');
 final loginGreen = HexColor('#e0ffdd');
 final textGrey = HexColor('565656');

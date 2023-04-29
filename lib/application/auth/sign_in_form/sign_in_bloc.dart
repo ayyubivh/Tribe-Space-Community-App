@@ -2,14 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:social_app/domain/auth/database/data_base_repo.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';
-import 'package:injectable/injectable.dart';
-import 'package:social_app/domain/auth/models_bloc/user_model.dart';
+
 import '../../../domain/auth/model/user.dart';
+
+part 'sign_in_bloc.freezed.dart';
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
-part 'sign_in_bloc.freezed.dart';
 
 @injectable
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
