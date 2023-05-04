@@ -1,4 +1,4 @@
-import '../model/user.dart';
+import '../auth/model/user.dart';
 
 abstract class DatabaseReopsitory {
   Future<void> saveUserData(UserModels user);

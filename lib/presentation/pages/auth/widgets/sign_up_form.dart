@@ -8,10 +8,9 @@ import '../../../common_widgets/custom_appbar.dart';
 import '../../../common_widgets/custom_btn.dart';
 import '../../../common_widgets/custom_text_field.dart';
 import '../../../../core/colors/colors.dart';
-import '../../../../core/consts.dart';
+import '../../../../core/constants/consts.dart';
 import '../../../../core/utils/loader.dart';
 import '../../../../core/utils/utils.dart';
-import '../../feeds/feed_screen.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -52,10 +51,10 @@ class SignUpForm extends StatelessWidget {
           },
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomAppBar(
                   text: 'Create Account',
+                  icon: Icons.close,
                 ),
                 WelcomeSection(
                     screenWidth: screenWidth, screenHeight: screenHeight / 40),
@@ -64,7 +63,6 @@ class SignUpForm extends StatelessWidget {
                   child: Form(
                     key: formkey,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         sizedBox,
                         CustomTextField(
@@ -102,23 +100,28 @@ class SignUpForm extends StatelessWidget {
                         sizedBox2,
                         SizedBox(
                           height: 50,
-                          width: double.infinity,
-                          child: state.isLoading
-                              ? const Loader()
-                              : CustomButton(
-                                  text: 'Create Account',
-                                  onPress: () {
-                                    if (formkey.currentState!.validate()) {
-                                      !state.isLoading
-                                          ? context.read<SignInBloc>().add(
-                                              const FormSubmitted(
-                                                  Status.signUp))
-                                          : null;
-                                    }
-                                  },
-                                  textSize: 18,
-                                  color: primaryColor,
-                                ),
+                          width: !state.isLoading
+                              ? double.infinity
+                              : screenWidth / 3,
+                          child: CustomButton(
+                            loader: state.isLoading
+                                ? const Loader(
+                                    color: kWhite,
+                                  )
+                                : null,
+                            color: primaryColor,
+                            textSize: 22,
+                            text: 'Create Account',
+                            onPress: () {
+                              if (formkey.currentState!.validate()) {
+                                !state.isLoading
+                                    ? context
+                                        .read<SignInBloc>()
+                                        .add(const FormSubmitted(Status.signUp))
+                                    : null;
+                              }
+                            },
+                          ),
                         ),
                         kHeight10,
                         Center(

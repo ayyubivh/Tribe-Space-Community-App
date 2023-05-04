@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
 
-import '../../../../core/consts.dart';
+import '../../../../core/constants/consts.dart';
 import '../../post/add_screen.dart';
 
 class TopBar extends StatelessWidget {

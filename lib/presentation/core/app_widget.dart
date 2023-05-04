@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<AuthBloc>()..add(const AuthRequested()),
         ),
         BlocProvider(
-          create: (context) => getIt<DatabaseBloc>(),
+          create: (context) =>
+              getIt<DatabaseBloc>()..add(const DatabaseFetched()),
         )
       ],
       child: MaterialApp(

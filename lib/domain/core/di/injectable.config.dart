@@ -15,8 +15,8 @@ import 'package:social_app/application/auth/auth_bloc.dart' as _i8;
 import 'package:social_app/application/auth/database/database_bloc.dart' as _i9;
 import 'package:social_app/application/auth/sign_in_form/sign_in_bloc.dart'
     as _i7;
-import 'package:social_app/domain/auth/database/data_base_repo.dart' as _i3;
 import 'package:social_app/domain/auth/i_auth_repository.dart' as _i5;
+import 'package:social_app/domain/database/data_base_repo.dart' as _i3;
 import 'package:social_app/infrastructure/auth/database/data_base_impl.dart'
     as _i4;
 import 'package:social_app/infrastructure/auth/firebase_auth_impl.dart' as _i6;

@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:social_app/domain/auth/database/data_base_repo.dart';
+import 'package:social_app/domain/database/data_base_repo.dart';
 part 'database_bloc.freezed.dart';
 part 'database_event.dart';
 part 'database_state.dart';

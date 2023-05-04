@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
-import 'package:social_app/core/consts.dart';
+import 'package:social_app/core/constants/consts.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String text;

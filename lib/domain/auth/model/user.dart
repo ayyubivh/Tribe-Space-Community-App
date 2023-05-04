@@ -43,9 +43,11 @@ class UserModels {
   final String? photoUrl;
   final String? userName;
   final int? age;
+  final List? groups;
   final String? followers;
   final String? following;
   UserModels({
+    this.groups,
     this.uid,
     this.email,
     this.password,
@@ -62,6 +64,7 @@ class UserModels {
       'email': email,
       'userName': userName,
       'age': age,
+      'groups': [],
       'followers': followers,
       'following': following,
       'uid': uid
@@ -75,6 +78,7 @@ class UserModels {
         userName = doc.data()!["userName"],
         followers = doc.data()!["followers"],
         following = doc.data()!["following"],
+        groups = doc.data()!['groups'],
         photoUrl = doc.data()!['photoUrl'];
 
   static UserModels fromSnap(DocumentSnapshot snap) {

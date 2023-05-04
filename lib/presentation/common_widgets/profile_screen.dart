@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/presentation/common_widgets/follow_botton.dart';
 import 'package:social_app/core/colors/colors.dart';
-import 'package:social_app/core/consts.dart';
+import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
 import 'package:social_app/presentation/pages/feeds/widgets/story_part.dart';

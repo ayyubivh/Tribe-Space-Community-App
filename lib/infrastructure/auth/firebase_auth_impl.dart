@@ -8,8 +8,8 @@ import 'package:injectable/injectable.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';
 import 'package:social_app/domain/auth/storage_methods.dart';
 import 'package:social_app/infrastructure/auth/database/data_base_impl.dart';
-import '../../domain/auth/database/data_base_repo.dart';
-import '../../domain/auth/database/database_service.dart';
+import '../../domain/database/data_base_repo.dart';
+import '../../domain/database/database_service.dart';
 import '../../domain/auth/model/user.dart';
 
 @LazySingleton(as: IAuthRepo)
@@ -74,15 +74,16 @@ class FirebaseRepository implements IAuthRepo {
 
   @override
   Future<String?> retrieveUserName(UserModels user) async {
-    return DatabaseService().retrieveUserName(user);
+    return DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+        .retrieveUserName(user);
   }
 
   @override
   Future<UserCredential?> signWithGoodle() async {
     try {
-      final GoogleSignInAccount? gooleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
-          await gooleUser?.authentication;
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
       await _firebaseAuth.signInWithCredential(credential);
@@ -102,6 +103,5 @@ class FirebaseRepository implements IAuthRepo {
     } on FirebaseAuthException catch (e) {
       throw Exception(e.toString());
     }
-    return null;
   }
 }

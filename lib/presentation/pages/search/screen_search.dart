@@ -49,7 +49,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 return ListView.builder(
                   itemCount: (snapshot.data! as dynamic).docs.length,
                   itemBuilder: (context, index) {
-                    print((snapshot.data! as dynamic).docs[index]['userName']);
                     return ListTile(
                       title: Text(snapshot.data!.docs[index]['userName']),
                       // leading: CircleAvatar(

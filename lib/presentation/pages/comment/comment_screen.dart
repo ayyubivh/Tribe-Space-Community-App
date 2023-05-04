@@ -95,7 +95,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           padding: const EdgeInsets.only(left: 16, right: 8),
           child: Row(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 // backgroundImage: NetworkImage(user.photoUrl),
                 radius: 18,
               ),
@@ -104,7 +104,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   padding: const EdgeInsets.only(left: 16, right: 8),
                   child: TextField(
                     controller: commentEditingController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       // hintText: 'Comment as ${user.fullName}',
                       border: InputBorder.none,
                     ),

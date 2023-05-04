@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/colors/colors.dart';
-import 'package:social_app/core/consts.dart';
+import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
 import 'package:social_app/presentation/pages/comment/comment_screen.dart';

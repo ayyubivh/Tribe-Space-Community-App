@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
 // import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/utils/loader.dart';
+import 'package:social_app/presentation/common_widgets/custom_btn.dart';
+import 'package:social_app/presentation/pages/auth/login_screen.dart';
 import 'package:social_app/presentation/pages/feeds/widgets/story_part.dart';
 import 'package:social_app/presentation/pages/feeds/widgets/top_part.dart';
 import 'widgets/post_card.dart';
@@ -20,6 +22,14 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const TopBar(),
+              CustomButton(
+                text: 'log out',
+                textSize: 25,
+                onPress: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, LoginScreen.routeName, (route) => false);
+                },
+              ),
               const Padding(
                 padding: EdgeInsets.only(left: 18.0),
                 child: StoryPart(),

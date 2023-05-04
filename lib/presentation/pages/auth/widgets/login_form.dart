@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/presentation/pages/mainpage/main_page.dart';
 import '../../../../application/auth/auth_bloc.dart';
 import '../../../../application/auth/sign_in_form/sign_in_bloc.dart';
+import '../../../../core/utils/utilities.dart';
 import '../../../common_widgets/custom_appbar.dart';
 import '../../../common_widgets/custom_btn.dart';
 import '../../../common_widgets/custom_text_field.dart';
 import '../../../../core/colors/colors.dart';
-import '../../../../core/consts.dart';
+import '../../../../core/constants/consts.dart';
 import '../../../../core/utils/loader.dart';
 import '../../../../core/utils/utils.dart';
-import '../../feeds/feed_screen.dart';
 import '../signup_screen.dart';
 
 class SignInForm extends StatelessWidget {
@@ -94,26 +94,34 @@ class SignInForm extends StatelessWidget {
                         SizedBox(
                           height: screenHeight / 12,
                         ),
-                        state.isLoading
-                            ? const Loader()
-                            : SizedBox(
-                                height: 50,
-                                width: double.infinity,
-                                child: CustomButton(
-                                  color: primaryColor,
-                                  textSize: 16,
-                                  text: 'Sign In',
-                                  onPress: () {
-                                    if (formkey.currentState!.validate()) {
-                                      !state.isLoading
-                                          ? context.read<SignInBloc>().add(
-                                              const FormSubmitted(
-                                                  Status.signIn))
-                                          : null;
-                                    }
-                                  },
-                                ),
-                              ),
+                        SizedBox(
+                          height: 50,
+                          width: !state.isLoading
+                              ? double.infinity
+                              : screenWidth / 3,
+                          child: CustomButton(
+                            loader: state.isLoading
+                                ? const Loader(
+                                    color: kWhite,
+                                  )
+                                : null,
+                            color: primaryColor,
+                            textSize: 22,
+                            text: 'Sign In',
+                            onPress: () {
+                              if (Utilities.isKeyboardShowing()) {
+                                Utilities.closeKeyboard(context);
+                              }
+                              if (formkey.currentState!.validate()) {
+                                !state.isLoading
+                                    ? context
+                                        .read<SignInBloc>()
+                                        .add(const FormSubmitted(Status.signIn))
+                                    : null;
+                              }
+                            },
+                          ),
+                        ),
                         gapHeight,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,17 +194,18 @@ class SignInForm extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  text: "Create new account",
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context)
-                                          .pushNamed(SignupScreen.routeName);
-                                    })
+                                style: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                text: "Create new account",
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context)
+                                        .pushNamed(SignupScreen.routeName);
+                                  },
+                              ),
                             ],
                           ),
                         )

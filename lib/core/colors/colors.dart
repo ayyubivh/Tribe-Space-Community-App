@@ -7,6 +7,8 @@ const kWhite = Colors.white;
 const kRed = Colors.red;
 const kGrey = Colors.grey;
 const kDarkGreen = Color.fromARGB(222, 43, 71, 44);
+final scBbColorGrey100 = Colors.grey.shade100;
+final bgColorGrey200 = Colors.grey[200];
 //Hexcolours
 final primaryColor = HexColor('3b9678');
 final onBoardColor = HexColor('E7F0FF');

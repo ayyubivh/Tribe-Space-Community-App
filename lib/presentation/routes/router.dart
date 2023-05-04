@@ -4,7 +4,6 @@ import 'package:social_app/presentation/pages/auth/login_screen.dart';
 import 'package:social_app/presentation/pages/feeds/feed_screen.dart';
 import '../common_widgets/profile_screen.dart';
 import '../pages/auth/signup_screen.dart';
-import '../pages/chat/chat_msg_screen.dart';
 import '../pages/post/add_screen.dart';
 import '../pages/mainpage/main_page.dart';
 
@@ -41,11 +40,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (context) =>
             ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
       );
-    case ChatMessagesScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (context) => const ChatMessagesScreen(),
-      );
+    // case ChatMessagesScreen.routeName:
+    //   final args = routeSettings.arguments;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (context) {
+    //       GroupTile arguements = args;
+    //       return ChatMessagesScreen(
+    //         groupId: arguements.groupId,
+    //         groupName: arguements.groupName,
+    //         userName: arguements.userName,
+    //       );
+    // },
+    // );
     // case CommentScreen.routeName:
     //   final snap = routeSettings.arguments;
     //   return MaterialPageRoute(
