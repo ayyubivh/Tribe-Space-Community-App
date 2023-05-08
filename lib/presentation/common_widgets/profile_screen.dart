@@ -6,8 +6,8 @@ import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
-import 'package:social_app/presentation/pages/feeds/widgets/story_part.dart';
-import 'package:social_app/presentation/pages/mainpage/main_page.dart';
+import 'package:social_app/presentation/screens/feeds/widgets/story_part.dart';
+import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../core/utils/loader.dart';
 
 class ProfileScreen extends StatefulWidget {

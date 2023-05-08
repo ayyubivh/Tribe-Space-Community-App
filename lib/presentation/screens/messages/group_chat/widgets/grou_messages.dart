@@ -8,8 +8,8 @@ import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/domain/messages/chat_database_service.dart';
 import 'package:social_app/domain/database/database_service.dart';
-import 'package:social_app/presentation/pages/messages/group_chat/widgets/group_info.dart';
-import 'package:social_app/presentation/pages/messages/group_chat/widgets/message_tile.dart';
+import 'package:social_app/presentation/screens/messages/group_chat/widgets/group_info.dart';
+import 'package:social_app/presentation/screens/messages/group_chat/widgets/message_tile.dart';
 import '../../../../../core/constants/consts.dart';
 
 class GroupChatMessagesScreen extends StatefulWidget {

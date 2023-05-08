@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/pages/messages/group_chat/widgets/grou_messages.dart';
+import 'package:social_app/presentation/screens/messages/group_chat/widgets/grou_messages.dart';
 
 class GroupTile extends StatefulWidget {
   final String userName;

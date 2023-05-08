@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/pages/messages/group_chat/group_chat.dart';
+import 'package:social_app/presentation/screens/messages/group_chat/group_chat.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/utils/utils.dart';
 import '../../../../../domain/database/database_service.dart';

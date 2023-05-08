@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         UserModels user = await authRepo.getCurrentUser().first;
         if (user.uid != "uid") {
           String? userName = await authRepo.retrieveUserName(user);
-          // log('user name test >>>>>>>>$userName');
+          log('user name test >>>>>>>>$userName');
 
           emit(AuthenticationSuccess(
             userName: userName.toString(),

@@ -5,7 +5,7 @@ import '../../application/auth/database/database_bloc.dart';
 import '../../core/colors/colors.dart';
 import '../../domain/core/di/injectable.dart';
 import '../routes/router.dart';
-import '../pages/auth/login_screen.dart';
+import '../screens/auth/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
-import 'package:social_app/presentation/pages/messages/friends_chat/friends_chat_screen.dart';
-import 'package:social_app/presentation/pages/messages/group_chat/group_chat.dart';
+import 'package:social_app/presentation/screens/messages/friends_chat/friends_chat_screen.dart';
+import 'package:social_app/presentation/screens/messages/group_chat/group_chat.dart';
 
 class MessgeScreen extends StatefulWidget {
   const MessgeScreen({super.key});

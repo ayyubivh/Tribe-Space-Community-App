@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/presentation/pages/mainpage/main_page.dart';
+import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../../../application/auth/auth_bloc.dart';
 import '../../../../application/auth/sign_in_form/sign_in_bloc.dart';
 import '../../../../core/utils/utilities.dart';

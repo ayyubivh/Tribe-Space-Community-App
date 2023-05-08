@@ -2,9 +2,11 @@ import 'dart:developer';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 // ignore: depend_on_referenced_packages
 import 'package:injectable/injectable.dart';
+import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';
 import 'package:social_app/domain/auth/storage_methods.dart';
 import 'package:social_app/infrastructure/auth/database/data_base_impl.dart';
@@ -49,13 +51,6 @@ class FirebaseRepository implements IAuthRepo {
     }
   }
 
-//>>>>>>>>>>>>>>>>>>>>> SIGN OUT <<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  @override
-  Future<void> signOut() => Future.wait([
-        _firebaseAuth.signOut(),
-        GoogleSignIn().signOut(),
-      ]);
-
 //>>>>>>>>>>>>>>>>>>>>>  GET USER DETAILS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<
   @override
   Stream<UserModels> getCurrentUser() {
@@ -85,11 +80,30 @@ class FirebaseRepository implements IAuthRepo {
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-      await _firebaseAuth.signInWithCredential(credential);
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      User? firebaseUser =
+          (await _firebaseAuth.signInWithCredential(credential)).user;
+      if (firebaseUser != null) {
+        final QuerySnapshot result = await _db
+            .collection(FireStoreConstants.pathUserCollection)
+            .where(FireStoreConstants.id, isEqualTo: firebaseUser.uid)
+            .get();
+        final List<DocumentSnapshot> documents = result.docs;
+        if (documents.isEmpty) {
+          UserModels user = UserModels(
+              uid: firebaseUser.uid,
+              userName: firebaseUser.displayName,
+              photoUrl: firebaseUser.photoURL,
+              email: firebaseUser.email);
+          await databaseReopsitory.saveUserData(user);
+        }
+      }
     } on FirebaseAuthException catch (e) {
       throw Exception(e.toString());
     }
+    return null;
   }
 
   @override
@@ -104,4 +118,11 @@ class FirebaseRepository implements IAuthRepo {
       throw Exception(e.toString());
     }
   }
+
+  //>>>>>>>>>>>>>>>>>>>>> SIGN OUT <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  @override
+  Future<void> signOut() => Future.wait([
+        _firebaseAuth.signOut(),
+        GoogleSignIn().signOut(),
+      ]);
 }

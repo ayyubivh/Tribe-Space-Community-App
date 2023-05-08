@@ -6,8 +6,8 @@ import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/post_firestore_methods.dart';
-import 'package:social_app/presentation/pages/comment/comment_screen.dart';
-import 'package:social_app/presentation/pages/feeds/widgets/like_animation.dart';
+import 'package:social_app/presentation/screens/comment/comment_screen.dart';
+import 'package:social_app/presentation/screens/feeds/widgets/like_animation.dart';
 
 class PostCard extends StatefulWidget {
   final snap;

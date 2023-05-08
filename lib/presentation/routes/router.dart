@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/pages/auth/login_screen.dart';
-import 'package:social_app/presentation/pages/feeds/feed_screen.dart';
+import 'package:social_app/presentation/screens/auth/login_screen.dart';
+import 'package:social_app/presentation/screens/feeds/feed_screen.dart';
 import '../common_widgets/profile_screen.dart';
-import '../pages/auth/signup_screen.dart';
-import '../pages/post/add_screen.dart';
-import '../pages/mainpage/main_page.dart';
+import '../screens/auth/signup_screen.dart';
+import '../screens/post/add_screen.dart';
+import '../screens/mainpage/main_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {

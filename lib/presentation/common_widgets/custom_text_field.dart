@@ -24,14 +24,14 @@ class CustomTextField extends StatelessWidget {
         fillColor: kGrey.shade200,
         border: OutlineInputBorder(
           borderSide: BorderSide(color: primaryColor),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Colors.transparent,
             width: 2,
           ),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(12),
         ),
         errorText: errText,
         hintText: hintText,
@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
             color: primaryColor,
             width: 2.0,
           ),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
       onChanged: onChanged,

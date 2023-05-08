@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/domain/core/di/injectable.dart';
-import 'package:social_app/presentation/pages/auth/widgets/login_form.dart';
+import 'package:social_app/presentation/screens/auth/widgets/login_form.dart';
 import '../../../application/auth/sign_in_form/sign_in_bloc.dart';
 
 class LoginScreen extends StatelessWidget {

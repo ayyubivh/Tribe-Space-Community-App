@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/presentation/common_widgets/custom_btn.dart';
 import 'package:social_app/core/constants/consts.dart';
-import 'package:social_app/presentation/pages/auth/login_screen.dart';
+import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import '../../../core/colors/colors.dart';
 
 class OnBoardScreen extends StatelessWidget {

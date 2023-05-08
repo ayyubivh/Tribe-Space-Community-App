@@ -7,7 +7,7 @@ import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/domain/messages/chat_database_service.dart';
-import 'package:social_app/presentation/pages/messages/friends_chat/widgets/chat_tile.dart';
+import 'package:social_app/presentation/screens/messages/friends_chat/widgets/chat_tile.dart';
 import '../../../../core/colors/colors.dart';
 import '../../../../core/utils/debouncer.dart';
 

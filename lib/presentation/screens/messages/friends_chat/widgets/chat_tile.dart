@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/pages/messages/friends_chat/widgets/chat_page.dart';
+import 'package:social_app/presentation/screens/messages/friends_chat/widgets/chat_page.dart';
 import '../../../../../core/utils/utilities.dart';
 
 class ChatTile extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/presentation/common_widgets/profile_screen.dart';
-import 'package:social_app/presentation/pages/feeds/feed_screen.dart';
+import 'package:social_app/presentation/screens/feeds/feed_screen.dart';
 import '../../../core/colors/colors.dart';
 import '../messages/message_tab.dart';
 import '../search/screen_search.dart';

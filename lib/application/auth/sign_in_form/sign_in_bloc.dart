@@ -152,6 +152,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       ));
       try {
         await _authRepo.signWithGoodle();
+        emit(
+          state.copyWith(
+            isLoading: false,
+            errorMessage: "",
+            isFormValid: true,
+          ),
+        );
       } on FirebaseAuthException catch (e) {
         emit(state.copyWith(
           isLoading: false,

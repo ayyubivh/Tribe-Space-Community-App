@@ -12,7 +12,7 @@ import 'package:social_app/core/utils/utilities.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/messages/chat_database_service.dart';
 import 'package:social_app/domain/messages/models/messge_models.dart';
-import 'package:social_app/presentation/pages/messages/friends_chat/widgets/full_photo_page.dart';
+import 'package:social_app/presentation/screens/messages/friends_chat/widgets/full_photo_page.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/constants/consts.dart';
 

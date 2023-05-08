@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/presentation/pages/mainpage/main_page.dart';
+import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../../../application/auth/auth_bloc.dart';
 import '../../../../application/auth/sign_in_form/sign_in_bloc.dart';
 import '../../../common_widgets/custom_appbar.dart';
@@ -64,9 +64,9 @@ class SignUpForm extends StatelessWidget {
                     key: formkey,
                     child: Column(
                       children: [
-                        sizedBox,
+                        gapHeight,
                         CustomTextField(
-                            hintText: 'Enter your full name',
+                            hintText: 'Full Name',
                             onChanged: (value) {
                               context
                                   .read<SignInBloc>()
@@ -77,7 +77,7 @@ class SignUpForm extends StatelessWidget {
                                 : null),
                         gapHeight,
                         CustomTextField(
-                            hintText: 'Enter your email address',
+                            hintText: 'Email Address',
                             onChanged: (value) {
                               context
                                   .read<SignInBloc>()
@@ -88,7 +88,7 @@ class SignUpForm extends StatelessWidget {
                                 : null),
                         gapHeight,
                         CustomTextField(
-                            hintText: 'Enter your password',
+                            hintText: 'Password',
                             onChanged: (value) {
                               context
                                   .read<SignInBloc>()

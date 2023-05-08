@@ -7,7 +7,7 @@ import 'package:social_app/application/auth/database/database_bloc.dart';
 import 'package:social_app/presentation/common_widgets/custom_appbar.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/utils/utils.dart';
-import 'package:social_app/presentation/pages/comment/widgets/comment_card.dart';
+import 'package:social_app/presentation/screens/comment/widgets/comment_card.dart';
 import '../../../domain/post/post_firestore_methods.dart';
 
 class CommentsScreen extends StatefulWidget {
