@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/core/colors/colors.dart';
+import 'package:social_app/presentation/screens/post/add_screen.dart';
 
 import '../../../../core/constants/consts.dart';
-import '../../post/add_screen.dart';
+import '../../post/add_smple.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({super.key});
@@ -29,7 +30,9 @@ class TopBar extends StatelessWidget {
             const Spacer(),
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AddPostScreen.routeName);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddPostScreen(),
+                  ));
                 },
                 icon: const Icon(
                   Icons.add,

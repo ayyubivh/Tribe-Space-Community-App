@@ -1,57 +1,20 @@
-// ignore_for_file: use_build_context_synchronously
-import 'dart:developer';
+import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:social_app/application/auth/database/database_bloc.dart';
-import 'package:social_app/core/colors/colors.dart';
-import 'package:social_app/core/utils/utils.dart';
-import 'package:social_app/domain/post/post_firestore_methods.dart';
-import 'package:social_app/presentation/common_widgets/custom_appbar.dart';
+import 'package:social_app/application/image/image_bloc.dart';
+import '../../../application/auth/database/database_bloc.dart';
+import '../../../application/post/post_bloc.dart';
+import '../../../core/colors/colors.dart';
+import '../../common_widgets/custom_appbar.dart';
+import '../mainpage/main_page.dart';
 
-class AddPostScreen extends StatefulWidget {
-  static const routeName = "/add-post-screen";
+class AddPostScreen extends StatelessWidget {
+  static const String routeName = "addPost-screen";
   const AddPostScreen({super.key});
 
-  @override
-  State<AddPostScreen> createState() => _AddPostScreenState();
-}
-
-class _AddPostScreenState extends State<AddPostScreen> {
-  Uint8List? _file;
-  bool _isLoading = false;
-  final TextEditingController discriptionController = TextEditingController();
-  void postImage(
-    String uid,
-    String userName,
-    String profileImage,
-  ) async {
-    try {
-      setState(() {
-        _isLoading = true;
-      });
-      String res = await FirestoreMethods()
-          .uploadPost(discriptionController.text, _file!, uid, userName, " ");
-      if (res == "success") {
-        setState(() {
-          _isLoading = false;
-        });
-        showSnackbar(context, primaryColor, 'success');
-        clearImage();
-      } else {
-        showSnackbar(context, kRed, res);
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    } on FirebaseAuthException catch (e) {
-      log(e.toString());
-      showSnackbar(context, kRed, e.toString());
-    }
-  }
-
+  //>>>>>>>>>>>>>>>>>>>>>>>>>select image image type gallery or camera<<<<<<<<<<<<<<<<<<<<<<<<<<<
   selectImage(BuildContext context) async {
     return showDialog(
       context: context,
@@ -64,23 +27,22 @@ class _AddPostScreenState extends State<AddPostScreen> {
           children: [
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Take a photo"),
-                  Icon(
-                    Icons.camera,
-                  )
-                ],
+              child: BlocBuilder<ImageBloc, ImageState>(
+                builder: (context, state) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text("Take a photo"),
+                    Icon(
+                      Icons.camera,
+                    )
+                  ],
+                ),
               ),
               onPressed: () async {
+                context
+                    .read<ImageBloc>()
+                    .add(const PickImageEvent(source: ImageSource.camera));
                 Navigator.of(context).pop();
-                Uint8List file = await pickimage(
-                  ImageSource.camera,
-                );
-                setState(() {
-                  _file = file;
-                });
               },
             ),
             SimpleDialogOption(
@@ -95,13 +57,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ],
               ),
               onPressed: () async {
+                context
+                    .read<ImageBloc>()
+                    .add(const PickImageEvent(source: ImageSource.gallery));
                 Navigator.of(context).pop();
-                Uint8List file = await pickimage(
-                  ImageSource.gallery,
-                );
-                setState(() {
-                  _file = file;
-                });
               },
             ),
             SimpleDialogOption(
@@ -128,74 +87,70 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 
-  void clearImage() {
-    _file = null;
+  //>>>>>>>>>>>>>>>>>>>>>>>>>when on tap the post button<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  void onPost(BuildContext context, String discription, Uint8List file) {
+    final userName = context.read<DatabaseBloc>().state.userName;
+    context.read<PostBloc>().add(
+          UploadPostEvent(
+              description: discription,
+              file: file,
+              uid: FirebaseAuth.instance.currentUser!.uid,
+              userName: userName,
+              profileImage: 'profileImage'),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<DatabaseBloc>(context)
-          .add(const DatabaseEvent.databaseFetched());
-    });
-    return _file == null
-        ? Scaffold(
-            body: Center(
-              child: IconButton(
-                onPressed: () => selectImage(context),
-                icon: Icon(
-                  Icons.upload,
-                  size: 50,
-                  color: primaryColor,
-                ),
-              ),
-            ),
-          )
-        : Scaffold(
-            // appBar: AppBar(
-            //   iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-            //   backgroundColor: kWhite,
-            //   elevation: 0,
-            //   title: const Text(
-            //     "Post to",
-            //     style: TextStyle(
-            //       color: kBlack,
-            //     ),
-            //   ),
-            //   actions: [
-// BlocBuilder<DatabaseBloc, DatabaseState>(
-//                   builder: (context, state) {
-//                     return TextButton(
-//                       child: Text("post",
-//                           style: TextStyle(
-//                             color: primaryColor,
-//                             fontSize: 16,
-//                           )),
-//                       onPressed: () {
-//                         postImage(state.uid, state.userName, "");
-//                       },
-//                     );
-//                   },
-//                 ),
-            //   ],
-            // ),
+    final TextEditingController discriptionController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    return BlocBuilder<ImageBloc, ImageState>(
+      builder: (context, state) {
+        if (state.imagebytes == null) {
+          return Scaffold(
             body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BlocBuilder<DatabaseBloc, DatabaseState>(
-                  builder: (context, state) => CustomAppBar(
-                    text: 'Create New Post',
-                    optText: 'Post',
-                    onTap: () {
-                      postImage(state.uid, state.userName, "");
-                    },
-                    icon: Icons.close,
+                Image.asset('assets/images/upload_image.jpg'),
+                IconButton(
+                  onPressed: () => selectImage(context),
+                  icon: Icon(
+                    Icons.upload,
+                    size: 50,
+                    color: primaryColor,
                   ),
                 ),
-                _isLoading
-                    ? const LinearProgressIndicator()
-                    : const Padding(
-                        padding: EdgeInsets.only(top: 0),
-                      ),
+              ],
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: Column(
+              children: [
+                CustomAppBar(
+                  text: 'Create New Post',
+                  optText: 'Post',
+                  onTap: () {
+                    if (discriptionController.text.isNotEmpty) {
+                      onPost(context, discriptionController.text,
+                          state.imagebytes!);
+                    }
+                  },
+                  icon: Icons.close,
+                ),
+                BlocConsumer<PostBloc, PostState>(
+                  listener: (context, state) {
+                    if (state.postUploadSuccess) {
+                      context.read<ImageBloc>().add(const ClearImage());
+                      Navigator.of(context).pushNamed(MainPage.routeName);
+                    }
+                  },
+                  builder: (context, state) => state.isLoading == true
+                      ? const LinearProgressIndicator()
+                      : const Padding(
+                          padding: EdgeInsets.only(top: 0),
+                        ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Container(
@@ -215,7 +170,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                             // backgroundImage: NetworkImage(user.photoUrl),
                             ),
                         SizedBox(
@@ -236,12 +191,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           height: 45,
                           width: 45,
                           child: AspectRatio(
-                              aspectRatio: 487 / 451,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: MemoryImage(_file!))),
-                              )),
+                            aspectRatio: 487 / 451,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: MemoryImage(
+                                    state.imagebytes!,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -250,5 +210,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
           );
+        }
+      },
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
@@ -19,6 +19,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   int commentLen = 0;
+
   @override
   void initState() {
     super.initState();
@@ -75,37 +76,36 @@ class _PostCardState extends State<PostCard> {
   }
 
   Widget reactRow(context) {
-    // final User user = Provider.of<UserProvider>(context).getUser;
-
+    final user = FirebaseAuth.instance.currentUser!.uid;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            // LikeAnimation(
-            //   isAnimating: widget.snap['likes'].contains(user.uid),
-            //   smallLike: true,
-            //   child: postReactRow(
-            //     icon: IconButton(
-            //       onPressed: () async {
-            //         // await FirestoreMethods().likePost(
-            //         //     widget.snap['postId'], user.uid, widget.snap['likes']);
-            //       },
-            //       // icon: widget.snap['likes'].contains(user.uid)
-            //           // ? const Icon(
-            //           //     Icons.favorite,
-            //           //     color: kRed,
-            //           //     size: 24,
-            //           //   )
-            //           // : const Icon(
-            //           //     Icons.favorite_border,
-            //           //     color: kRed,
-            //           //     size: 24,
-            //           //   ),
-            //     ),
-            //     text: "Like",
-            //   ),
-            // ),
+            LikeAnimation(
+              isAnimating: widget.snap['likes'].contains(user),
+              smallLike: true,
+              child: postReactRow(
+                icon: IconButton(
+                  onPressed: () async {
+                    await FirestoreMethods().likePost(
+                        widget.snap['postId'], user, widget.snap['likes']);
+                  },
+                  icon: widget.snap['likes'].contains(user)
+                      ? const Icon(
+                          Icons.favorite,
+                          color: kRed,
+                          size: 24,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                          color: kRed,
+                          size: 24,
+                        ),
+                ),
+                text: "Like",
+              ),
+            ),
             kWidth,
             postReactRow(
                 icon: IconButton(
@@ -186,15 +186,15 @@ class _PostCardState extends State<PostCard> {
   }
 
   Widget postCardImage(double screenHeight, context) {
-    // final User user = Provider.of<UserProvider>(context).getUser;
+    final user = FirebaseAuth.instance.currentUser;
 
     return GestureDetector(
       onDoubleTap: () async {
-        // await FirestoreMethods().likePost(
-        //   widget.snap['postId'],
-        //   user.uid,
-        //   widget.snap['likes'],
-        // );
+        await FirestoreMethods().likePost(
+          widget.snap['postId'],
+          user!.uid,
+          widget.snap['likes'],
+        );
         setState(() {
           isLikeAnimating = true;
         });

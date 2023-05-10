@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/application/image/image_bloc.dart';
+import 'package:social_app/application/post/post_bloc.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../application/auth/database/database_bloc.dart';
 import '../../core/colors/colors.dart';
@@ -20,6 +22,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               getIt<DatabaseBloc>()..add(const DatabaseFetched()),
+        ),
+        BlocProvider(
+          create: (context) => getIt<PostBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => ImageBloc(),
         )
       ],
       child: MaterialApp(

@@ -427,8 +427,10 @@ class _FriensChatPageState extends State<FriensChatPage> {
                           const EdgeInsets.only(left: 50, top: 5, bottom: 5),
                       child: Text(
                         DateFormat('dd MMM kk:mm').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                int.parse(messageChat.timestamp))),
+                          DateTime.fromMillisecondsSinceEpoch(
+                            int.parse(messageChat.timestamp),
+                          ),
+                        ),
                         style: TextStyle(
                             color: textGrey.withOpacity(0.5),
                             fontSize: 11,

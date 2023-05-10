@@ -4,8 +4,8 @@ import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/feeds/feed_screen.dart';
 import '../common_widgets/profile_screen.dart';
 import '../screens/auth/signup_screen.dart';
-import '../screens/post/add_screen.dart';
 import '../screens/mainpage/main_page.dart';
+import '../screens/post/add_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -29,10 +29,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (context) => SignupScreen(),
       );
-    case HomeScreen.routeName:
+    case FeedScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const FeedScreen(),
       );
     case ProfileScreen.routeName:
       return MaterialPageRoute(

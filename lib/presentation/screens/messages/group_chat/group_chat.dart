@@ -31,7 +31,7 @@ String groupName = "";
 Stream? chatUsers;
 
 class _GropChatScreenState extends State<GropChatScreen> {
-  DatabaseBloc? databaseBloc;
+  // DatabaseBloc? databaseBloc;
   String userName = "";
   TextEditingController searchController = TextEditingController();
   String searchVal = "";

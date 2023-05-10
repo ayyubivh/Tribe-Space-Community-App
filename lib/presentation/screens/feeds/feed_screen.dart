@@ -6,16 +6,15 @@ import 'package:social_app/core/colors/colors.dart';
 // import 'package:social_app/application/provider/user_provider.dart';
 import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/domain/auth/auth_failures.dart';
-import 'package:social_app/infrastructure/auth/firebase_auth_impl.dart';
 import 'package:social_app/presentation/common_widgets/custom_btn.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/story_part.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/top_part.dart';
 import 'widgets/post_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class FeedScreen extends StatelessWidget {
   static const routeName = '/home-screen';
-  const HomeScreen({super.key});
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

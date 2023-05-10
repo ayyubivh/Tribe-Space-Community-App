@@ -30,12 +30,4 @@ class MessageChat with _$MessageChat {
         content: content,
         type: type);
   }
-
-  // Map<String, dynamic> toJson() => {
-  //       FireStoreConstants.idFrom: idFrom,
-  //       FireStoreConstants.idTo: idTo,
-  //       FireStoreConstants.timestamp: timestamp,
-  //       FireStoreConstants.content: content,
-  //       FireStoreConstants.type: type,
-  //     };
 }

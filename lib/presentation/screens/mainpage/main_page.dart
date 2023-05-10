@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _page = 0;
   List<Widget> pages = [
-    const HomeScreen(),
+    const FeedScreen(),
     const SearchScreen(),
     // const ChatScreen(),
     const MessgeScreen(),
