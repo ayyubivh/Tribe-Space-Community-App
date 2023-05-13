@@ -41,7 +41,6 @@ class SignUpForm extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        var sizedBox = SizedBox(height: screenHeight / 20);
         var sizedBox2 = SizedBox(height: screenHeight / 16);
         return BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
