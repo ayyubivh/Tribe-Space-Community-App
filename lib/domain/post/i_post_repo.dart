@@ -8,8 +8,9 @@ abstract class IPostRepo {
     String userName,
     String profileImage,
   );
-  Future<void> likePost();
-  Future<void> commentPost();
-  Future<void> deletePost();
-  Future<void> followUser();
+  Future<void> likePost(String postId, String uid, List likes);
+  Future<void> commentPost(
+      String postId, String text, String uid, String name, String profilePic);
+  Future<void> deletePost(String postId);
+  Future<void> followUser(String uid, String followId);
 }

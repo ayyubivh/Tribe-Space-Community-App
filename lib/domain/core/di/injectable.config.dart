@@ -13,9 +13,10 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:social_app/application/auth/auth_bloc.dart' as _i11;
 import 'package:social_app/application/auth/database/database_bloc.dart'
-    as _i12;
+    as _i13;
 import 'package:social_app/application/auth/sign_in_form/sign_in_bloc.dart'
     as _i10;
+import 'package:social_app/application/comment/comment_bloc.dart' as _i12;
 import 'package:social_app/application/post/post_bloc.dart' as _i9;
 import 'package:social_app/domain/auth/i_auth_repository.dart' as _i5;
 import 'package:social_app/domain/database/data_base_repo.dart' as _i3;
@@ -45,8 +46,9 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i3.DatabaseReopsitory>(),
         ));
     gh.factory<_i11.AuthBloc>(() => _i11.AuthBloc(gh<_i5.IAuthRepo>()));
-    gh.factory<_i12.DatabaseBloc>(
-        () => _i12.DatabaseBloc(gh<_i3.DatabaseReopsitory>()));
+    gh.factory<_i12.CommentBloc>(() => _i12.CommentBloc(gh<_i7.IPostRepo>()));
+    gh.factory<_i13.DatabaseBloc>(
+        () => _i13.DatabaseBloc(gh<_i3.DatabaseReopsitory>()));
     return this;
   }
 }

@@ -1,13 +1,9 @@
 import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:bloc/bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:social_app/application/image/image_bloc.dart';
-import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/domain/post/i_post_repo.dart';
 
 part 'post_event.dart';
@@ -28,12 +24,36 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           isLoading: false,
           postUploadSuccess: true,
         ));
-      } on FirebaseAuthException catch (e) {
+      } on FirebaseException catch (e) {
         emit(state.copyWith(
             isLoading: false,
             errorMessage: e.message!,
             postUploadFailure: true));
         log('post bloc erroo ${e.message}');
+      }
+    });
+
+    on<DeletePostEvent>((event, emit) {
+      try {
+        iPostRepo.deletePost(event.postId);
+      } on FirebaseException catch (e) {
+        log(e.toString());
+      }
+    });
+
+    on<LikepostEvent>((event, emit) {
+      try {
+        iPostRepo.likePost(event.postId, event.uid, event.likes);
+      } catch (e) {
+        throw Exception();
+      }
+    });
+
+    on<FollowUserEvent>((event, emit) {
+      try {
+        iPostRepo.followUser(event.uid, event.followId);
+      } catch (e) {
+        throw Exception();
       }
     });
   }

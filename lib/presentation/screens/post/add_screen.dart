@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_app/application/image/image_bloc.dart';
+import 'package:social_app/core/utils/utilities.dart';
 import '../../../application/auth/database/database_bloc.dart';
 import '../../../application/post/post_bloc.dart';
 import '../../../core/colors/colors.dart';
@@ -98,6 +99,7 @@ class AddPostScreen extends StatelessWidget {
               userName: userName,
               profileImage: 'profileImage'),
         );
+    Utilities.closeKeyboard(context);
   }
 
   @override
@@ -111,7 +113,12 @@ class AddPostScreen extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/upload_image.jpg'),
+                SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  // color: kRed,
+                  child: Image.asset('assets/images/upload_image.jpg'),
+                ),
                 IconButton(
                   onPressed: () => selectImage(context),
                   icon: Icon(

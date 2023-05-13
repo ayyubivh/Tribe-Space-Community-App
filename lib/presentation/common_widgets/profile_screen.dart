@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/application/post/post_bloc.dart';
 import 'package:social_app/presentation/common_widgets/follow_botton.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
-import 'package:social_app/domain/post/post_firestore_methods.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/story_part.dart';
 import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../core/utils/loader.dart';
@@ -99,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   image: NetworkImage(
                                       "https://www.mykhel.com/thumb/250x90x250/football/players/8/61278.jpg"),
                                   fit: BoxFit.cover,
@@ -147,13 +148,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           )
                                         : isFollowing
                                             ? FollowButton(
-                                                onPress: () async {
-                                                  await FirestoreMethods()
-                                                      .followUser(
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid,
-                                                    userData['uid'],
-                                                  );
+                                                onPress: () {
+                                                  context.read<PostBloc>().add(
+                                                      FollowUserEvent(
+                                                          uid: FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid,
+                                                          followId:
+                                                              userData['uid']));
                                                   setState(() {
                                                     isFollowing = false;
                                                     followers--;
@@ -163,12 +166,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               )
                                             : FollowButton(
                                                 onPress: () async {
-                                                  await FirestoreMethods()
-                                                      .followUser(
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid,
-                                                    userData['uid'],
-                                                  );
+                                                  // await FirestoreMethods()
+                                                  //     .followUser(
+                                                  //   FirebaseAuth.instance
+                                                  //       .currentUser!.uid,
+                                                  //   userData['uid'],
+                                                  // );
+                                                  context.read<PostBloc>().add(
+                                                      FollowUserEvent(
+                                                          uid: FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid,
+                                                          followId:
+                                                              userData['uid']));
                                                   setState(() {
                                                     isFollowing = true;
                                                     followers++;

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
-
 part 'messge_models.g.dart';
 part 'messge_models.freezed.dart';
 

@@ -31,8 +31,8 @@ class UserModels {
       'age': age,
       'photUrl': photoUrl,
       'groups': [],
-      'followers': followers,
-      'following': following,
+      'followers': [],
+      'following': [],
       'uid': uid
     };
   }

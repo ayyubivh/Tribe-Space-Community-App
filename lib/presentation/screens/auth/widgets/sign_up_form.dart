@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../../../application/auth/auth_bloc.dart';
 import '../../../../application/auth/sign_in_form/sign_in_bloc.dart';
@@ -145,7 +146,8 @@ class SignUpForm extends StatelessWidget {
                                     text: "Sign in",
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Navigator.of(context).pop();
+                                        Navigator.of(context)
+                                            .pushNamed(LoginScreen.routeName);
                                       })
                               ],
                             ),
@@ -202,57 +204,3 @@ class WelcomeSection extends StatelessWidget {
     );
   }
 }
-//   signUp() async {
-//     if (formkey.currentState!.validate()) {
-//       if (_image == null) {
-//         return;
-//       }
-
-//       // String res = await AuthMethods().signUpUser(
-//       //     email: _emailController.text,
-//       //     password: _passwordController.text,
-//       //     fullName: _userNameController.text,
-//       //     file: _image!);
-//       //     if (res == "success") {
-//       //       DocumentSnapshot snap = await FirebaseFirestore.instance
-//       //           .collection('users')
-//       //           .doc(FirebaseAuth.instance.currentUser!.uid)
-//       //           .get();
-
-//       //       showSnackbar(context, Colors.green, res);
-
-//       //       Navigator.of(context).pushReplacementNamed(MainPage.routeName);
-//       //     } else {
-//       //       setState(() {
-//       //         _isLoading = false;
-//       //       });
-//       //       showSnackbar(context, Colors.red, res);
-//       //     }
-//       //   }
-//       // }
-//     }
-//   }
-// }
-
-// // class ErrorDialog extends StatelessWidget {
-// //   final String? errorMessage;
-// //   const ErrorDialog({Key? key, required this.errorMessage}) : super(key: key);
-
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return AlertDialog(
-// //       title: const Text("Error"),
-// //       content: Text(errorMessage!),
-// //       actions: [
-// //         TextButton(
-// //           child: const Text("Ok"),
-// //           onPressed: () => errorMessage!.contains("Please Verify your email")
-// //               ? Navigator.of(context).pushAndRemoveUntil(
-// //                   MaterialPageRoute(builder: (context) => LoginScreen()),
-// //                   (Route<dynamic> route) => false)
-// //               : Navigator.of(context).pop(),
-// //         )
-// //       ],
-// //     );
-// //   }
-// // }

@@ -1,10 +1,9 @@
+// ignore: depend_on_referenced_packages
 import 'dart:developer';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// ignore: depend_on_referenced_packages
 import 'package:injectable/injectable.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';

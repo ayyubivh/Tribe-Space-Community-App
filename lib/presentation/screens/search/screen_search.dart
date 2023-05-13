@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:social_app/presentation/common_widgets/profile_screen.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/utils/loader.dart';
@@ -77,21 +76,22 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (!snapshot.hasData) {
                   return const Loader();
                 }
-                return StaggeredGridView.countBuilder(
-                  itemCount: snapshot.data!.docs.length,
-                  crossAxisCount: 3,
-                  itemBuilder: (context, index) {
-                    return Image.network(
-                      snapshot.data!.docs[index]['posturl'],
-                    );
-                  },
-                  staggeredTileBuilder: (index) => StaggeredTile.count(
-                    (index % 7 == 0) ? 2 : 1,
-                    (index % 7 == 0) ? 2 : 1,
-                  ),
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                );
+                // return StaggeredGridView.countBuilder(
+                //   itemCount: snapshot.data!.docs.length,
+                //   crossAxisCount: 3,
+                //   itemBuilder: (context, index) {
+                //     return Image.network(
+                //       snapshot.data!.docs[index]['posturl'],
+                //     );
+                //   },
+                //   staggeredTileBuilder: (index) => StaggeredTile.count(
+                //     (index % 7 == 0) ? 2 : 1,
+                //     (index % 7 == 0) ? 2 : 1,
+                //   ),
+                //   mainAxisSpacing: 8,
+                //   crossAxisSpacing: 8,
+                // );
+                return Container();
               },
             ),
     );

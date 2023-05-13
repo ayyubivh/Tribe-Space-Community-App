@@ -16,16 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PostEvent {
-  String get description => throw _privateConstructorUsedError;
-  Uint8List get file => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
-  String get userName => throw _privateConstructorUsedError;
-  String get profileImage => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String description, Uint8List file, String uid,
             String userName, String profileImage)
         uploadPost,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String uid, List<dynamic> likes)
+        likePost,
+    required TResult Function(String uid, String followId) followUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,6 +32,9 @@ mixin _$PostEvent {
     TResult? Function(String description, Uint8List file, String uid,
             String userName, String profileImage)?
         uploadPost,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult? Function(String uid, String followId)? followUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,28 +42,36 @@ mixin _$PostEvent {
     TResult Function(String description, Uint8List file, String uid,
             String userName, String profileImage)?
         uploadPost,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult Function(String uid, String followId)? followUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UploadPostEvent value) uploadPost,
+    required TResult Function(DeletePostEvent value) deletePost,
+    required TResult Function(LikepostEvent value) likePost,
+    required TResult Function(FollowUserEvent value) followUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UploadPostEvent value)? uploadPost,
+    TResult? Function(DeletePostEvent value)? deletePost,
+    TResult? Function(LikepostEvent value)? likePost,
+    TResult? Function(FollowUserEvent value)? followUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UploadPostEvent value)? uploadPost,
+    TResult Function(DeletePostEvent value)? deletePost,
+    TResult Function(LikepostEvent value)? likePost,
+    TResult Function(FollowUserEvent value)? followUser,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PostEventCopyWith<PostEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -69,13 +79,6 @@ mixin _$PostEvent {
 abstract class $PostEventCopyWith<$Res> {
   factory $PostEventCopyWith(PostEvent value, $Res Function(PostEvent) then) =
       _$PostEventCopyWithImpl<$Res, PostEvent>;
-  @useResult
-  $Res call(
-      {String description,
-      Uint8List file,
-      String uid,
-      String userName,
-      String profileImage});
 }
 
 /// @nodoc
@@ -87,48 +90,13 @@ class _$PostEventCopyWithImpl<$Res, $Val extends PostEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = null,
-    Object? file = null,
-    Object? uid = null,
-    Object? userName = null,
-    Object? profileImage = null,
-  }) {
-    return _then(_value.copyWith(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      file: null == file
-          ? _value.file
-          : file // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
-      userName: null == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImage: null == profileImage
-          ? _value.profileImage
-          : profileImage // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$UploadPostEventCopyWith<$Res>
-    implements $PostEventCopyWith<$Res> {
+abstract class _$$UploadPostEventCopyWith<$Res> {
   factory _$$UploadPostEventCopyWith(
           _$UploadPostEvent value, $Res Function(_$UploadPostEvent) then) =
       __$$UploadPostEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {String description,
@@ -237,6 +205,10 @@ class _$UploadPostEvent implements UploadPostEvent {
     required TResult Function(String description, Uint8List file, String uid,
             String userName, String profileImage)
         uploadPost,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String uid, List<dynamic> likes)
+        likePost,
+    required TResult Function(String uid, String followId) followUser,
   }) {
     return uploadPost(description, file, uid, userName, profileImage);
   }
@@ -247,6 +219,9 @@ class _$UploadPostEvent implements UploadPostEvent {
     TResult? Function(String description, Uint8List file, String uid,
             String userName, String profileImage)?
         uploadPost,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult? Function(String uid, String followId)? followUser,
   }) {
     return uploadPost?.call(description, file, uid, userName, profileImage);
   }
@@ -257,6 +232,9 @@ class _$UploadPostEvent implements UploadPostEvent {
     TResult Function(String description, Uint8List file, String uid,
             String userName, String profileImage)?
         uploadPost,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult Function(String uid, String followId)? followUser,
     required TResult orElse(),
   }) {
     if (uploadPost != null) {
@@ -269,6 +247,9 @@ class _$UploadPostEvent implements UploadPostEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UploadPostEvent value) uploadPost,
+    required TResult Function(DeletePostEvent value) deletePost,
+    required TResult Function(LikepostEvent value) likePost,
+    required TResult Function(FollowUserEvent value) followUser,
   }) {
     return uploadPost(this);
   }
@@ -277,6 +258,9 @@ class _$UploadPostEvent implements UploadPostEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UploadPostEvent value)? uploadPost,
+    TResult? Function(DeletePostEvent value)? deletePost,
+    TResult? Function(LikepostEvent value)? likePost,
+    TResult? Function(FollowUserEvent value)? followUser,
   }) {
     return uploadPost?.call(this);
   }
@@ -285,6 +269,9 @@ class _$UploadPostEvent implements UploadPostEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UploadPostEvent value)? uploadPost,
+    TResult Function(DeletePostEvent value)? deletePost,
+    TResult Function(LikepostEvent value)? likePost,
+    TResult Function(FollowUserEvent value)? followUser,
     required TResult orElse(),
   }) {
     if (uploadPost != null) {
@@ -302,19 +289,513 @@ abstract class UploadPostEvent implements PostEvent {
       required final String userName,
       required final String profileImage}) = _$UploadPostEvent;
 
-  @override
   String get description;
-  @override
   Uint8List get file;
-  @override
   String get uid;
-  @override
   String get userName;
-  @override
   String get profileImage;
-  @override
   @JsonKey(ignore: true)
   _$$UploadPostEventCopyWith<_$UploadPostEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeletePostEventCopyWith<$Res> {
+  factory _$$DeletePostEventCopyWith(
+          _$DeletePostEvent value, $Res Function(_$DeletePostEvent) then) =
+      __$$DeletePostEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String postId});
+}
+
+/// @nodoc
+class __$$DeletePostEventCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$DeletePostEvent>
+    implements _$$DeletePostEventCopyWith<$Res> {
+  __$$DeletePostEventCopyWithImpl(
+      _$DeletePostEvent _value, $Res Function(_$DeletePostEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? postId = null,
+  }) {
+    return _then(_$DeletePostEvent(
+      postId: null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeletePostEvent implements DeletePostEvent {
+  const _$DeletePostEvent({required this.postId});
+
+  @override
+  final String postId;
+
+  @override
+  String toString() {
+    return 'PostEvent.deletePost(postId: $postId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeletePostEvent &&
+            (identical(other.postId, postId) || other.postId == postId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, postId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeletePostEventCopyWith<_$DeletePostEvent> get copyWith =>
+      __$$DeletePostEventCopyWithImpl<_$DeletePostEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)
+        uploadPost,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String uid, List<dynamic> likes)
+        likePost,
+    required TResult Function(String uid, String followId) followUser,
+  }) {
+    return deletePost(postId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult? Function(String uid, String followId)? followUser,
+  }) {
+    return deletePost?.call(postId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult Function(String uid, String followId)? followUser,
+    required TResult orElse(),
+  }) {
+    if (deletePost != null) {
+      return deletePost(postId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UploadPostEvent value) uploadPost,
+    required TResult Function(DeletePostEvent value) deletePost,
+    required TResult Function(LikepostEvent value) likePost,
+    required TResult Function(FollowUserEvent value) followUser,
+  }) {
+    return deletePost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UploadPostEvent value)? uploadPost,
+    TResult? Function(DeletePostEvent value)? deletePost,
+    TResult? Function(LikepostEvent value)? likePost,
+    TResult? Function(FollowUserEvent value)? followUser,
+  }) {
+    return deletePost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UploadPostEvent value)? uploadPost,
+    TResult Function(DeletePostEvent value)? deletePost,
+    TResult Function(LikepostEvent value)? likePost,
+    TResult Function(FollowUserEvent value)? followUser,
+    required TResult orElse(),
+  }) {
+    if (deletePost != null) {
+      return deletePost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeletePostEvent implements PostEvent {
+  const factory DeletePostEvent({required final String postId}) =
+      _$DeletePostEvent;
+
+  String get postId;
+  @JsonKey(ignore: true)
+  _$$DeletePostEventCopyWith<_$DeletePostEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LikepostEventCopyWith<$Res> {
+  factory _$$LikepostEventCopyWith(
+          _$LikepostEvent value, $Res Function(_$LikepostEvent) then) =
+      __$$LikepostEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String postId, String uid, List<dynamic> likes});
+}
+
+/// @nodoc
+class __$$LikepostEventCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$LikepostEvent>
+    implements _$$LikepostEventCopyWith<$Res> {
+  __$$LikepostEventCopyWithImpl(
+      _$LikepostEvent _value, $Res Function(_$LikepostEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? postId = null,
+    Object? uid = null,
+    Object? likes = null,
+  }) {
+    return _then(_$LikepostEvent(
+      postId: null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      likes: null == likes
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LikepostEvent implements LikepostEvent {
+  const _$LikepostEvent(
+      {required this.postId,
+      required this.uid,
+      required final List<dynamic> likes})
+      : _likes = likes;
+
+  @override
+  final String postId;
+  @override
+  final String uid;
+  final List<dynamic> _likes;
+  @override
+  List<dynamic> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
+
+  @override
+  String toString() {
+    return 'PostEvent.likePost(postId: $postId, uid: $uid, likes: $likes)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LikepostEvent &&
+            (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            const DeepCollectionEquality().equals(other._likes, _likes));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, postId, uid, const DeepCollectionEquality().hash(_likes));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LikepostEventCopyWith<_$LikepostEvent> get copyWith =>
+      __$$LikepostEventCopyWithImpl<_$LikepostEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)
+        uploadPost,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String uid, List<dynamic> likes)
+        likePost,
+    required TResult Function(String uid, String followId) followUser,
+  }) {
+    return likePost(postId, uid, likes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult? Function(String uid, String followId)? followUser,
+  }) {
+    return likePost?.call(postId, uid, likes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult Function(String uid, String followId)? followUser,
+    required TResult orElse(),
+  }) {
+    if (likePost != null) {
+      return likePost(postId, uid, likes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UploadPostEvent value) uploadPost,
+    required TResult Function(DeletePostEvent value) deletePost,
+    required TResult Function(LikepostEvent value) likePost,
+    required TResult Function(FollowUserEvent value) followUser,
+  }) {
+    return likePost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UploadPostEvent value)? uploadPost,
+    TResult? Function(DeletePostEvent value)? deletePost,
+    TResult? Function(LikepostEvent value)? likePost,
+    TResult? Function(FollowUserEvent value)? followUser,
+  }) {
+    return likePost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UploadPostEvent value)? uploadPost,
+    TResult Function(DeletePostEvent value)? deletePost,
+    TResult Function(LikepostEvent value)? likePost,
+    TResult Function(FollowUserEvent value)? followUser,
+    required TResult orElse(),
+  }) {
+    if (likePost != null) {
+      return likePost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LikepostEvent implements PostEvent {
+  const factory LikepostEvent(
+      {required final String postId,
+      required final String uid,
+      required final List<dynamic> likes}) = _$LikepostEvent;
+
+  String get postId;
+  String get uid;
+  List<dynamic> get likes;
+  @JsonKey(ignore: true)
+  _$$LikepostEventCopyWith<_$LikepostEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FollowUserEventCopyWith<$Res> {
+  factory _$$FollowUserEventCopyWith(
+          _$FollowUserEvent value, $Res Function(_$FollowUserEvent) then) =
+      __$$FollowUserEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String uid, String followId});
+}
+
+/// @nodoc
+class __$$FollowUserEventCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$FollowUserEvent>
+    implements _$$FollowUserEventCopyWith<$Res> {
+  __$$FollowUserEventCopyWithImpl(
+      _$FollowUserEvent _value, $Res Function(_$FollowUserEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uid = null,
+    Object? followId = null,
+  }) {
+    return _then(_$FollowUserEvent(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      followId: null == followId
+          ? _value.followId
+          : followId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FollowUserEvent implements FollowUserEvent {
+  const _$FollowUserEvent({required this.uid, required this.followId});
+
+  @override
+  final String uid;
+  @override
+  final String followId;
+
+  @override
+  String toString() {
+    return 'PostEvent.followUser(uid: $uid, followId: $followId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FollowUserEvent &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.followId, followId) ||
+                other.followId == followId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, uid, followId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FollowUserEventCopyWith<_$FollowUserEvent> get copyWith =>
+      __$$FollowUserEventCopyWithImpl<_$FollowUserEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)
+        uploadPost,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String uid, List<dynamic> likes)
+        likePost,
+    required TResult Function(String uid, String followId) followUser,
+  }) {
+    return followUser(uid, followId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult? Function(String uid, String followId)? followUser,
+  }) {
+    return followUser?.call(uid, followId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String description, Uint8List file, String uid,
+            String userName, String profileImage)?
+        uploadPost,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String uid, List<dynamic> likes)? likePost,
+    TResult Function(String uid, String followId)? followUser,
+    required TResult orElse(),
+  }) {
+    if (followUser != null) {
+      return followUser(uid, followId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UploadPostEvent value) uploadPost,
+    required TResult Function(DeletePostEvent value) deletePost,
+    required TResult Function(LikepostEvent value) likePost,
+    required TResult Function(FollowUserEvent value) followUser,
+  }) {
+    return followUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UploadPostEvent value)? uploadPost,
+    TResult? Function(DeletePostEvent value)? deletePost,
+    TResult? Function(LikepostEvent value)? likePost,
+    TResult? Function(FollowUserEvent value)? followUser,
+  }) {
+    return followUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UploadPostEvent value)? uploadPost,
+    TResult Function(DeletePostEvent value)? deletePost,
+    TResult Function(LikepostEvent value)? likePost,
+    TResult Function(FollowUserEvent value)? followUser,
+    required TResult orElse(),
+  }) {
+    if (followUser != null) {
+      return followUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FollowUserEvent implements PostEvent {
+  const factory FollowUserEvent(
+      {required final String uid,
+      required final String followId}) = _$FollowUserEvent;
+
+  String get uid;
+  String get followId;
+  @JsonKey(ignore: true)
+  _$$FollowUserEventCopyWith<_$FollowUserEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

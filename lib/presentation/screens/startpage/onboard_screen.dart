@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/presentation/common_widgets/custom_btn.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
+import 'package:social_app/presentation/screens/auth/signup_screen.dart';
+import 'package:social_app/presentation/screens/startpage/widgets/image_list_view.dart';
 import '../../../core/colors/colors.dart';
 
 class OnBoardScreen extends StatelessWidget {
@@ -10,110 +12,120 @@ class OnBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = 0;
-    double screenWidth = 0;
     screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: onboardGreenColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: screenHeight / 1.45,
-                // color: Colors.amber,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 200,
-                      child: ClipPath(
-                        clipper: DrawClip1(),
-                        child: Container(
-                          height: screenHeight,
-                          width: screenWidth,
-                          color: onBoardColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: screenHeight / 2,
+              child: Row(
+                children: const [
+                  ImageListView(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(screenHeight / 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // SizedBox(
+                  //   height: screenHeight / 2,
+                  // ),
+                  const Text(
+                    'Connect With \nPeople around the world',
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 35,
+                      fontFamily: 'Monteserrat',
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  SizedBox(
+                    height: screenHeight / 60,
+                  ),
+                  Text(
+                    'We created to bring together amazing \nconnection and also you can share \nyour feeling around the world!',
+                    style: TextStyle(
+                        color: kWhite.withOpacity(0.7),
+                        fontSize: 16,
+                        // fontWeight: FontWeight.w300,
+                        fontFamily: 'Monteserrat'),
+                    textAlign: TextAlign.start,
+                  ),
+
+                  SizedBox(
+                    height: screenHeight / 40,
+                  ),
+                  SizedBox(
+                    height: 56,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 4,
+                        backgroundColor: kWhite,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(SignupScreen.routeName);
+                      },
+                      child: const Text(
+                        'Join now',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: onboardGreenColor,
                         ),
                       ),
                     ),
-                    ClipPath(
-                      clipper: DrawClip(),
-                      child: Container(
-                        color: onBoardColor,
-                        height: screenHeight,
-                        width: screenWidth,
-                      ),
-                    ),
-                    Positioned(
-                      top: 80,
-                      right: 40,
-                      child: CircleAvatar(
-                        backgroundColor: onBoardColor,
-                        backgroundImage:
-                            const AssetImage('assets/images/onboard2.jpg'),
-                        radius: 55,
-                      ),
-                    ),
-                    Positioned(
-                      top: 200,
-                      right: 85,
-                      child: CircleAvatar(
-                        backgroundColor: onBoardColor,
-                        radius: 75,
-                        backgroundImage:
-                            const AssetImage('assets/images/onboard1.jpg'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 28.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      ' Let\'s  Get Started',
-                      style: TextStyle(
-                        color: kBlack,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w100,
-                        fontFamily: 'Poppins',
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    const Text(
-                      '  Grow Together',
-                      style: TextStyle(
-                        color: kBlack,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    kHeight20,
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: screenWidth / 6.5,
-                      ),
-                      child: SizedBox(
-                        height: 52,
-                        width: 221,
-                        child: CustomButton(
-                          textSize: 25,
-                          text: 'JOIN NOW',
-                          onPress: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                LoginScreen.routeName, (route) => false);
-                          },
+                  ),
+                  SizedBox(
+                    height: screenHeight / 60,
+                  ),
+                  Center(
+                    child: Text.rich(
+                      textAlign: TextAlign.center,
+                      TextSpan(
+                        text: "Already have an account? ",
+                        style: TextStyle(
+                          color: kWhite.withOpacity(0.7),
+                          fontSize: 15,
+                          letterSpacing: 0.2,
+                          fontWeight: FontWeight.w500,
                         ),
+                        children: [
+                          TextSpan(
+                              style: const TextStyle(
+                                color: kWhite,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              text: "Login ",
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushReplacementNamed(
+                                      LoginScreen.routeName);
+                                })
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: screenHeight / 70,
+            ),
+            // SizedBox(
+            //   height: screenHeight / 90,
+            // ),
+          ],
         ),
       ),
     );

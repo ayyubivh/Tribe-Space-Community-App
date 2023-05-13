@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:social_app/application/post/post_bloc.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/utils.dart';
-import 'package:social_app/domain/post/post_firestore_methods.dart';
 import 'package:social_app/presentation/screens/comment/comment_screen.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/like_animation.dart';
 
@@ -75,21 +76,24 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
-  Widget reactRow(context) {
+  Widget reactRow(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!.uid;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             LikeAnimation(
               isAnimating: widget.snap['likes'].contains(user),
               smallLike: true,
               child: postReactRow(
                 icon: IconButton(
-                  onPressed: () async {
-                    await FirestoreMethods().likePost(
-                        widget.snap['postId'], user, widget.snap['likes']);
+                  onPressed: () {
+                    context.read<PostBloc>().add(LikepostEvent(
+                        postId: widget.snap['postId'],
+                        uid: user,
+                        likes: widget.snap['likes']));
                   },
                   icon: widget.snap['likes'].contains(user)
                       ? const Icon(
@@ -185,16 +189,15 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
-  Widget postCardImage(double screenHeight, context) {
+  Widget postCardImage(double screenHeight, BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
     return GestureDetector(
-      onDoubleTap: () async {
-        await FirestoreMethods().likePost(
-          widget.snap['postId'],
-          user!.uid,
-          widget.snap['likes'],
-        );
+      onDoubleTap: () {
+        context.read<PostBloc>().add(LikepostEvent(
+            postId: widget.snap['postId'],
+            uid: user!.uid,
+            likes: widget.snap['likes']));
         setState(() {
           isLikeAnimating = true;
         });
@@ -298,8 +301,8 @@ class _PostCardState extends State<PostCard> {
                             .map(
                               (e) => InkWell(
                                 onTap: () {
-                                  FirestoreMethods()
-                                      .deletePost(widget.snap['postId']);
+                                  context.read<PostBloc>().add(DeletePostEvent(
+                                      postId: widget.snap['postId']));
                                   Navigator.pop(context);
                                 },
                                 child: Container(
