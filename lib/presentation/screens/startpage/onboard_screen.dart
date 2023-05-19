@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/auth/signup_screen.dart';
 import 'package:social_app/presentation/screens/startpage/widgets/image_list_view.dart';

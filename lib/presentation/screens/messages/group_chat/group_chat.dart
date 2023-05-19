@@ -38,6 +38,7 @@ class _GropChatScreenState extends State<GropChatScreen> {
   @override
   void initState() {
     super.initState();
+    // BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
     isLoading = false;
     gettingData();
   }
@@ -45,7 +46,6 @@ class _GropChatScreenState extends State<GropChatScreen> {
   gettingData() async {
     setState(() {
       userName = context.read<DatabaseBloc>().state.userName;
-      setState(() {});
     });
 
     await ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
@@ -96,11 +96,11 @@ class _GropChatScreenState extends State<GropChatScreen> {
                             return SearchGroupTile(
                                 userName: userName,
                                 groupId: snapshot.data!.docs[index]
-                                    [FireStoreConstants.groupId],
+                                    [FirestoreConstants.groupId],
                                 groupName: snapshot.data!.docs[index]
-                                    [FireStoreConstants.groupName],
+                                    [FirestoreConstants.groupName],
                                 admin: snapshot.data!.docs[index]
-                                    [FireStoreConstants.admin]);
+                                    [FirestoreConstants.admin]);
                           },
                         );
                       },

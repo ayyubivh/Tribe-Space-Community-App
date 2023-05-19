@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../core/constants/firebase_constants.dart';
+
 class Post {
   final String userName;
   final String uid;
@@ -32,13 +34,13 @@ class Post {
   static Post fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
     return Post(
-        userName: snapshot['userName'],
-        uid: snapshot['uid'],
-        description: snapshot['description'],
-        postId: snapshot['postId'],
-        datePublished: snapshot['datePublished'],
-        postUrl: snapshot['postUrl'],
-        profileImage: snapshot['profileImage'],
-        likes: snapshot['likes']);
+        userName: snapshot[FirestoreConstants.userName],
+        uid: snapshot[FirestoreConstants.uid],
+        description: snapshot[FirestoreConstants.description],
+        postId: snapshot[FirestoreConstants.postId],
+        datePublished: snapshot[FirestoreConstants.datePuplished],
+        postUrl: snapshot[FirestoreConstants.postUrl],
+        profileImage: snapshot[FirestoreConstants.profileImage],
+        likes: snapshot[FirestoreConstants.likes]);
   }
 }

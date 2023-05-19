@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -5,8 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:social_app/domain/database/data_base_repo.dart';
 import 'package:social_app/domain/auth/i_auth_repository.dart';
-
 import '../../../domain/auth/model/user.dart';
+import '../../../domain/auth/storage_methods.dart';
 
 part 'sign_in_bloc.freezed.dart';
 part 'sign_in_event.dart';
@@ -42,6 +44,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       return age >= 1 && age <= 120 ? true : false;
     }
 
+    on<ProfilePhotoAdd>((event, emit) async {
+      emit(
+        state.copyWith(photoUrl: event.imageBytes),
+      );
+    });
     on<EmailChanged>((event, emit) async {
       emit(state.copyWith(
           isFormSuccessful: false,
@@ -70,6 +77,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         isNameValid: _isNameValid(event.nameStr),
       ));
     });
+
     on<FormSubmitted>((event, emit) async {
       UserModels user = UserModels(
         email: state.email,
@@ -88,11 +96,18 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         if (state.isFormValid) {
           try {
             UserCredential? authUser = await _authRepo.signUp(user);
-            UserModels updateUser = user.copyWith(uid: authUser!.user!.uid);
+
+            String file = await StorageMethods()
+                .uploadImageToStorage('profilePhotos', state.photoUrl!, false);
+
+            UserModels updateUser =
+                user.copyWith(uid: authUser!.user!.uid, photoUrl: file);
             await _databaseReopsitory.saveUserData(updateUser);
+
             emit(state.copyWith(
               isLoading: false,
               errorMessage: "",
+              photoUrl: null,
             ));
           } on FirebaseAuthException catch (e) {
             emit(state.copyWith(

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/domain/database/database_service.dart';
+import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 
 class GroupInfo extends StatefulWidget {
   final String groupId;
@@ -33,7 +34,7 @@ class _GroupInfoState extends State<GroupInfo> {
         .then((val) {
       setState(() {
         members = val;
-        log(members.toString());
+        log(members!.length.toString());
       });
     });
   }
@@ -77,16 +78,17 @@ class _GroupInfoState extends State<GroupInfo> {
                           ),
                           IconButton(
                             onPressed: () async {
-                              // DatabaseService(
-                              //         uid: FirebaseAuth
-                              //             .instance.currentUser!.uid)
-                              //     .toggleGroupJoin(
-                              //         widget.groupId,
-                              //         getName(widget.adminName),
-                              //         widget.groupName)
-                              //     .whenComplete(() {
-                              //   nextScreenReplace(context, const HomePage());
-                              // });
+                              DatabaseService(
+                                      uid: FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                  .toggleGroupJoin(
+                                      widget.groupId,
+                                      getName(widget.adminName),
+                                      widget.groupName)
+                                  .whenComplete(() {
+                                Navigator.of(context)
+                                    .pushNamed(MainPage.routeName);
+                              });
                             },
                             icon: const Icon(
                               Icons.done,

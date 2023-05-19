@@ -23,6 +23,14 @@ class DatabaseRepoImpl implements DatabaseReopsitory {
     return _db.collection("users").doc(user.uid).set(user.toMap());
   }
 
+  @override
+  Future<void> saveProfilePhot(String photo) {
+    return _db
+        .collection("users")
+        .doc(_auth.currentUser!.uid)
+        .update({'photoUrl': photo});
+  }
+
   Future<void> getUserName(UserModels user) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("users").doc(user.uid).get();

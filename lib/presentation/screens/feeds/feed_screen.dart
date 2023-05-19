@@ -5,11 +5,10 @@ import 'package:social_app/application/auth/auth_bloc.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/utils/loader.dart';
-import 'package:social_app/domain/auth/auth_failures.dart';
 import 'package:social_app/presentation/common_widgets/custom_btn.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/story_part.dart';
-import '../post/add_screen.dart';
+import '../post/add_post_screen.dart';
 import 'widgets/post_card.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthFailure) {
+          if (state is AuthenticationFailure) {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 LoginScreen.routeName, (route) => false);
           }

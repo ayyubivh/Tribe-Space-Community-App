@@ -41,7 +41,9 @@ class FirebaseRepository implements IAuthRepo {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
-              email: user.email!, password: user.password!);
+        email: user.email!,
+        password: user.password!,
+      );
       return userCredential;
     } on FirebaseAuthException catch (e) {
       log(e.message.toString());
@@ -86,8 +88,8 @@ class FirebaseRepository implements IAuthRepo {
           (await _firebaseAuth.signInWithCredential(credential)).user;
       if (firebaseUser != null) {
         final QuerySnapshot result = await _db
-            .collection(FireStoreConstants.pathUserCollection)
-            .where(FireStoreConstants.id, isEqualTo: firebaseUser.uid)
+            .collection(FirestoreConstants.pathUserCollection)
+            .where(FirestoreConstants.id, isEqualTo: firebaseUser.uid)
             .get();
         final List<DocumentSnapshot> documents = result.docs;
         if (documents.isEmpty) {

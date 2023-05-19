@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
@@ -40,7 +39,7 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
                 child: StreamBuilder<QuerySnapshot>(
               stream:
                   ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
-                      .getUsersStream(FireStoreConstants.pathUserCollection,
+                      .getUsersStream(FirestoreConstants.pathUserCollection,
                           _limit, _textSearch),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
@@ -51,9 +50,9 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
                       itemBuilder: (context, index) {
                         return ChatTile(
                           userName: snapshot.data!.docs[index]
-                              [FireStoreConstants.userName],
+                              [FirestoreConstants.userName],
                           id: snapshot.data!.docs[index]
-                              [FireStoreConstants.uid],
+                              [FirestoreConstants.uid],
                         );
                       },
                     );

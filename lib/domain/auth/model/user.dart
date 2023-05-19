@@ -9,8 +9,8 @@ class UserModels {
   final String? userName;
   final int? age;
   final List? groups;
-  final String? followers;
-  final String? following;
+  final List? followers;
+  final List? following;
   UserModels({
     this.groups,
     this.uid,
@@ -29,7 +29,7 @@ class UserModels {
       'email': email,
       'userName': userName,
       'age': age,
-      'photUrl': photoUrl,
+      'photoUrl': photoUrl,
       'groups': [],
       'followers': [],
       'following': [],

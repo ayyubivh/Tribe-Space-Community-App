@@ -9,23 +9,23 @@ class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   DatabaseService({required this.uid});
   final CollectionReference userCollection = FirebaseFirestore.instance
-      .collection(FireStoreConstants.pathUserCollection);
+      .collection(FirestoreConstants.pathUserCollection);
   final CollectionReference groupCollection = FirebaseFirestore.instance
-      .collection(FireStoreConstants.pathGroupCollection);
+      .collection(FirestoreConstants.pathGroupCollection);
 
   Future<String> retrieveUserName(UserModels user) async {
     DocumentSnapshot<Map<String, dynamic>> snapshot = await _db
-        .collection(FireStoreConstants.pathUserCollection)
+        .collection(FirestoreConstants.pathUserCollection)
         .doc(user.uid)
         .get();
-    return snapshot.data()![FireStoreConstants.userName];
+    return snapshot.data()![FirestoreConstants.userName];
   }
 
 //get group admin
   Future getGroupAdmin(String groupId) async {
     DocumentReference documentReference = groupCollection.doc(groupId);
     DocumentSnapshot documentSnapshot = await documentReference.get();
-    return documentSnapshot[FireStoreConstants.admin];
+    return documentSnapshot[FirestoreConstants.admin];
   }
 
   //get group members

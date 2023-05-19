@@ -17,11 +17,11 @@ class MessageChat with _$MessageChat {
   factory MessageChat.fromJson(Map<String, dynamic> json) =>
       _$MessageChatFromJson(json);
   factory MessageChat.fromDocument(DocumentSnapshot doc) {
-    String idFrom = doc.get(FireStoreConstants.idFrom);
-    String idTo = doc.get(FireStoreConstants.idTo);
-    String timestamp = doc.get(FireStoreConstants.timestamp);
-    String content = doc.get(FireStoreConstants.content);
-    int type = doc.get(FireStoreConstants.type);
+    String idFrom = doc.get(FirestoreConstants.idFrom);
+    String idTo = doc.get(FirestoreConstants.idTo);
+    String timestamp = doc.get(FirestoreConstants.timestamp);
+    String content = doc.get(FirestoreConstants.content);
+    int type = doc.get(FirestoreConstants.type);
     return MessageChat(
         idFrom: idFrom,
         idTo: idTo,

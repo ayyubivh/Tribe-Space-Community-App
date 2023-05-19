@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:social_app/application/image/image_bloc.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import 'package:social_app/presentation/screens/mainpage/main_page.dart';
 import '../../../../application/auth/auth_bloc.dart';
@@ -29,6 +33,9 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('hi');
+    var imageBytes;
+    // print('on buile >>>>>>>>>>>>>>>>>>>>>>${imageBytes.toString()}');
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state.errorMessage.isNotEmpty) {
@@ -39,6 +46,12 @@ class SignUpForm extends StatelessWidget {
         } else if (state.isFormValidateFailed) {
           showSnackbar(context, kRed, "Please fill the data correctly!");
         }
+        // else if (state.isImage == true) {
+        //   log('message to hi>>>>>>>>>>>>>>>>>>>>');
+        //   final imageBytes = context.read<ImageBloc>().state.imagebytes;
+        //   context.read<SignInBloc>().add(ProfilePhotoAdd(imageBytes!));
+        //   log('form isImage ${state.isImage.toString()} >>>>>>>>');
+        // }
       },
       builder: (context, state) {
         var sizedBox2 = SizedBox(height: screenHeight / 16);
@@ -64,6 +77,38 @@ class SignUpForm extends StatelessWidget {
                     key: formkey,
                     child: Column(
                       children: [
+                        BlocBuilder<ImageBloc, ImageState>(
+                            builder: (context, state) {
+                          imageBytes = state.imagebytes;
+                          // print(
+                          //     'on after >>>>>>>>>>>>>>>>>>>>>>${imageBytes.toString()}');
+
+                          return Stack(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: kWhite,
+                                radius: screenHeight / 15,
+                                backgroundImage: state.imagebytes == null
+                                    ? const AssetImage('assets/images/user.png')
+                                    : MemoryImage(state.imagebytes!)
+                                        as ImageProvider,
+                              ),
+                              Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: InkWell(
+                                    onTap: () {
+                                      bottomSheetCamera(context);
+                                    },
+                                    child: Icon(
+                                      Icons.add_a_photo_outlined,
+                                      size: 27,
+                                      color: textGrey,
+                                    )),
+                              )
+                            ],
+                          );
+                        }),
                         gapHeight,
                         CustomTextField(
                             hintText: 'Full Name',
@@ -79,6 +124,9 @@ class SignUpForm extends StatelessWidget {
                         CustomTextField(
                             hintText: 'Email Address',
                             onChanged: (value) {
+                              context
+                                  .read<SignInBloc>()
+                                  .add(ProfilePhotoAdd(imageBytes));
                               context
                                   .read<SignInBloc>()
                                   .add(EmailChanged(value));
@@ -119,6 +167,10 @@ class SignUpForm extends StatelessWidget {
                                         .read<SignInBloc>()
                                         .add(const FormSubmitted(Status.signUp))
                                     : null;
+
+                                context
+                                    .read<ImageBloc>()
+                                    .add(const ClearImage());
                               }
                             },
                           ),
@@ -158,6 +210,76 @@ class SignUpForm extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> bottomSheetCamera(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SizedBox(
+          height: screenHeight / 4.5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                'Choose Profile Photo',
+                style: TextStyle(
+                  color: textGrey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.photo,
+                          size: 35,
+                          color: primaryColor,
+                        ),
+                        onPressed: () {
+                          context.read<ImageBloc>().add(const PickImageEvent(
+                              source: ImageSource.gallery));
+
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text(
+                        'Gallery',
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.photo_camera,
+                          size: 35,
+                          color: primaryColor,
+                        ),
+                        onPressed: () {
+                          context.read<ImageBloc>().add(
+                              const PickImageEvent(source: ImageSource.camera));
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text(
+                        'Camera',
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

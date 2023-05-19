@@ -5,7 +5,7 @@ import 'package:social_app/presentation/screens/feeds/feed_screen.dart';
 import '../common_widgets/profile_screen.dart';
 import '../screens/auth/signup_screen.dart';
 import '../screens/mainpage/main_page.dart';
-import '../screens/post/add_screen.dart';
+import '../screens/post/add_post_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {

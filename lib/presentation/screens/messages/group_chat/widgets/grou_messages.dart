@@ -216,11 +216,11 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
               itemBuilder: (context, index) {
                 return MessageTile(
                     message: snapshot.data!.docs[index]
-                        [FireStoreConstants.messages],
+                        [FirestoreConstants.messages],
                     sender: snapshot.data!.docs[index]
-                        [FireStoreConstants.sender],
+                        [FirestoreConstants.sender],
                     sentByMe: widget.userName ==
-                        snapshot.data!.docs[index][FireStoreConstants.sender]);
+                        snapshot.data!.docs[index][FirestoreConstants.sender]);
               },
             );
           } else {
@@ -234,9 +234,9 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
   sendMessage() {
     if (messageController.text.isNotEmpty) {
       Map<String, dynamic> chatMessage = {
-        FireStoreConstants.messages: messageController.text,
-        FireStoreConstants.sender: widget.userName,
-        FireStoreConstants.time: DateTime.now().microsecondsSinceEpoch
+        FirestoreConstants.messages: messageController.text,
+        FirestoreConstants.sender: widget.userName,
+        FirestoreConstants.time: DateTime.now().microsecondsSinceEpoch
       };
       ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
           .sendGropMessage(widget.groupId, chatMessage);

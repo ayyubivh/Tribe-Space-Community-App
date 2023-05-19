@@ -8,12 +8,13 @@ class DatabaseState with _$DatabaseState {
     required String userName,
     required String email,
     required String uid,
+    required String photoUrl,
   }) = _DatabaseState;
   factory DatabaseState.initial() => const DatabaseState(
-        databaseError: false,
-        userData: "",
-        userName: "",
-        email: "",
-        uid: "",
-      );
+      databaseError: false,
+      userData: "",
+      userName: "",
+      email: "",
+      uid: "",
+      photoUrl: "");
 }

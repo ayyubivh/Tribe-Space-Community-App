@@ -77,7 +77,7 @@ class _FriensChatPageState extends State<FriensChatPage> {
 
   bool isLastMessageLeft(int index) {
     if ((index > 0 &&
-            listMessage[index - 1].get(FireStoreConstants.idFrom) ==
+            listMessage[index - 1].get(FirestoreConstants.idFrom) ==
                 currentUserId) ||
         index == 0) {
       return true;
@@ -88,7 +88,7 @@ class _FriensChatPageState extends State<FriensChatPage> {
 
   bool isLastMessageRight(int index) {
     if ((index > 0 &&
-            listMessage[index - 1].get(FireStoreConstants.idFrom) !=
+            listMessage[index - 1].get(FirestoreConstants.idFrom) !=
                 currentUserId) ||
         index == 0) {
       return true;
@@ -110,9 +110,9 @@ class _FriensChatPageState extends State<FriensChatPage> {
       groupChatId = '$peerId-$currentUserId';
     }
     ChatDatabaseService(uid).updateDataFirestore(
-      FireStoreConstants.pathMessageCollection,
+      FirestoreConstants.pathMessageCollection,
       currentUserId,
-      {FireStoreConstants.chattingWith: peerId},
+      {FirestoreConstants.chattingWith: peerId},
     );
   }
 

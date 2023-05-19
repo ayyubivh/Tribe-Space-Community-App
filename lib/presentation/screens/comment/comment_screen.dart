@@ -1,4 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +10,8 @@ import 'package:social_app/core/utils/utilities.dart';
 import 'package:social_app/presentation/common_widgets/custom_appbar.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/presentation/screens/comment/widgets/comment_card.dart';
+
+import '../../../core/constants/firebase_constants.dart';
 
 class CommentsScreen extends StatelessWidget {
   final postId;
@@ -26,6 +30,11 @@ class CommentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
+    });
+    final user = context.read<DatabaseBloc>().state;
+    log('photo >>>>>>>>>${user.photoUrl}');
     final TextEditingController commentEditingController =
         TextEditingController();
 
@@ -45,10 +54,10 @@ class CommentsScreen extends StatelessWidget {
             ),
             StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection('posts')
+                  .collection(FirestoreConstants.pathPostCollection)
                   .doc(postId)
-                  .collection('comments')
-                  .orderBy('datePublished', descending: true)
+                  .collection(FirestoreConstants.pathCommentCollection)
+                  .orderBy(FirestoreConstants.datePuplished, descending: true)
                   .snapshots(),
               builder: (context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -78,8 +87,8 @@ class CommentsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 8),
             child: Row(
               children: [
-                const CircleAvatar(
-                  // backgroundImage: NetworkImage(user.photoUrl),
+                CircleAvatar(
+                  backgroundImage: NetworkImage(user.photoUrl),
                   radius: 18,
                 ),
                 Expanded(
@@ -94,32 +103,28 @@ class CommentsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                BlocBuilder<DatabaseBloc, DatabaseState>(
-                  builder: (context, state) {
-                    return InkWell(
-                      onTap: () => postComment(
-                        context,
-                        state.uid,
-                        state.userName,
-                        " ",
-                        commentEditingController.text,
-                      ),
+                InkWell(
+                  onTap: () => postComment(
+                    context,
+                    user.uid,
+                    user.userName,
+                    user.photoUrl,
+                    commentEditingController.text,
+                  ),
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 8),
                       child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 8),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: primaryColor,
-                            ),
-                            child: const Icon(
-                              Icons.send,
-                              color: kWhite,
-                            ),
-                          )),
-                    );
-                  },
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: primaryColor,
+                        ),
+                        child: const Icon(
+                          Icons.send,
+                          color: kWhite,
+                        ),
+                      )),
                 )
               ],
             ),

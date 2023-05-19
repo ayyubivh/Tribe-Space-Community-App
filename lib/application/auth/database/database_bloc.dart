@@ -15,9 +15,11 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
   }
   _fetchUserData(DatabaseFetched event, Emitter<DatabaseState> emit) async {
     var userDetails = await _databaseReopsitory.getUserDetails();
+
     emit(state.copyWith(
-      uid: userDetails.uid!,
+      uid: userDetails.uid.toString(),
       userName: userDetails.userName!,
+      photoUrl: userDetails.photoUrl.toString(),
     ));
   }
 }

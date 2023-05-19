@@ -19,7 +19,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         UserModels user = await authRepo.getCurrentUser().first;
         if (user.uid != "uid") {
           String? userName = await authRepo.retrieveUserName(user);
-          log('user name test >>>>>>>>$userName');
 
           emit(AuthenticationSuccess(
             userName: userName.toString(),

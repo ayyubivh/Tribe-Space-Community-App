@@ -100,9 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                  image: NetworkImage(
-                                      "https://www.mykhel.com/thumb/250x90x250/football/players/8/61278.jpg"),
+                                image: DecorationImage(
+                                  image: NetworkImage(userData['photoUrl']),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(50),

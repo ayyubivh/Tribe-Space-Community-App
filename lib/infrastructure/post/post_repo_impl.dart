@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import 'package:social_app/domain/auth/storage_methods.dart';
 import 'package:social_app/domain/post/model/post_model.dart';
 
+import '../../core/constants/firebase_constants.dart';
 import '../../domain/post/i_post_repo.dart';
 
 @LazySingleton(as: IPostRepo)
@@ -17,8 +18,8 @@ class PostRepository implements IPostRepo {
   Future<String?> uploadPost(String description, Uint8List file, String uid,
       String userName, String profileImage) async {
     try {
-      String photoUrl =
-          await StorageMethods().uploadImageToStorage('posts', file, true);
+      String photoUrl = await StorageMethods().uploadImageToStorage(
+          FirestoreConstants.pathPostCollection, file, true);
       String postId = const Uuid().v1();
       Post post = Post(
         userName: userName,
@@ -30,7 +31,10 @@ class PostRepository implements IPostRepo {
         profileImage: profileImage,
         likes: [],
       );
-      _firestore.collection('posts').doc(postId).set(post.toJson());
+      _firestore
+          .collection(FirestoreConstants.pathUserCollection)
+          .doc(postId)
+          .set(post.toJson());
     } catch (e) {
       log('post error >>>> ${e.toString()}');
     }
@@ -51,9 +55,9 @@ class PostRepository implements IPostRepo {
             commentId: commentId,
             datePublished: DateTime.now());
         _firestore
-            .collection('posts')
+            .collection(FirestoreConstants.pathPostCollection)
             .doc(postId)
-            .collection("comments")
+            .collection(FirestoreConstants.pathCommentCollection)
             .doc(commentId)
             .set(comment.toJson());
       }
@@ -65,7 +69,10 @@ class PostRepository implements IPostRepo {
   @override
   Future<void> deletePost(String postId) async {
     try {
-      await _firestore.collection('posts').doc(postId).delete();
+      await _firestore
+          .collection(FirestoreConstants.pathUserCollection)
+          .doc(postId)
+          .delete();
     } catch (err) {
       log('delet err ${err.toString()}');
     }
@@ -74,24 +81,38 @@ class PostRepository implements IPostRepo {
   @override
   Future<void> followUser(String uid, String followId) async {
     try {
-      DocumentSnapshot snap =
-          await _firestore.collection('users').doc(uid).get();
+      DocumentSnapshot snap = await _firestore
+          .collection(FirestoreConstants.pathUserCollection)
+          .doc(uid)
+          .get();
 
-      List following = (snap.data()! as dynamic)['following'];
+      List following = (snap.data()! as dynamic)[FirestoreConstants.following];
 
       if (following.contains(followId)) {
-        await _firestore.collection('users').doc(followId).update({
-          'followers': FieldValue.arrayRemove([uid])
+        await _firestore
+            .collection(FirestoreConstants.pathUserCollection)
+            .doc(followId)
+            .update({
+          FirestoreConstants.followers: FieldValue.arrayRemove([uid])
         });
-        await _firestore.collection('users').doc(uid).update({
-          'following': FieldValue.arrayRemove([followId])
+        await _firestore
+            .collection(FirestoreConstants.pathUserCollection)
+            .doc(uid)
+            .update({
+          FirestoreConstants.following: FieldValue.arrayRemove([followId])
         });
       } else {
-        await _firestore.collection('users').doc(followId).update({
-          'followers': FieldValue.arrayUnion([uid])
+        await _firestore
+            .collection(FirestoreConstants.pathUserCollection)
+            .doc(followId)
+            .update({
+          FirestoreConstants.followers: FieldValue.arrayUnion([uid])
         });
-        await _firestore.collection('users').doc(uid).update({
-          'following': FieldValue.arrayUnion([followId])
+        await _firestore
+            .collection(FirestoreConstants.pathUserCollection)
+            .doc(uid)
+            .update({
+          FirestoreConstants.following: FieldValue.arrayUnion([followId])
         });
       }
     } catch (e) {
@@ -103,15 +124,21 @@ class PostRepository implements IPostRepo {
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
       if (likes.contains(uid)) {
-        await _firestore.collection('posts').doc(postId).update(
+        await _firestore
+            .collection(FirestoreConstants.pathPostCollection)
+            .doc(postId)
+            .update(
           {
-            'likes': FieldValue.arrayRemove([uid]),
+            FirestoreConstants.likes: FieldValue.arrayRemove([uid]),
           },
         );
       } else {
-        await _firestore.collection('posts').doc(postId).update(
+        await _firestore
+            .collection(FirestoreConstants.pathPostCollection)
+            .doc(postId)
+            .update(
           {
-            'likes': FieldValue.arrayUnion([uid]),
+            FirestoreConstants.likes: FieldValue.arrayUnion([uid]),
           },
         );
       }

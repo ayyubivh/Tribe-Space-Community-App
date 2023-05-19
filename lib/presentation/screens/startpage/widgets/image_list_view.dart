@@ -20,24 +20,6 @@ class ImageListView extends StatelessWidget {
           return CachedNetworkImage(
             imageUrl: introImage[index].productImageUrl,
             imageBuilder: (context, imageProvider) {
-              // return Container(
-              //   margin: const EdgeInsets.only(
-              //     right: 3.0,
-              //     left: 3.0,
-              //     top: 10.0,
-              //   ),
-              //   height: 148,
-              //   width: 152,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: kWhite, width: 2),
-              //     borderRadius: BorderRadius.circular(20.0),
-              //     image: DecorationImage(
-              //       image: imageProvider,
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // );
-
               return Padding(
                   padding: const EdgeInsets.all(3),
                   child: Container(
@@ -50,7 +32,7 @@ class ImageListView extends StatelessWidget {
                       child: Image(
                         image: imageProvider,
                         fit: BoxFit.cover,
-                        height: index % 6 == 0 ? 100 : null,
+                        height: index % 7 == 0 ? 100 : null,
                       ),
                     ),
                   ));
@@ -70,10 +52,10 @@ class Produt {
 
 final introImage = [
   Produt(
-      "https://burst.shopifycdn.com/photos/fashion-model-poses.jpg?width=925&format=pjpg&exif=1&iptc=1"),
-  Produt(
     "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZSUyMGltYWdlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   ),
+  Produt(
+      "https://burst.shopifycdn.com/photos/fashion-model-poses.jpg?width=925&format=pjpg&exif=1&iptc=1"),
   Produt(
     "https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fG1lbnN8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
   ),

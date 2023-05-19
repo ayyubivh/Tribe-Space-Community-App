@@ -8,6 +8,7 @@ import 'package:social_app/core/utils/utilities.dart';
 import '../../../application/auth/database/database_bloc.dart';
 import '../../../application/post/post_bloc.dart';
 import '../../../core/colors/colors.dart';
+import '../../../core/constants/firebase_constants.dart';
 import '../../common_widgets/custom_appbar.dart';
 import '../mainpage/main_page.dart';
 
@@ -91,13 +92,14 @@ class AddPostScreen extends StatelessWidget {
   //>>>>>>>>>>>>>>>>>>>>>>>>>when on tap the post button<<<<<<<<<<<<<<<<<<<<<<<<<<<
   void onPost(BuildContext context, String discription, Uint8List file) {
     final userName = context.read<DatabaseBloc>().state.userName;
+
     context.read<PostBloc>().add(
           UploadPostEvent(
               description: discription,
               file: file,
               uid: FirebaseAuth.instance.currentUser!.uid,
               userName: userName,
-              profileImage: 'profileImage'),
+              profileImage: FirestoreConstants.profileImage),
         );
     Utilities.closeKeyboard(context);
   }
@@ -105,7 +107,10 @@ class AddPostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController discriptionController = TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
+    });
+    final user = context.read<DatabaseBloc>().state;
     return BlocBuilder<ImageBloc, ImageState>(
       builder: (context, state) {
         if (state.imagebytes == null) {
@@ -113,18 +118,13 @@ class AddPostScreen extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  // color: kRed,
-                  child: Image.asset('assets/images/upload_image.jpg'),
-                ),
-                IconButton(
-                  onPressed: () => selectImage(context),
-                  icon: Icon(
-                    Icons.upload,
-                    size: 50,
-                    color: primaryColor,
+                InkWell(
+                  onTap: () => selectImage(context),
+                  child: SizedBox(
+                    height: 300,
+                    width: double.infinity,
+                    // color: kRed,
+                    child: Image.asset('assets/images/upload_image.jpg'),
                   ),
                 ),
               ],
@@ -177,9 +177,9 @@ class AddPostScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                            // backgroundImage: NetworkImage(user.photoUrl),
-                            ),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(user.photoUrl),
+                        ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.45,
                           child: TextField(

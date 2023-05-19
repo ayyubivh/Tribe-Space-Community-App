@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:social_app/domain/messages/models/messge_models.dart';
 import '../../core/constants/firebase_constants.dart';
-import '../auth/storage_methods.dart';
 
 class ChatDatabaseService {
   final String? uid;
@@ -13,9 +10,9 @@ class ChatDatabaseService {
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   ChatDatabaseService(this.uid);
   final CollectionReference userCollection = FirebaseFirestore.instance
-      .collection(FireStoreConstants.pathUserCollection);
+      .collection(FirestoreConstants.pathUserCollection);
   final CollectionReference groupCollection = FirebaseFirestore.instance
-      .collection(FireStoreConstants.pathGroupCollection);
+      .collection(FirestoreConstants.pathGroupCollection);
 
 // get users
 
@@ -25,7 +22,7 @@ class ChatDatabaseService {
       return _db
           .collection(pathCollection)
           .limit(limit)
-          .where(FireStoreConstants.userName, isEqualTo: textSearch)
+          .where(FirestoreConstants.userName, isEqualTo: textSearch)
           .snapshots();
     } else {
       return _db.collection(pathCollection).limit(limit).snapshots();
@@ -49,7 +46,7 @@ class ChatDatabaseService {
   void sendMessage(
       String content, int type, String groupChatId, String uid, String peerId) {
     DocumentReference documentReference = _db
-        .collection(FireStoreConstants.pathMessageCollection)
+        .collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
         .collection(groupChatId)
         .doc(DateTime.now().microsecondsSinceEpoch.toString());
@@ -71,22 +68,22 @@ class ChatDatabaseService {
   //create a group
   Future createGroup(String userName, String id, String groupName) async {
     DocumentReference groupDocumentReference = await groupCollection.add({
-      FireStoreConstants.groupName: groupName,
-      FireStoreConstants.groupIcon: " ",
-      FireStoreConstants.admin: "${id}_$userName",
-      FireStoreConstants.members: [],
-      FireStoreConstants.groupId: "",
-      FireStoreConstants.recentMessage: "",
-      FireStoreConstants.recentMessageSender: ""
+      FirestoreConstants.groupName: groupName,
+      FirestoreConstants.groupIcon: " ",
+      FirestoreConstants.admin: "${id}_$userName",
+      FirestoreConstants.members: [],
+      FirestoreConstants.groupId: "",
+      FirestoreConstants.recentMessage: "",
+      FirestoreConstants.recentMessageSender: ""
     });
     await groupDocumentReference.update({
-      FireStoreConstants.members: FieldValue.arrayUnion(["${uid}_$userName"]),
-      FireStoreConstants.groupId: groupDocumentReference.id
+      FirestoreConstants.members: FieldValue.arrayUnion(["${uid}_$userName"]),
+      FirestoreConstants.groupId: groupDocumentReference.id
     });
 
     DocumentReference userDcoumentReference = userCollection.doc(uid);
     await userDcoumentReference.update({
-      FireStoreConstants.groups:
+      FirestoreConstants.groups:
           FieldValue.arrayUnion(["${groupDocumentReference.id}_$groupName"])
     });
   }
@@ -95,8 +92,8 @@ class ChatDatabaseService {
   getGroupChat(String groupId) async {
     return groupCollection
         .doc(groupId)
-        .collection(FireStoreConstants.pathMessageCollection)
-        .orderBy(FireStoreConstants.time)
+        .collection(FirestoreConstants.pathMessageCollection)
+        .orderBy(FirestoreConstants.time)
         .snapshots();
   }
 
@@ -104,25 +101,25 @@ class ChatDatabaseService {
   sendGropMessage(String groupId, Map<String, dynamic> chatMessageData) async {
     groupCollection
         .doc(groupId)
-        .collection(FireStoreConstants.messages)
+        .collection(FirestoreConstants.messages)
         .add(chatMessageData);
     groupCollection.doc(groupId).update({
-      FireStoreConstants.recentMessage:
-          chatMessageData[FireStoreConstants.messages],
-      FireStoreConstants.recentMessageSender:
-          chatMessageData[FireStoreConstants.sender],
-      FireStoreConstants.recentMessageTime:
-          chatMessageData[FireStoreConstants.time].toString()
+      FirestoreConstants.recentMessage:
+          chatMessageData[FirestoreConstants.messages],
+      FirestoreConstants.recentMessageSender:
+          chatMessageData[FirestoreConstants.sender],
+      FirestoreConstants.recentMessageTime:
+          chatMessageData[FirestoreConstants.time].toString()
     });
   }
 
   // get message chats
   Stream<QuerySnapshot> getChatStream(String groupChatId, int limit) {
     return _db
-        .collection(FireStoreConstants.pathMessageCollection)
+        .collection(FirestoreConstants.pathMessageCollection)
         .doc(groupChatId)
         .collection(groupChatId)
-        .orderBy(FireStoreConstants.timestamp, descending: true)
+        .orderBy(FirestoreConstants.timestamp, descending: true)
         .limit(limit)
         .snapshots();
   }

@@ -21,6 +21,7 @@ mixin _$SignInEvent {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -31,6 +32,7 @@ mixin _$SignInEvent {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -41,6 +43,7 @@ mixin _$SignInEvent {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -52,6 +55,7 @@ mixin _$SignInEvent {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -63,6 +67,7 @@ mixin _$SignInEvent {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -73,6 +78,7 @@ mixin _$SignInEvent {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -167,6 +173,7 @@ class _$EmailChanged implements EmailChanged {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -180,6 +187,7 @@ class _$EmailChanged implements EmailChanged {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -193,6 +201,7 @@ class _$EmailChanged implements EmailChanged {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -210,6 +219,7 @@ class _$EmailChanged implements EmailChanged {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -224,6 +234,7 @@ class _$EmailChanged implements EmailChanged {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -237,6 +248,7 @@ class _$EmailChanged implements EmailChanged {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -326,6 +338,7 @@ class _$PassWordChanged implements PassWordChanged {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -339,6 +352,7 @@ class _$PassWordChanged implements PassWordChanged {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -352,6 +366,7 @@ class _$PassWordChanged implements PassWordChanged {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -369,6 +384,7 @@ class _$PassWordChanged implements PassWordChanged {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -383,6 +399,7 @@ class _$PassWordChanged implements PassWordChanged {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -396,6 +413,7 @@ class _$PassWordChanged implements PassWordChanged {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -484,6 +502,7 @@ class _$NameChanged implements NameChanged {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -497,6 +516,7 @@ class _$NameChanged implements NameChanged {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -510,6 +530,7 @@ class _$NameChanged implements NameChanged {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -527,6 +548,7 @@ class _$NameChanged implements NameChanged {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -541,6 +563,7 @@ class _$NameChanged implements NameChanged {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -554,6 +577,7 @@ class _$NameChanged implements NameChanged {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -572,6 +596,172 @@ abstract class NameChanged implements SignInEvent {
   String get nameStr;
   @JsonKey(ignore: true)
   _$$NameChangedCopyWith<_$NameChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProfilePhotoAddCopyWith<$Res> {
+  factory _$$ProfilePhotoAddCopyWith(
+          _$ProfilePhotoAdd value, $Res Function(_$ProfilePhotoAdd) then) =
+      __$$ProfilePhotoAddCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Uint8List imageBytes});
+}
+
+/// @nodoc
+class __$$ProfilePhotoAddCopyWithImpl<$Res>
+    extends _$SignInEventCopyWithImpl<$Res, _$ProfilePhotoAdd>
+    implements _$$ProfilePhotoAddCopyWith<$Res> {
+  __$$ProfilePhotoAddCopyWithImpl(
+      _$ProfilePhotoAdd _value, $Res Function(_$ProfilePhotoAdd) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? imageBytes = null,
+  }) {
+    return _then(_$ProfilePhotoAdd(
+      null == imageBytes
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProfilePhotoAdd implements ProfilePhotoAdd {
+  const _$ProfilePhotoAdd(this.imageBytes);
+
+  @override
+  final Uint8List imageBytes;
+
+  @override
+  String toString() {
+    return 'SignInEvent.profilePhotoAdd(imageBytes: $imageBytes)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfilePhotoAdd &&
+            const DeepCollectionEquality()
+                .equals(other.imageBytes, imageBytes));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(imageBytes));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfilePhotoAddCopyWith<_$ProfilePhotoAdd> get copyWith =>
+      __$$ProfilePhotoAddCopyWithImpl<_$ProfilePhotoAdd>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String emailStr) emailChanged,
+    required TResult Function(String passWordStr) passWordChanged,
+    required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
+    required TResult Function(Status value) formSubmitted,
+    required TResult Function() formSucceeded,
+    required TResult Function() signWithGooglePressed,
+  }) {
+    return profilePhotoAdd(imageBytes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String emailStr)? emailChanged,
+    TResult? Function(String passWordStr)? passWordChanged,
+    TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
+    TResult? Function(Status value)? formSubmitted,
+    TResult? Function()? formSucceeded,
+    TResult? Function()? signWithGooglePressed,
+  }) {
+    return profilePhotoAdd?.call(imageBytes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String emailStr)? emailChanged,
+    TResult Function(String passWordStr)? passWordChanged,
+    TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
+    TResult Function(Status value)? formSubmitted,
+    TResult Function()? formSucceeded,
+    TResult Function()? signWithGooglePressed,
+    required TResult orElse(),
+  }) {
+    if (profilePhotoAdd != null) {
+      return profilePhotoAdd(imageBytes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(PassWordChanged value) passWordChanged,
+    required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
+    required TResult Function(FormSubmitted value) formSubmitted,
+    required TResult Function(FomrSucceeded value) formSucceeded,
+    required TResult Function(SignWithGooglePressed value)
+        signWithGooglePressed,
+  }) {
+    return profilePhotoAdd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(PassWordChanged value)? passWordChanged,
+    TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
+    TResult? Function(FormSubmitted value)? formSubmitted,
+    TResult? Function(FomrSucceeded value)? formSucceeded,
+    TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
+  }) {
+    return profilePhotoAdd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(PassWordChanged value)? passWordChanged,
+    TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
+    TResult Function(FormSubmitted value)? formSubmitted,
+    TResult Function(FomrSucceeded value)? formSucceeded,
+    TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
+    required TResult orElse(),
+  }) {
+    if (profilePhotoAdd != null) {
+      return profilePhotoAdd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProfilePhotoAdd implements SignInEvent {
+  const factory ProfilePhotoAdd(final Uint8List imageBytes) = _$ProfilePhotoAdd;
+
+  Uint8List get imageBytes;
+  @JsonKey(ignore: true)
+  _$$ProfilePhotoAddCopyWith<_$ProfilePhotoAdd> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -642,6 +832,7 @@ class _$FormSubmitted implements FormSubmitted {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -655,6 +846,7 @@ class _$FormSubmitted implements FormSubmitted {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -668,6 +860,7 @@ class _$FormSubmitted implements FormSubmitted {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -685,6 +878,7 @@ class _$FormSubmitted implements FormSubmitted {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -699,6 +893,7 @@ class _$FormSubmitted implements FormSubmitted {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -712,6 +907,7 @@ class _$FormSubmitted implements FormSubmitted {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -774,6 +970,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -787,6 +984,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -800,6 +998,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -817,6 +1016,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -831,6 +1031,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -844,6 +1045,7 @@ class _$FomrSucceeded implements FomrSucceeded {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -901,6 +1103,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     required TResult Function(String emailStr) emailChanged,
     required TResult Function(String passWordStr) passWordChanged,
     required TResult Function(String nameStr) namechanged,
+    required TResult Function(Uint8List imageBytes) profilePhotoAdd,
     required TResult Function(Status value) formSubmitted,
     required TResult Function() formSucceeded,
     required TResult Function() signWithGooglePressed,
@@ -914,6 +1117,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     TResult? Function(String emailStr)? emailChanged,
     TResult? Function(String passWordStr)? passWordChanged,
     TResult? Function(String nameStr)? namechanged,
+    TResult? Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult? Function(Status value)? formSubmitted,
     TResult? Function()? formSucceeded,
     TResult? Function()? signWithGooglePressed,
@@ -927,6 +1131,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     TResult Function(String emailStr)? emailChanged,
     TResult Function(String passWordStr)? passWordChanged,
     TResult Function(String nameStr)? namechanged,
+    TResult Function(Uint8List imageBytes)? profilePhotoAdd,
     TResult Function(Status value)? formSubmitted,
     TResult Function()? formSucceeded,
     TResult Function()? signWithGooglePressed,
@@ -944,6 +1149,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(PassWordChanged value) passWordChanged,
     required TResult Function(NameChanged value) namechanged,
+    required TResult Function(ProfilePhotoAdd value) profilePhotoAdd,
     required TResult Function(FormSubmitted value) formSubmitted,
     required TResult Function(FomrSucceeded value) formSucceeded,
     required TResult Function(SignWithGooglePressed value)
@@ -958,6 +1164,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(PassWordChanged value)? passWordChanged,
     TResult? Function(NameChanged value)? namechanged,
+    TResult? Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult? Function(FormSubmitted value)? formSubmitted,
     TResult? Function(FomrSucceeded value)? formSucceeded,
     TResult? Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -971,6 +1178,7 @@ class _$SignWithGooglePressed implements SignWithGooglePressed {
     TResult Function(EmailChanged value)? emailChanged,
     TResult Function(PassWordChanged value)? passWordChanged,
     TResult Function(NameChanged value)? namechanged,
+    TResult Function(ProfilePhotoAdd value)? profilePhotoAdd,
     TResult Function(FormSubmitted value)? formSubmitted,
     TResult Function(FomrSucceeded value)? formSucceeded,
     TResult Function(SignWithGooglePressed value)? signWithGooglePressed,
@@ -992,6 +1200,7 @@ mixin _$SignInState {
   String get email => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
+  Uint8List? get photoUrl => throw _privateConstructorUsedError;
   bool get isEmailValid => throw _privateConstructorUsedError;
   bool get isPasswordValid => throw _privateConstructorUsedError;
   bool get isFormValid => throw _privateConstructorUsedError;
@@ -999,6 +1208,7 @@ mixin _$SignInState {
   bool get isNameValid => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
   bool get isFormSuccessful => throw _privateConstructorUsedError;
+  bool get isImage => throw _privateConstructorUsedError;
   bool get isFormValidateFailed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1016,6 +1226,7 @@ abstract class $SignInStateCopyWith<$Res> {
       {String email,
       String? password,
       String userName,
+      Uint8List? photoUrl,
       bool isEmailValid,
       bool isPasswordValid,
       bool isFormValid,
@@ -1023,6 +1234,7 @@ abstract class $SignInStateCopyWith<$Res> {
       bool isNameValid,
       String errorMessage,
       bool isFormSuccessful,
+      bool isImage,
       bool isFormValidateFailed});
 }
 
@@ -1042,6 +1254,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
     Object? email = null,
     Object? password = freezed,
     Object? userName = null,
+    Object? photoUrl = freezed,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
     Object? isFormValid = null,
@@ -1049,6 +1262,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
     Object? isNameValid = null,
     Object? errorMessage = null,
     Object? isFormSuccessful = null,
+    Object? isImage = null,
     Object? isFormValidateFailed = null,
   }) {
     return _then(_value.copyWith(
@@ -1064,6 +1278,10 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      photoUrl: freezed == photoUrl
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -1091,6 +1309,10 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
       isFormSuccessful: null == isFormSuccessful
           ? _value.isFormSuccessful
           : isFormSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isImage: null == isImage
+          ? _value.isImage
+          : isImage // ignore: cast_nullable_to_non_nullable
               as bool,
       isFormValidateFailed: null == isFormValidateFailed
           ? _value.isFormValidateFailed
@@ -1112,6 +1334,7 @@ abstract class _$$_SignInStateCopyWith<$Res>
       {String email,
       String? password,
       String userName,
+      Uint8List? photoUrl,
       bool isEmailValid,
       bool isPasswordValid,
       bool isFormValid,
@@ -1119,6 +1342,7 @@ abstract class _$$_SignInStateCopyWith<$Res>
       bool isNameValid,
       String errorMessage,
       bool isFormSuccessful,
+      bool isImage,
       bool isFormValidateFailed});
 }
 
@@ -1136,6 +1360,7 @@ class __$$_SignInStateCopyWithImpl<$Res>
     Object? email = null,
     Object? password = freezed,
     Object? userName = null,
+    Object? photoUrl = freezed,
     Object? isEmailValid = null,
     Object? isPasswordValid = null,
     Object? isFormValid = null,
@@ -1143,6 +1368,7 @@ class __$$_SignInStateCopyWithImpl<$Res>
     Object? isNameValid = null,
     Object? errorMessage = null,
     Object? isFormSuccessful = null,
+    Object? isImage = null,
     Object? isFormValidateFailed = null,
   }) {
     return _then(_$_SignInState(
@@ -1158,6 +1384,10 @@ class __$$_SignInStateCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      photoUrl: freezed == photoUrl
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       isEmailValid: null == isEmailValid
           ? _value.isEmailValid
           : isEmailValid // ignore: cast_nullable_to_non_nullable
@@ -1186,6 +1416,10 @@ class __$$_SignInStateCopyWithImpl<$Res>
           ? _value.isFormSuccessful
           : isFormSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
+      isImage: null == isImage
+          ? _value.isImage
+          : isImage // ignore: cast_nullable_to_non_nullable
+              as bool,
       isFormValidateFailed: null == isFormValidateFailed
           ? _value.isFormValidateFailed
           : isFormValidateFailed // ignore: cast_nullable_to_non_nullable
@@ -1201,6 +1435,7 @@ class _$_SignInState implements _SignInState {
       {required this.email,
       required this.password,
       required this.userName,
+      required this.photoUrl,
       required this.isEmailValid,
       required this.isPasswordValid,
       required this.isFormValid,
@@ -1208,6 +1443,7 @@ class _$_SignInState implements _SignInState {
       required this.isNameValid,
       required this.errorMessage,
       required this.isFormSuccessful,
+      required this.isImage,
       required this.isFormValidateFailed});
 
   @override
@@ -1216,6 +1452,8 @@ class _$_SignInState implements _SignInState {
   final String? password;
   @override
   final String userName;
+  @override
+  final Uint8List? photoUrl;
   @override
   final bool isEmailValid;
   @override
@@ -1231,11 +1469,13 @@ class _$_SignInState implements _SignInState {
   @override
   final bool isFormSuccessful;
   @override
+  final bool isImage;
+  @override
   final bool isFormValidateFailed;
 
   @override
   String toString() {
-    return 'SignInState(email: $email, password: $password, userName: $userName, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isFormValid: $isFormValid, isLoading: $isLoading, isNameValid: $isNameValid, errorMessage: $errorMessage, isFormSuccessful: $isFormSuccessful, isFormValidateFailed: $isFormValidateFailed)';
+    return 'SignInState(email: $email, password: $password, userName: $userName, photoUrl: $photoUrl, isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isFormValid: $isFormValid, isLoading: $isLoading, isNameValid: $isNameValid, errorMessage: $errorMessage, isFormSuccessful: $isFormSuccessful, isImage: $isImage, isFormValidateFailed: $isFormValidateFailed)';
   }
 
   @override
@@ -1248,6 +1488,7 @@ class _$_SignInState implements _SignInState {
                 other.password == password) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            const DeepCollectionEquality().equals(other.photoUrl, photoUrl) &&
             (identical(other.isEmailValid, isEmailValid) ||
                 other.isEmailValid == isEmailValid) &&
             (identical(other.isPasswordValid, isPasswordValid) ||
@@ -1262,6 +1503,7 @@ class _$_SignInState implements _SignInState {
                 other.errorMessage == errorMessage) &&
             (identical(other.isFormSuccessful, isFormSuccessful) ||
                 other.isFormSuccessful == isFormSuccessful) &&
+            (identical(other.isImage, isImage) || other.isImage == isImage) &&
             (identical(other.isFormValidateFailed, isFormValidateFailed) ||
                 other.isFormValidateFailed == isFormValidateFailed));
   }
@@ -1272,6 +1514,7 @@ class _$_SignInState implements _SignInState {
       email,
       password,
       userName,
+      const DeepCollectionEquality().hash(photoUrl),
       isEmailValid,
       isPasswordValid,
       isFormValid,
@@ -1279,6 +1522,7 @@ class _$_SignInState implements _SignInState {
       isNameValid,
       errorMessage,
       isFormSuccessful,
+      isImage,
       isFormValidateFailed);
 
   @JsonKey(ignore: true)
@@ -1293,6 +1537,7 @@ abstract class _SignInState implements SignInState {
       {required final String email,
       required final String? password,
       required final String userName,
+      required final Uint8List? photoUrl,
       required final bool isEmailValid,
       required final bool isPasswordValid,
       required final bool isFormValid,
@@ -1300,6 +1545,7 @@ abstract class _SignInState implements SignInState {
       required final bool isNameValid,
       required final String errorMessage,
       required final bool isFormSuccessful,
+      required final bool isImage,
       required final bool isFormValidateFailed}) = _$_SignInState;
 
   @override
@@ -1308,6 +1554,8 @@ abstract class _SignInState implements SignInState {
   String? get password;
   @override
   String get userName;
+  @override
+  Uint8List? get photoUrl;
   @override
   bool get isEmailValid;
   @override
@@ -1322,6 +1570,8 @@ abstract class _SignInState implements SignInState {
   String get errorMessage;
   @override
   bool get isFormSuccessful;
+  @override
+  bool get isImage;
   @override
   bool get isFormValidateFailed;
   @override

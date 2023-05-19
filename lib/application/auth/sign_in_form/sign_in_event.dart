@@ -8,10 +8,8 @@ class SignInEvent with _$SignInEvent {
   const factory SignInEvent.passWordChanged(String passWordStr) =
       PassWordChanged;
   const factory SignInEvent.namechanged(String nameStr) = NameChanged;
-  // const factory SignInEvent.registerWithEmailAndPassWordPressed() =
-  //     RegisterWithEmailAndPassWordPressed;
-  // const factory SignInEvent.signInWithEmailAndPassWordPressed() =
-  //     SignInWithEmailAndPassWordPressed;
+  const factory SignInEvent.profilePhotoAdd(Uint8List imageBytes) =
+      ProfilePhotoAdd;
   const factory SignInEvent.formSubmitted(final Status value) = FormSubmitted;
   const factory SignInEvent.formSucceeded() = FomrSucceeded;
   const factory SignInEvent.signWithGooglePressed() = SignWithGooglePressed;
