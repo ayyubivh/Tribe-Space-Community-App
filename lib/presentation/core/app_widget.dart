@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/application/comment/comment_bloc.dart';
 import 'package:social_app/application/image/image_bloc.dart';
+import 'package:social_app/application/messages/message_search/message_search_bloc.dart';
 import 'package:social_app/application/post/post_bloc.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
 import '../../application/auth/auth_bloc.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<CommentBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => MessageSearchBloc(),
         ),
       ],
       child: MaterialApp(

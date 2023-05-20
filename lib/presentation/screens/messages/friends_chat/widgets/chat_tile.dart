@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:social_app/presentation/screens/messages/friends_chat/widgets/chat_page.dart';
 import '../../../../../core/utils/utilities.dart';
 
-class ChatTile extends StatefulWidget {
+class ChatTile extends StatelessWidget {
   final String userName;
   final String? id;
   const ChatTile({
@@ -13,15 +13,8 @@ class ChatTile extends StatefulWidget {
   });
 
   @override
-  State<ChatTile> createState() => _MyWidgetState();
-}
-
-bool isJoined = false;
-
-class _MyWidgetState extends State<ChatTile> {
-  @override
   Widget build(BuildContext context) {
-    if (widget.id == FirebaseAuth.instance.currentUser!.uid) {
+    if (id == FirebaseAuth.instance.currentUser!.uid) {
       return const SizedBox.shrink();
     } else {
       return ListTile(
@@ -31,13 +24,11 @@ class _MyWidgetState extends State<ChatTile> {
           }
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => FriensChatPage(
-                peerId: widget.id!,
-                peerNickname: widget.userName,
-                peerAvatar: ''),
+                peerId: id!, peerNickname: userName, peerAvatar: ''),
           ));
         },
         title: Text(
-          widget.userName,
+          userName,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: const Text(
@@ -48,7 +39,7 @@ class _MyWidgetState extends State<ChatTile> {
           radius: 30,
           backgroundColor: Theme.of(context).primaryColor,
           child: Text(
-            widget.userName.substring(0, 1).toUpperCase(),
+            userName.substring(0, 1).toUpperCase(),
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
@@ -56,3 +47,5 @@ class _MyWidgetState extends State<ChatTile> {
     }
   }
 }
+
+bool isJoined = false;

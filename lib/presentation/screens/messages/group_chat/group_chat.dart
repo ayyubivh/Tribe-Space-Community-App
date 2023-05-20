@@ -38,7 +38,7 @@ class _GropChatScreenState extends State<GropChatScreen> {
   @override
   void initState() {
     super.initState();
-    // BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
+    BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
     isLoading = false;
     gettingData();
   }

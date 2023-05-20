@@ -6,9 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:social_app/application/post/post_bloc.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/consts.dart';
+import 'package:social_app/core/utils/loader.dart';
 import 'package:social_app/core/utils/utils.dart';
 import 'package:social_app/presentation/screens/comment/comment_screen.dart';
 import 'package:social_app/presentation/screens/feeds/widgets/like_animation.dart';
+
+import '../../messages/friends_chat/widgets/full_photo_page.dart';
 
 class PostCard extends StatefulWidget {
   final snap;
@@ -205,15 +208,51 @@ class _PostCardState extends State<PostCard> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
-            height: screenHeight / 2.2,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: NetworkImage(
-                  widget.snap['posturl'],
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      FullPhotoPage(url: widget.snap['posturl']),
                 ),
-                fit: BoxFit.cover,
+              );
+            },
+            child: Container(
+              height: screenHeight / 2.2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ClipRRect(
+                clipBehavior: Clip.hardEdge,
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  widget.snap['posturl'],
+                  fit: BoxFit.contain,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return const Loader();
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                        decoration: const BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        width: 200,
+                        height: 200,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor,
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        )));
+                  },
+                ),
               ),
             ),
           ),

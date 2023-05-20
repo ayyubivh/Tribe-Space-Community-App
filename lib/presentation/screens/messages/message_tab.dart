@@ -36,7 +36,7 @@ class _MessgeScreenState extends State<MessgeScreen> {
                   Tab(text: 'Group'),
                 ]),
           ),
-          body: const TabBarView(children: [
+          body: TabBarView(children: [
             FriensChatScreen(),
             GropChatScreen(),
           ]),

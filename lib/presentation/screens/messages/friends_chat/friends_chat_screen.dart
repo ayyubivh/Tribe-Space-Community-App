@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/application/messages/message_search/message_search_bloc.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/core/utils/loader.dart';
@@ -18,12 +20,15 @@ class FriensChatScreen extends StatefulWidget {
 }
 
 class _FriensChatScreenState extends State<FriensChatScreen> {
-  String _textSearch = "";
   final int _limit = 20;
+
   bool isLoading = false;
-  final Debouncer searchDebouncer = Debouncer(milliseconds: 300);
   final StreamController<bool> btnClearController = StreamController<bool>();
+
+  final Debouncer searchDebouncer = Debouncer(milliseconds: 300);
+
   final TextEditingController searchBarTec = TextEditingController();
+
   final ScrollController listScrollController = ScrollController();
 
   @override
@@ -36,37 +41,39 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
             kHeight10,
             buildSearchBar(),
             Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-              stream:
-                  ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
-                      .getUsersStream(FirestoreConstants.pathUserCollection,
-                          _limit, _textSearch),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  if ((snapshot.data?.docs.length ?? 0) > 0) {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      controller: listScrollController,
-                      itemBuilder: (context, index) {
-                        return ChatTile(
-                          userName: snapshot.data!.docs[index]
-                              [FirestoreConstants.userName],
-                          id: snapshot.data!.docs[index]
-                              [FirestoreConstants.uid],
-                        );
-                      },
-                    );
+                child: BlocBuilder<MessageSearchBloc, MessageSearchState>(
+              builder: (context, state) => StreamBuilder<QuerySnapshot>(
+                stream:
+                    ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
+                        .getUsersStream(FirestoreConstants.pathUserCollection,
+                            _limit, state.searchValue),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    if ((snapshot.data?.docs.length ?? 0) > 0) {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        controller: listScrollController,
+                        itemBuilder: (context, index) {
+                          return ChatTile(
+                            userName: snapshot.data!.docs[index]
+                                [FirestoreConstants.userName],
+                            id: snapshot.data!.docs[index]
+                                [FirestoreConstants.uid],
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('No Users'),
+                      );
+                    }
                   } else {
                     return const Center(
-                      child: Text('No Users'),
+                      child: Loader(),
                     );
                   }
-                } else {
-                  return const Center(
-                    child: Loader(),
-                  );
-                }
-              },
+                },
+              ),
             ))
           ],
         ),
@@ -75,63 +82,77 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
   }
 
   Widget buildSearchBar() {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: textGrey.withOpacity(0.2),
-      ),
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.search, color: textGrey, size: 20),
-          const SizedBox(width: 5),
-          Expanded(
-            child: TextFormField(
-              textInputAction: TextInputAction.search,
-              controller: searchBarTec,
-              onChanged: (value) {
-                searchDebouncer.run(() {
-                  if (value.isNotEmpty) {
-                    btnClearController.add(true);
-                    setState(() {
-                      _textSearch = value;
-                    });
-                  } else {
-                    btnClearController.add(false);
-                    setState(() {
-                      _textSearch = "";
-                    });
-                  }
-                });
-              },
-              decoration: const InputDecoration.collapsed(
-                hintText: 'Search names',
-                hintStyle: TextStyle(fontSize: 13, color: kGrey),
-              ),
-              style: const TextStyle(fontSize: 13),
-            ),
+    return BlocBuilder<MessageSearchBloc, MessageSearchState>(
+      builder: (context, state) {
+        return Container(
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: textGrey.withOpacity(0.2),
           ),
-          StreamBuilder<bool>(
-              stream: btnClearController.stream,
-              builder: (context, snapshot) {
-                return snapshot.data == true
-                    ? GestureDetector(
-                        onTap: () {
-                          searchBarTec.clear();
-                          btnClearController.add(false);
-                          setState(() {
-                            _textSearch = "";
-                          });
-                        },
-                        child: const Icon(Icons.clear_rounded,
-                            color: kGrey, size: 20))
-                    : const SizedBox.shrink();
-              }),
-        ],
-      ),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(Icons.search, color: textGrey, size: 20),
+              const SizedBox(width: 5),
+              Expanded(
+                child: TextFormField(
+                  textInputAction: TextInputAction.search,
+                  controller: searchBarTec,
+                  onChanged: (value) {
+                    searchDebouncer.run(() {
+                      if (value.isNotEmpty) {
+                        btnClearController.add(true);
+                        // setState(() {
+                        //   _textSearch = value;
+                        // });
+
+                        context
+                            .read<MessageSearchBloc>()
+                            .add(MessageSearchEvent.started(searchVal: value));
+                      } else {
+                        btnClearController.add(false);
+                        // setState(() {
+                        //   _textSearch = "";
+                        // });
+                        context
+                            .read<MessageSearchBloc>()
+                            .add(const MessageSearchEvent.empty());
+                      }
+                    });
+                  },
+                  decoration: const InputDecoration.collapsed(
+                    hintText: 'Search names',
+                    hintStyle: TextStyle(fontSize: 13, color: kGrey),
+                  ),
+                  style: const TextStyle(fontSize: 13),
+                ),
+              ),
+              StreamBuilder<bool>(
+                  stream: btnClearController.stream,
+                  builder: (context, snapshot) {
+                    return snapshot.data == true
+                        ? GestureDetector(
+                            onTap: () {
+                              searchBarTec.clear();
+                              btnClearController.add(false);
+                              // setState(() {
+                              //   _textSearch = "";
+                              // });
+                              context
+                                  .read<MessageSearchBloc>()
+                                  .add(const Empty());
+                            },
+                            child: const Icon(Icons.clear_rounded,
+                                color: kGrey, size: 20))
+                        : const SizedBox.shrink();
+                  }),
+            ],
+          ),
+        );
+      },
     );
   }
 }

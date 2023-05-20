@@ -10,13 +10,13 @@ class FullPhotoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Full Photo',
-          style: TextStyle(color: kWhite),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(backgroundColor: ,
+      //   title: const Text(
+      //     'Full Photo',
+      //     style: TextStyle(color: kWhite),
+      //   ),
+      //   centerTitle: true,
+      // ),
       body: PhotoView(
         imageProvider: NetworkImage(url),
       ),
