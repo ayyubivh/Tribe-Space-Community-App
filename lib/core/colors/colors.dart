@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 // const colors
 const kBlack = Colors.black;
@@ -10,11 +9,12 @@ const kDarkGreen = Color.fromARGB(222, 43, 71, 44);
 final scBbColorGrey100 = Colors.grey.shade100;
 final bgColorGrey200 = Colors.grey[200];
 //Hexcolours
-const onboardGreenColor = Color(0xFF2f9f80);
-final primaryColor = HexColor('3b9678');
-final onBoardColor = HexColor('E7F0FF');
-final loginGreen = HexColor('#e0ffdd');
-final textGrey = HexColor('565656');
-final signUpClr = HexColor('#f9d4df');
-final gTextClr = HexColor('22240F');
-final likeBtnClr = HexColor("F45B69");
+const onboardGreenColor = Color(0xFF009150);
+const kToastGreen = Color(0xFF0BDA51);
+const primaryColor = Color(0xFF3b9678);
+const onBoardColor = Color(0xFFE7F0FF);
+const loginGreen = Color(0xFFe0ffdd);
+const textGrey = Color(0xFF565656);
+const signUpClr = Color(0xFFf9d4df);
+const gTextClr = Color(0xFF22240F);
+const likeBtnClr = Color(0xFFF45B69);

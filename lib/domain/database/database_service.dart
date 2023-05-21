@@ -34,20 +34,22 @@ class DatabaseService {
   }
 
   // user joined checking
-  Future<bool> isUserJoined(
-      String groupName, String groupId, String userName) async {
-    DocumentReference userDocumentReference = userCollection.doc(uid);
-    DocumentSnapshot documentSnapshot = await userDocumentReference.get();
+  // Future<bool> isUserJoined({
+  //   required String groupName,
+  //   required String groupId,
+  // }) async {
+  //   DocumentReference userDocumentReference = userCollection.doc(uid);
+  //   DocumentSnapshot documentSnapshot = await userDocumentReference.get();
 
-    List<dynamic> groups = await documentSnapshot['groups'];
-    if (groups.contains("${groupId}_$groupName")) {
-      log('contains true');
-      return true;
-    } else {
-      log('no conatains false');
-      return false;
-    }
-  }
+  //   List<dynamic> groups = await documentSnapshot['groups'];
+  //   if (groups.contains("${groupId}_$groupName")) {
+  //     // log('contains true>>>>> grp id $groupId');
+  //     return true;
+  //   } else {
+  //     log('no conatains false>>>>> grp id ${groupId}_$groupName');
+  //     return false;
+  //   }
+  // }
 
 // search by name
   searchByName(String groupName) {
@@ -55,26 +57,26 @@ class DatabaseService {
   }
 
   // toggling the group joined or not
-  Future toggleGroupJoin(
-      String groupId, String userName, String groupName) async {
-    DocumentReference userDocumentReference = userCollection.doc(uid);
-    DocumentReference groupDocumentReference = groupCollection.doc(groupId);
-    DocumentSnapshot documentSnapshot = await userDocumentReference.get();
-    List<dynamic> groups = await documentSnapshot['groups'];
-    if (groups.contains("${groupId}_$groupName")) {
-      await userDocumentReference.update({
-        "groups": FieldValue.arrayRemove(["${groupId}_$groupName"])
-      });
-      await groupDocumentReference.update({
-        "members": FieldValue.arrayRemove(["${uid}_$userName"])
-      });
-    } else {
-      await userDocumentReference.update({
-        "groups": FieldValue.arrayUnion(["${groupId}_$groupName"])
-      });
-      await groupDocumentReference.update({
-        "members": FieldValue.arrayUnion(["${uid}_$userName"])
-      });
-    }
-  }
+  // Future toggleGroupJoin(
+  //     String groupId, String userName, String groupName) async {
+  //   // DocumentReference userDocumentReference = userCollection.doc(uid);
+  //   // DocumentReference groupDocumentReference = groupCollection.doc(groupId);
+  //   // DocumentSnapshot documentSnapshot = await userDocumentReference.get();
+  //   // List<dynamic> groups = await documentSnapshot['groups'];
+  //   // if (groups.contains("${groupId}_$groupName")) {
+  //   //   await userDocumentReference.update({
+  //   //     "groups": FieldValue.arrayRemove(["${groupId}_$groupName"])
+  //   //   });
+  //   //   await groupDocumentReference.update({
+  //   //     "members": FieldValue.arrayRemove(["${uid}_$userName"])
+  //   //   });
+  //   // } else {
+  //   //   await userDocumentReference.update({
+  //   //     "groups": FieldValue.arrayUnion(["${groupId}_$groupName"])
+  //   //   });
+  //   //   await groupDocumentReference.update({
+  //   //     "members": FieldValue.arrayUnion(["${uid}_$userName"])
+  //   //   });
+  //   // }
+  // }
 }

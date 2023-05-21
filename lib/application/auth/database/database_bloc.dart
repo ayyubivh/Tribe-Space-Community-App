@@ -1,4 +1,7 @@
 // ignore: depend_on_referenced_packages
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -12,9 +15,10 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
   final DatabaseReopsitory _databaseReopsitory;
   DatabaseBloc(this._databaseReopsitory) : super(DatabaseState.initial()) {
     on<DatabaseFetched>(_fetchUserData);
+    // on<IsUserJoined>(_isUserJoined);
   }
   _fetchUserData(DatabaseFetched event, Emitter<DatabaseState> emit) async {
-    var userDetails = await _databaseReopsitory.getUserDetails();
+    final userDetails = await _databaseReopsitory.getUserDetails();
 
     emit(state.copyWith(
       uid: userDetails.uid.toString(),
@@ -22,4 +26,13 @@ class DatabaseBloc extends Bloc<DatabaseEvent, DatabaseState> {
       photoUrl: userDetails.photoUrl.toString(),
     ));
   }
+
+  // _isUserJoined(IsUserJoined event, Emitter<DatabaseState> emit) async {
+  //   final isUserjoined =
+  //       await _databaseReopsitory.isUserJoined(event.groupName, event.groupId);
+  //   emit(
+  //     state.copyWith(isUserJoined: isUserjoined),
+  //   );
+  //   log('on emit ${state.isUserJoined.toString()}  and ${isUserjoined.toString()}');
+  // }
 }

@@ -66,27 +66,27 @@ class ChatDatabaseService {
   }
 
   //create a group
-  Future createGroup(String userName, String id, String groupName) async {
-    DocumentReference groupDocumentReference = await groupCollection.add({
-      FirestoreConstants.groupName: groupName,
-      FirestoreConstants.groupIcon: " ",
-      FirestoreConstants.admin: "${id}_$userName",
-      FirestoreConstants.members: [],
-      FirestoreConstants.groupId: "",
-      FirestoreConstants.recentMessage: "",
-      FirestoreConstants.recentMessageSender: ""
-    });
-    await groupDocumentReference.update({
-      FirestoreConstants.members: FieldValue.arrayUnion(["${uid}_$userName"]),
-      FirestoreConstants.groupId: groupDocumentReference.id
-    });
+  // Future createGroup(String userName, String id, String groupName) async {
+  //   DocumentReference groupDocumentReference = await groupCollection.add({
+  //     FirestoreConstants.groupName: groupName,
+  //     FirestoreConstants.groupIcon: " ",
+  //     FirestoreConstants.admin: "${id}_$userName",
+  //     FirestoreConstants.members: [],
+  //     FirestoreConstants.groupId: "",
+  //     FirestoreConstants.recentMessage: "",
+  //     FirestoreConstants.recentMessageSender: ""
+  //   });
+  //   await groupDocumentReference.update({
+  //     FirestoreConstants.members: FieldValue.arrayUnion(["${uid}_$userName"]),
+  //     FirestoreConstants.groupId: groupDocumentReference.id
+  //   });
 
-    DocumentReference userDcoumentReference = userCollection.doc(uid);
-    await userDcoumentReference.update({
-      FirestoreConstants.groups:
-          FieldValue.arrayUnion(["${groupDocumentReference.id}_$groupName"])
-    });
-  }
+  //   DocumentReference userDcoumentReference = userCollection.doc(uid);
+  //   await userDcoumentReference.update({
+  //     FirestoreConstants.groups:
+  //         FieldValue.arrayUnion(["${groupDocumentReference.id}_$groupName"])
+  //   });
+  // }
 
   //get group chats
   getGroupChat(String groupId) async {

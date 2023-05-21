@@ -309,6 +309,7 @@ abstract class Empty implements MessageSearchEvent {
 /// @nodoc
 mixin _$MessageSearchState {
   String? get searchValue => throw _privateConstructorUsedError;
+  bool get isBool => throw _privateConstructorUsedError;
   StreamController<bool>? get btnClearController =>
       throw _privateConstructorUsedError;
 
@@ -323,7 +324,10 @@ abstract class $MessageSearchStateCopyWith<$Res> {
           MessageSearchState value, $Res Function(MessageSearchState) then) =
       _$MessageSearchStateCopyWithImpl<$Res, MessageSearchState>;
   @useResult
-  $Res call({String? searchValue, StreamController<bool>? btnClearController});
+  $Res call(
+      {String? searchValue,
+      bool isBool,
+      StreamController<bool>? btnClearController});
 }
 
 /// @nodoc
@@ -340,6 +344,7 @@ class _$MessageSearchStateCopyWithImpl<$Res, $Val extends MessageSearchState>
   @override
   $Res call({
     Object? searchValue = freezed,
+    Object? isBool = null,
     Object? btnClearController = freezed,
   }) {
     return _then(_value.copyWith(
@@ -347,6 +352,10 @@ class _$MessageSearchStateCopyWithImpl<$Res, $Val extends MessageSearchState>
           ? _value.searchValue
           : searchValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      isBool: null == isBool
+          ? _value.isBool
+          : isBool // ignore: cast_nullable_to_non_nullable
+              as bool,
       btnClearController: freezed == btnClearController
           ? _value.btnClearController
           : btnClearController // ignore: cast_nullable_to_non_nullable
@@ -363,7 +372,10 @@ abstract class _$$_InitialCopyWith<$Res>
       __$$_InitialCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? searchValue, StreamController<bool>? btnClearController});
+  $Res call(
+      {String? searchValue,
+      bool isBool,
+      StreamController<bool>? btnClearController});
 }
 
 /// @nodoc
@@ -377,6 +389,7 @@ class __$$_InitialCopyWithImpl<$Res>
   @override
   $Res call({
     Object? searchValue = freezed,
+    Object? isBool = null,
     Object? btnClearController = freezed,
   }) {
     return _then(_$_Initial(
@@ -384,6 +397,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.searchValue
           : searchValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      isBool: null == isBool
+          ? _value.isBool
+          : isBool // ignore: cast_nullable_to_non_nullable
+              as bool,
       btnClearController: freezed == btnClearController
           ? _value.btnClearController
           : btnClearController // ignore: cast_nullable_to_non_nullable
@@ -395,16 +412,19 @@ class __$$_InitialCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial({this.searchValue, this.btnClearController});
+  const _$_Initial(
+      {this.searchValue, required this.isBool, this.btnClearController});
 
   @override
   final String? searchValue;
+  @override
+  final bool isBool;
   @override
   final StreamController<bool>? btnClearController;
 
   @override
   String toString() {
-    return 'MessageSearchState(searchValue: $searchValue, btnClearController: $btnClearController)';
+    return 'MessageSearchState(searchValue: $searchValue, isBool: $isBool, btnClearController: $btnClearController)';
   }
 
   @override
@@ -414,12 +434,14 @@ class _$_Initial implements _Initial {
             other is _$_Initial &&
             (identical(other.searchValue, searchValue) ||
                 other.searchValue == searchValue) &&
+            (identical(other.isBool, isBool) || other.isBool == isBool) &&
             (identical(other.btnClearController, btnClearController) ||
                 other.btnClearController == btnClearController));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchValue, btnClearController);
+  int get hashCode =>
+      Object.hash(runtimeType, searchValue, isBool, btnClearController);
 
   @JsonKey(ignore: true)
   @override
@@ -431,10 +453,13 @@ class _$_Initial implements _Initial {
 abstract class _Initial implements MessageSearchState {
   const factory _Initial(
       {final String? searchValue,
+      required final bool isBool,
       final StreamController<bool>? btnClearController}) = _$_Initial;
 
   @override
   String? get searchValue;
+  @override
+  bool get isBool;
   @override
   StreamController<bool>? get btnClearController;
   @override

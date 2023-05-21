@@ -78,17 +78,17 @@ class _GroupInfoState extends State<GroupInfo> {
                           ),
                           IconButton(
                             onPressed: () async {
-                              DatabaseService(
-                                      uid: FirebaseAuth
-                                          .instance.currentUser!.uid)
-                                  .toggleGroupJoin(
-                                      widget.groupId,
-                                      getName(widget.adminName),
-                                      widget.groupName)
-                                  .whenComplete(() {
-                                Navigator.of(context)
-                                    .pushNamed(MainPage.routeName);
-                              });
+                              // DatabaseService(
+                              //         uid: FirebaseAuth
+                              //             .instance.currentUser!.uid)
+                              //     .toggleGroupJoin(
+                              //         widget.groupId,
+                              //         getName(widget.adminName),
+                              //         widget.groupName)
+                              //     .whenComplete(() {
+                              //   Navigator.of(context)
+                              //       .pushNamed(MainPage.routeName);
+                              // });
                             },
                             icon: const Icon(
                               Icons.done,

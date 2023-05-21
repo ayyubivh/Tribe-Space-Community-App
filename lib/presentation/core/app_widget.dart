@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/application/comment/comment_bloc.dart';
 import 'package:social_app/application/image/image_bloc.dart';
+import 'package:social_app/application/messages/chat_bloc.dart';
 import 'package:social_app/application/messages/message_search/message_search_bloc.dart';
 import 'package:social_app/application/post/post_bloc.dart';
 import 'package:social_app/presentation/screens/auth/login_screen.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => MessageSearchBloc(),
         ),
+        BlocProvider(
+          create: (context) => getIt<ChatBloc>(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

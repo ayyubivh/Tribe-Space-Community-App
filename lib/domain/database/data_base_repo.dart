@@ -5,4 +5,5 @@ abstract class DatabaseReopsitory {
   Future<void> saveUserData(UserModels user);
   Future<List<UserModels>> retrieveUserData();
   Future<UserModels> getUserDetails();
+  // Future<bool> isUserJoined(String groupName, String groupId);
 }

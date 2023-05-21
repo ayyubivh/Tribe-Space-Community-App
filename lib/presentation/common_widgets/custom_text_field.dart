@@ -5,19 +5,21 @@ import '../../core/colors/colors.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final Function(String)? onChanged;
-
+  final TextEditingController? textEditingController;
   final String? errText;
 
-  const CustomTextField({
-    Key? key,
-    required this.hintText,
-    required this.onChanged,
-    this.errText,
-  }) : super(key: key);
+  const CustomTextField(
+      {Key? key,
+      required this.hintText,
+      required this.onChanged,
+      this.errText,
+      this.textEditingController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textEditingController,
       cursorColor: Theme.of(context).primaryColor,
       decoration: InputDecoration(
         filled: true,

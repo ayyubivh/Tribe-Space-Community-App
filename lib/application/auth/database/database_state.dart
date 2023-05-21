@@ -9,12 +9,15 @@ class DatabaseState with _$DatabaseState {
     required String email,
     required String uid,
     required String photoUrl,
+    required bool isUserJoined,
   }) = _DatabaseState;
   factory DatabaseState.initial() => const DatabaseState(
-      databaseError: false,
-      userData: "",
-      userName: "",
-      email: "",
-      uid: "",
-      photoUrl: "");
+        databaseError: false,
+        userData: "",
+        userName: "",
+        email: "",
+        uid: "",
+        photoUrl: "",
+        isUserJoined: false,
+      );
 }

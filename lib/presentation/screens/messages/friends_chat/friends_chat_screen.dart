@@ -30,6 +30,11 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
   final TextEditingController searchBarTec = TextEditingController();
 
   final ScrollController listScrollController = ScrollController();
+  @override
+  void initState() {
+    context.read<MessageSearchBloc>().add(const Empty());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,18 +110,13 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
                     searchDebouncer.run(() {
                       if (value.isNotEmpty) {
                         btnClearController.add(true);
-                        // setState(() {
-                        //   _textSearch = value;
-                        // });
 
                         context
                             .read<MessageSearchBloc>()
                             .add(MessageSearchEvent.started(searchVal: value));
                       } else {
                         btnClearController.add(false);
-                        // setState(() {
-                        //   _textSearch = "";
-                        // });
+
                         context
                             .read<MessageSearchBloc>()
                             .add(const MessageSearchEvent.empty());

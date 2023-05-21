@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/application/auth/database/database_bloc.dart';
+import 'package:social_app/application/messages/chat_bloc.dart';
 import 'package:social_app/presentation/screens/messages/group_chat/group_chat.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/utils/utils.dart';
@@ -33,105 +36,101 @@ class _SearchGroupTileState extends State<SearchGroupTile> {
   @override
   void initState() {
     isJoined = false;
-    log('init ${isJoined.toString()}');
-    joinedOrNot(widget.userName, widget.groupId, widget.admin);
+
+    context.read<ChatBloc>().add(
+        IsUserJoined(groupName: widget.groupName, groupId: widget.groupId));
+
     super.initState();
   }
 
-  joinedOrNot(String userName, String groupId, String admin) async {
-    await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-        .isUserJoined(groupName, groupId, userName)
-        .then((value) {
-      setState(() {
-        isJoined = value;
-      });
-    });
-  }
+  joinedOrNot(
+    String groupName,
+    String groupId,
+  ) async {}
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => GroupChatMessagesScreen(
-                groupId: widget.groupId,
-                groupName: widget.groupName,
-                userName: widget.userName),
-          ),
-        );
+    return BlocConsumer<ChatBloc, ChatState>(
+      listener: (context, state) {
+        if (state.joinStatusMessage.isNotEmpty &&
+            state.joinedOrStatus == false) {
+          return showSnackbar(context, kRed, state.joinStatusMessage);
+        }
+        if (state.joinStatusMessage.isNotEmpty &&
+            state.joinedOrStatus == true) {
+          return showSnackbar(context, kToastGreen, state.joinStatusMessage);
+        }
       },
-      title: Text(
-        widget.groupName,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text(
-        "Admin ${getName(widget.admin)}",
-        style: const TextStyle(fontSize: 13),
-      ),
-      leading: CircleAvatar(
-        radius: 30,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Text(
-          widget.groupName.substring(0, 1).toUpperCase(),
-          style: const TextStyle(fontWeight: FontWeight.w500),
-        ),
-      ),
-      trailing: GestureDetector(
+      builder: (context, state) => ListTile(
         onTap: () {
-          DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-              .toggleGroupJoin(
-                  widget.groupId, widget.userName, widget.groupName);
-          if (isJoined) {
-            log('setsta ${isJoined.toString()}');
-
-            setState(() {
-              isJoined = !isJoined;
-            });
-            showSnackbar(
-                context, Colors.red, "Left the group ${widget.groupName}");
-          } else {
-            setState(() {
-              isJoined = !isJoined;
-            });
-            showSnackbar(context, Colors.green, "Successfully joined he group");
-          }
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => GroupChatMessagesScreen(
+                  groupId: widget.groupId,
+                  groupName: widget.groupName,
+                  userName: widget.userName),
+            ),
+          );
         },
-        child: isJoined
-            ? Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: kWhite,
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 1.5),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text(
-                  "Joined",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
+        title: Text(
+          widget.groupName,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          "Admin ${getName(widget.admin)}",
+          style: const TextStyle(fontSize: 13),
+        ),
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Text(
+            widget.groupName.substring(0, 1).toUpperCase(),
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+        ),
+        trailing: GestureDetector(
+          onTap: () {
+            context.read<ChatBloc>().add(ToggleGroupJoinEvent(
+                groupId: widget.groupId,
+                userName: widget.userName,
+                groupName: widget.groupName));
+          },
+          child: state.joinedOrStatus
+              ? Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: kWhite,
+                    border: Border.all(
+                        color: Theme.of(context).primaryColor, width: 1.5),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text(
+                    "Joined",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: kWhite,
+                    border: Border.all(
+                        color: Theme.of(context).primaryColor, width: 1.5),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text(
+                    "Join",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: kWhite,
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 1.5),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text(
-                  "Join",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+        ),
       ),
     );
   }

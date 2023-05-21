@@ -656,104 +656,51 @@ class _FriensChatPageState extends State<FriensChatPage> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    onSendMessage('mimi1', TypeMessage.sticker);
-                  },
-                  child: Image.asset(
-                    'assets/images/mimi1.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi2', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi2.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi3', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi3.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                )
+              children: [
+                stickerButton(
+                    onSendName: 'mimi1', assetName: 'assets/images/mimi1.gif'),
+                stickerButton(
+                    onSendName: 'mimi2', assetName: 'assets/images/mimi2.gif'),
+                stickerButton(
+                    onSendName: 'mimi3', assetName: 'assets/images/mimi3.gif'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextButton(
-                  onPressed: () => onSendMessage('mimi4', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi4.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi5', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi5.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi6', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi6.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                )
+              children: [
+                stickerButton(
+                    onSendName: 'mimi4', assetName: 'assets/images/mimi4.gif'),
+                stickerButton(
+                    onSendName: 'mimi5', assetName: 'assets/images/mimi5.gif'),
+                stickerButton(
+                    onSendName: 'mimi6', assetName: 'assets/images/mimi6.gif'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                TextButton(
-                  onPressed: () => onSendMessage('mimi7', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi7.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi8', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi8.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => onSendMessage('mimi9', TypeMessage.sticker),
-                  child: Image.asset(
-                    'assets/images/mimi9.gif',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                )
+              children: [
+                stickerButton(
+                    onSendName: 'mimi7', assetName: 'assets/images/mimi7.gif'),
+                stickerButton(
+                    onSendName: 'mimi8', assetName: 'assets/images/mimi8.gif'),
+                stickerButton(
+                    onSendName: 'mimi9', assetName: 'assets/images/mimi9.gif'),
               ],
             )
           ],
         ),
+      ),
+    );
+  }
+
+  stickerButton({required String onSendName, required String assetName}) {
+    return TextButton(
+      onPressed: () => onSendMessage(onSendName, TypeMessage.sticker),
+      child: Image.asset(
+        assetName,
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
       ),
     );
   }

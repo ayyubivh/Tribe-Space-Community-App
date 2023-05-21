@@ -172,6 +172,7 @@ mixin _$DatabaseState {
   String get email => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get photoUrl => throw _privateConstructorUsedError;
+  bool get isUserJoined => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DatabaseStateCopyWith<DatabaseState> get copyWith =>
@@ -190,7 +191,8 @@ abstract class $DatabaseStateCopyWith<$Res> {
       String userName,
       String email,
       String uid,
-      String photoUrl});
+      String photoUrl,
+      bool isUserJoined});
 }
 
 /// @nodoc
@@ -212,6 +214,7 @@ class _$DatabaseStateCopyWithImpl<$Res, $Val extends DatabaseState>
     Object? email = null,
     Object? uid = null,
     Object? photoUrl = null,
+    Object? isUserJoined = null,
   }) {
     return _then(_value.copyWith(
       databaseError: null == databaseError
@@ -238,6 +241,10 @@ class _$DatabaseStateCopyWithImpl<$Res, $Val extends DatabaseState>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      isUserJoined: null == isUserJoined
+          ? _value.isUserJoined
+          : isUserJoined // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -256,7 +263,8 @@ abstract class _$$_DatabaseStateCopyWith<$Res>
       String userName,
       String email,
       String uid,
-      String photoUrl});
+      String photoUrl,
+      bool isUserJoined});
 }
 
 /// @nodoc
@@ -276,6 +284,7 @@ class __$$_DatabaseStateCopyWithImpl<$Res>
     Object? email = null,
     Object? uid = null,
     Object? photoUrl = null,
+    Object? isUserJoined = null,
   }) {
     return _then(_$_DatabaseState(
       databaseError: null == databaseError
@@ -302,6 +311,10 @@ class __$$_DatabaseStateCopyWithImpl<$Res>
           ? _value.photoUrl
           : photoUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      isUserJoined: null == isUserJoined
+          ? _value.isUserJoined
+          : isUserJoined // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -315,7 +328,8 @@ class _$_DatabaseState implements _DatabaseState {
       required this.userName,
       required this.email,
       required this.uid,
-      required this.photoUrl});
+      required this.photoUrl,
+      required this.isUserJoined});
 
   @override
   final bool databaseError;
@@ -329,10 +343,12 @@ class _$_DatabaseState implements _DatabaseState {
   final String uid;
   @override
   final String photoUrl;
+  @override
+  final bool isUserJoined;
 
   @override
   String toString() {
-    return 'DatabaseState(databaseError: $databaseError, userData: $userData, userName: $userName, email: $email, uid: $uid, photoUrl: $photoUrl)';
+    return 'DatabaseState(databaseError: $databaseError, userData: $userData, userName: $userName, email: $email, uid: $uid, photoUrl: $photoUrl, isUserJoined: $isUserJoined)';
   }
 
   @override
@@ -349,12 +365,14 @@ class _$_DatabaseState implements _DatabaseState {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.photoUrl, photoUrl) ||
-                other.photoUrl == photoUrl));
+                other.photoUrl == photoUrl) &&
+            (identical(other.isUserJoined, isUserJoined) ||
+                other.isUserJoined == isUserJoined));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, databaseError, userData, userName, email, uid, photoUrl);
+  int get hashCode => Object.hash(runtimeType, databaseError, userData,
+      userName, email, uid, photoUrl, isUserJoined);
 
   @JsonKey(ignore: true)
   @override
@@ -370,7 +388,8 @@ abstract class _DatabaseState implements DatabaseState {
       required final String userName,
       required final String email,
       required final String uid,
-      required final String photoUrl}) = _$_DatabaseState;
+      required final String photoUrl,
+      required final bool isUserJoined}) = _$_DatabaseState;
 
   @override
   bool get databaseError;
@@ -384,6 +403,8 @@ abstract class _DatabaseState implements DatabaseState {
   String get uid;
   @override
   String get photoUrl;
+  @override
+  bool get isUserJoined;
   @override
   @JsonKey(ignore: true)
   _$$_DatabaseStateCopyWith<_$_DatabaseState> get copyWith =>

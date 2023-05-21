@@ -13,11 +13,13 @@ class MessageSearchBloc extends Bloc<MessageSearchEvent, MessageSearchState> {
     on<Started>((event, emit) {
       emit(state.copyWith(
         searchValue: event.searchVal,
+        isBool: true,
       ));
     });
     on<Empty>((event, emit) {
       emit(state.copyWith(
         searchValue: "",
+        isBool: false,
       ));
     });
   }

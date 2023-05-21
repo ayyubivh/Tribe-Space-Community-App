@@ -16,4 +16,7 @@ abstract class IChatRepo {
   Stream<QuerySnapshot> getChatStream(String groupChatId, int limit);
   Future<void> updateDataFirestore(String collectionPath, String docPath,
       Map<String, dynamic> dataNeedUpdate);
+  Future<void> toggleGroupJoinedOrNot(
+      String groupId, String userName, String groupName);
+  Future<bool> isUserJoined(String groupName, String groupId);
 }
