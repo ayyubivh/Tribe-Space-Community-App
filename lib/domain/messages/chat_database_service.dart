@@ -89,13 +89,13 @@ class ChatDatabaseService {
   // }
 
   //get group chats
-  getGroupChat(String groupId) async {
-    return groupCollection
-        .doc(groupId)
-        .collection(FirestoreConstants.pathMessageCollection)
-        .orderBy(FirestoreConstants.time)
-        .snapshots();
-  }
+  // getGroupChat(String groupId) async {
+  //   return groupCollection
+  //       .doc(groupId)
+  //       .collection(FirestoreConstants.pathMessageCollection)
+  //       .orderBy(FirestoreConstants.time)
+  //       .snapshots();
+  // }
 
   //send group message
   sendGropMessage(String groupId, Map<String, dynamic> chatMessageData) async {

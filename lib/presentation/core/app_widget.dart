@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           create: (context) => MessageSearchBloc(),
         ),
         BlocProvider(
-          create: (context) => getIt<ChatBloc>(),
+          create: (context) => getIt<GroupChatBloc>(),
         )
       ],
       child: MaterialApp(

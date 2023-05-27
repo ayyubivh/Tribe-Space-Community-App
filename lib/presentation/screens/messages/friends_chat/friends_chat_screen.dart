@@ -100,7 +100,7 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.search, color: textGrey, size: 20),
+              const Icon(Icons.search, color: textGrey, size: 20),
               const SizedBox(width: 5),
               Expanded(
                 child: TextFormField(
@@ -138,9 +138,7 @@ class _FriensChatScreenState extends State<FriensChatScreen> {
                             onTap: () {
                               searchBarTec.clear();
                               btnClearController.add(false);
-                              // setState(() {
-                              //   _textSearch = "";
-                              // });
+
                               context
                                   .read<MessageSearchBloc>()
                                   .add(const Empty());

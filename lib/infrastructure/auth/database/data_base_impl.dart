@@ -1,10 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/domain/auth/model/user.dart';
 import '../../../domain/database/data_base_repo.dart';
 

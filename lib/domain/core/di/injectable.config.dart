@@ -13,11 +13,11 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:social_app/application/auth/auth_bloc.dart' as _i15;
 import 'package:social_app/application/auth/database/database_bloc.dart'
-    as _i18;
+    as _i17;
 import 'package:social_app/application/auth/sign_in_form/sign_in_bloc.dart'
     as _i14;
-import 'package:social_app/application/comment/comment_bloc.dart' as _i17;
-import 'package:social_app/application/messages/chat_bloc.dart' as _i16;
+import 'package:social_app/application/comment/comment_bloc.dart' as _i16;
+import 'package:social_app/application/messages/chat_bloc.dart' as _i18;
 import 'package:social_app/application/post/post_bloc.dart' as _i13;
 import 'package:social_app/domain/auth/i_auth_repository.dart' as _i5;
 import 'package:social_app/domain/database/data_base_repo.dart' as _i3;
@@ -45,7 +45,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.lazySingleton<_i3.DatabaseReopsitory>(() => _i4.DatabaseRepoImpl());
     gh.lazySingleton<_i5.IAuthRepo>(() => _i6.FirebaseRepository());
-    gh.lazySingleton<_i7.IChatRepo>(() => _i8.ChatRepository());
+    gh.lazySingleton<_i7.IGroupChatRepo>(() => _i8.ChatRepository());
     gh.lazySingleton<_i9.IPostRepo>(() => _i10.PostRepository());
     gh.lazySingleton<_i11.ISearchRepo>(() => _i12.SearchRepository());
     gh.factory<_i13.PostBloc>(() => _i13.PostBloc(gh<_i9.IPostRepo>()));
@@ -54,10 +54,11 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i3.DatabaseReopsitory>(),
         ));
     gh.factory<_i15.AuthBloc>(() => _i15.AuthBloc(gh<_i5.IAuthRepo>()));
-    gh.factory<_i16.ChatBloc>(() => _i16.ChatBloc(gh<_i7.IChatRepo>()));
-    gh.factory<_i17.CommentBloc>(() => _i17.CommentBloc(gh<_i9.IPostRepo>()));
-    gh.factory<_i18.DatabaseBloc>(
-        () => _i18.DatabaseBloc(gh<_i3.DatabaseReopsitory>()));
+    gh.factory<_i16.CommentBloc>(() => _i16.CommentBloc(gh<_i9.IPostRepo>()));
+    gh.factory<_i17.DatabaseBloc>(
+        () => _i17.DatabaseBloc(gh<_i3.DatabaseReopsitory>()));
+    gh.factory<_i18.GroupChatBloc>(
+        () => _i18.GroupChatBloc(gh<_i7.IGroupChatRepo>()));
     return this;
   }
 }

@@ -1,11 +1,9 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_app/domain/database/database_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/presentation/screens/mainpage/main_page.dart';
+import '../../../../../application/messages/chat_bloc.dart';
 
-class GroupInfo extends StatefulWidget {
+class GroupInfo extends StatelessWidget {
   final String groupId;
   final String groupName;
   final String adminName;
@@ -15,29 +13,6 @@ class GroupInfo extends StatefulWidget {
       required this.groupName,
       required this.groupId})
       : super(key: key);
-
-  @override
-  State<GroupInfo> createState() => _GroupInfoState();
-}
-
-class _GroupInfoState extends State<GroupInfo> {
-  Stream? members;
-  @override
-  void initState() {
-    getMembers();
-    super.initState();
-  }
-
-  getMembers() async {
-    DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-        .getGroupMember(widget.groupId)
-        .then((val) {
-      setState(() {
-        members = val;
-        log(members!.length.toString());
-      });
-    });
-  }
 
   String getName(String r) {
     return r.substring(r.indexOf("_") + 1);
@@ -49,6 +24,9 @@ class _GroupInfoState extends State<GroupInfo> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<GroupChatBloc>(context).add(GetGroupMembers(groupId));
+    });
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -78,17 +56,14 @@ class _GroupInfoState extends State<GroupInfo> {
                           ),
                           IconButton(
                             onPressed: () async {
-                              // DatabaseService(
-                              //         uid: FirebaseAuth
-                              //             .instance.currentUser!.uid)
-                              //     .toggleGroupJoin(
-                              //         widget.groupId,
-                              //         getName(widget.adminName),
-                              //         widget.groupName)
-                              //     .whenComplete(() {
-                              //   Navigator.of(context)
-                              //       .pushNamed(MainPage.routeName);
-                              // });
+                              context.read<GroupChatBloc>().add(
+                                  ToggleGroupJoinEvent(
+                                      groupId: groupId,
+                                      userName: getName(adminName),
+                                      groupName: groupName));
+
+                              Navigator.of(context)
+                                  .pushNamed(MainPage.routeName);
                             },
                             icon: const Icon(
                               Icons.done,
@@ -118,7 +93,7 @@ class _GroupInfoState extends State<GroupInfo> {
                     radius: 30,
                     backgroundColor: Theme.of(context).primaryColor,
                     child: Text(
-                      widget.groupName.substring(0, 1).toUpperCase(),
+                      groupName.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
                           fontWeight: FontWeight.w500, color: Colors.white),
                     ),
@@ -130,13 +105,13 @@ class _GroupInfoState extends State<GroupInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Group: ${widget.groupName}",
+                        "Group: $groupName",
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Text("Admin: ${getName(widget.adminName)}")
+                      Text("Admin: ${getName(adminName)}")
                     ],
                   )
                 ],
@@ -150,55 +125,60 @@ class _GroupInfoState extends State<GroupInfo> {
   }
 
   memberList() {
-    return StreamBuilder(
-      stream: members,
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data['members'] != null) {
-            if (snapshot.data['members'].length != 0) {
-              return ListView.builder(
-                itemCount: snapshot.data['members'].length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          getName(snapshot.data['members'][index])
-                              .substring(0, 1)
-                              .toUpperCase(),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+    return BlocBuilder<GroupChatBloc, GroupChatState>(
+      builder: (context, state) {
+        return StreamBuilder(
+          stream: state.groupMembers,
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data['members'] != null) {
+                if (snapshot.data['members'].length != 0) {
+                  return ListView.builder(
+                    itemCount: snapshot.data['members'].length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 10),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            child: Text(
+                              getName(snapshot.data['members'][index])
+                                  .substring(0, 1)
+                                  .toUpperCase(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          title: Text(getName(snapshot.data['members'][index])),
+                          subtitle:
+                              Text(getId(snapshot.data['members'][index])),
                         ),
-                      ),
-                      title: Text(getName(snapshot.data['members'][index])),
-                      subtitle: Text(getId(snapshot.data['members'][index])),
-                    ),
+                      );
+                    },
                   );
-                },
-              );
+                } else {
+                  return const Center(
+                    child: Text("NO MEMBERS"),
+                  );
+                }
+              } else {
+                return const Center(
+                  child: Text("NO MEMBERS"),
+                );
+              }
             } else {
-              return const Center(
-                child: Text("NO MEMBERS"),
-              );
+              return Center(
+                  child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ));
             }
-          } else {
-            return const Center(
-              child: Text("NO MEMBERS"),
-            );
-          }
-        } else {
-          return Center(
-              child: CircularProgressIndicator(
-            color: Theme.of(context).primaryColor,
-          ));
-        }
+          },
+        );
       },
     );
   }

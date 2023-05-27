@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import '../../core/constants/firebase_constants.dart';
 import '../../domain/messages/i_chat_repo.dart';
 
-@LazySingleton(as: IChatRepo)
-class ChatRepository implements IChatRepo {
+@LazySingleton(as: IGroupChatRepo)
+class ChatRepository implements IGroupChatRepo {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
@@ -16,8 +15,6 @@ class ChatRepository implements IChatRepo {
       .collection(FirestoreConstants.pathUserCollection);
   final CollectionReference groupCollection = FirebaseFirestore.instance
       .collection(FirestoreConstants.pathGroupCollection);
-
-  // ChatRepository(this.uid);
 
   @override
   Future<void> createGroup(String userName, String id, String groupName) async {
@@ -43,55 +40,35 @@ class ChatRepository implements IChatRepo {
   }
 
   @override
-  Stream<QuerySnapshot<Object?>> getChatStream(String groupChatId, int limit) {
-    // TODO: implement getChatStream
-    throw UnimplementedError();
+  Stream<QuerySnapshot> getGroupChat(String groupId) {
+    return groupCollection
+        .doc(groupId)
+        .collection(FirestoreConstants.pathMessageCollection)
+        .orderBy(FirestoreConstants.time)
+        .snapshots();
   }
 
   @override
-  Future<void> getGroupChat(String groupId) {
-    // TODO: implement getGroupChat
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> getUserGroups() {
-    // TODO: implement getUserGroups
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<QuerySnapshot<Object?>> getUserStream(
-      String pathCollection, int limit, String? textSearch) {
-    // TODO: implement getUserStream
-    throw UnimplementedError();
+  Stream<DocumentSnapshot> getUserGroups() {
+    return userCollection.doc(_auth.currentUser!.uid).snapshots();
   }
 
   @override
   Future<void> sendGroupMessage(
-      String groupId, Map<String, dynamic> chatMessageData) {
-    // TODO: implement sendGroupMessage
-    throw UnimplementedError();
-  }
+      String groupId, Map<String, dynamic> chatMessageData) async {
+    await groupCollection
+        .doc(groupId)
+        .collection(FirestoreConstants.messages)
+        .add(chatMessageData);
 
-  @override
-  Future<void> sendMessage(
-      String content, int type, String groupChatId, String uid, String peerId) {
-    // TODO: implement sendMessage
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateDataFirestore(String collectionPath, String docPath,
-      Map<String, dynamic> dataNeedUpdate) {
-    // TODO: implement updateDataFirestore
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UploadTask> uploadFile(File image, String fileName, String childName) {
-    // TODO: implement uploadFile
-    throw UnimplementedError();
+    await groupCollection.doc(groupId).update({
+      FirestoreConstants.recentMessage:
+          chatMessageData[FirestoreConstants.messages],
+      FirestoreConstants.recentMessageSender:
+          chatMessageData[FirestoreConstants.sender],
+      FirestoreConstants.recentMessageTime:
+          chatMessageData[FirestoreConstants.time].toString(),
+    });
   }
 
   @override
@@ -136,5 +113,17 @@ class ChatRepository implements IChatRepo {
       log('no conatains false>>>>> grp id ${groupId}_$groupName');
       return false;
     }
+  }
+
+  @override
+  Stream<DocumentSnapshot<Object?>> getGroupMembers(String groupId) {
+    return groupCollection.doc(groupId).snapshots();
+  }
+
+  @override
+  Future<String> getGroupAdmin(String groupId) async {
+    DocumentReference documentReference = groupCollection.doc(groupId);
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+    return documentSnapshot[FirestoreConstants.admin];
   }
 }

@@ -538,12 +538,12 @@ class _FriensChatPageState extends State<FriensChatPage> {
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: TextField(
               onSubmitted: (value) {
-                // onSendMessage(textEditingController.text, TypeMessage.text);
+                onSendMessage(textEditingController.text, TypeMessage.text);
               },
               style: TextStyle(
                   color: Theme.of(context).primaryColor, fontSize: 15),
               controller: textEditingController,
-              decoration: InputDecoration.collapsed(
+              decoration: const InputDecoration.collapsed(
                 hintText: 'Type your message...',
                 hintStyle: TextStyle(color: textGrey),
               ),

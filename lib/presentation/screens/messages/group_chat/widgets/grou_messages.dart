@@ -1,63 +1,38 @@
-import 'dart:ui';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/application/messages/chat_bloc.dart';
 import 'package:social_app/core/colors/colors.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/core/utils/loader.dart';
-import 'package:social_app/domain/messages/chat_database_service.dart';
-import 'package:social_app/domain/database/database_service.dart';
 import 'package:social_app/presentation/screens/messages/group_chat/widgets/group_info.dart';
 import 'package:social_app/presentation/screens/messages/group_chat/widgets/message_tile.dart';
+
 import '../../../../../core/constants/consts.dart';
 
-class GroupChatMessagesScreen extends StatefulWidget {
+class GroupChatMessagesScreen extends StatelessWidget {
   static const String routeName = "/chat-message";
   final String groupId;
   final String groupName;
   final String userName;
-  const GroupChatMessagesScreen(
-      {super.key,
-      required this.groupId,
-      required this.groupName,
-      required this.userName});
 
-  @override
-  State<GroupChatMessagesScreen> createState() =>
-      _GroupChatMessagesScreenState();
-}
+  GroupChatMessagesScreen({
+    Key? key,
+    required this.groupId,
+    required this.groupName,
+    required this.userName,
+  }) : super(key: key);
 
-class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
-  Stream<QuerySnapshot>? chats;
   TextEditingController messageController = TextEditingController();
-  String admin = "";
 
-  @override
-  void initState() {
-    super.initState();
-    getChatsAndAdmin();
-  }
-
-  getChatsAndAdmin() {
-    ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
-        .getGroupChat(widget.groupId)
-        .then((val) {
-      setState(() {
-        chats = val;
-      });
-    });
-    DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-        .getGroupAdmin(widget.groupId)
-        .then((val) {
-      setState(() {
-        admin = val;
-      });
-    });
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<GroupChatBloc>(context).add(GetGroupAdmin(groupId));
+      BlocProvider.of<GroupChatBloc>(context).add(GetGroupchatsEvent(groupId));
+    });
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -74,10 +49,15 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => GroupInfo(
-                    adminName: admin,
-                    groupName: widget.groupName,
-                    groupId: widget.groupId),
+                builder: (context) =>
+                    BlocBuilder<GroupChatBloc, GroupChatState>(
+                  builder: (context, state) {
+                    return GroupInfo(
+                        adminName: state.groupAdmin.toString(),
+                        groupName: groupName,
+                        groupId: groupId);
+                  },
+                ),
               ));
             },
             icon: const Icon(Icons.info_outline),
@@ -97,7 +77,7 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
                   padding: EdgeInsets.only(top: screenHeight / 26),
                   child: ListTile(
                     title: Text(
-                      widget.groupName,
+                      groupName,
                       style: const TextStyle(
                           color: kWhite, fontWeight: FontWeight.bold),
                     ),
@@ -155,7 +135,7 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
-          color: primaryColor,
+          color: kWhite,
           height: kToolbarHeight,
           margin:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -182,7 +162,7 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
             ),
             InkWell(
               onTap: () {
-                sendMessage();
+                sendMessage(context);
               },
               child: Container(
                   padding:
@@ -206,43 +186,44 @@ class _GroupChatMessagesScreenState extends State<GroupChatMessagesScreen> {
   }
 
   chatMessages() {
-    return Expanded(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: chats,
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                return MessageTile(
-                    message: snapshot.data!.docs[index]
-                        [FirestoreConstants.messages],
-                    sender: snapshot.data!.docs[index]
-                        [FirestoreConstants.sender],
-                    sentByMe: widget.userName ==
-                        snapshot.data!.docs[index][FirestoreConstants.sender]);
-              },
-            );
-          } else {
-            return const Loader();
-          }
-        },
+    return BlocBuilder<GroupChatBloc, GroupChatState>(
+      builder: (context, state) => Expanded(
+        child: StreamBuilder<QuerySnapshot>(
+          stream: state.groupChats,
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  return MessageTile(
+                      message: snapshot.data!.docs[index]
+                          [FirestoreConstants.messages],
+                      sender: snapshot.data!.docs[index]
+                          [FirestoreConstants.sender],
+                      sentByMe: userName ==
+                          snapshot.data!.docs[index]
+                              [FirestoreConstants.sender]);
+                },
+              );
+            } else {
+              return const Loader();
+            }
+          },
+        ),
       ),
     );
   }
 
-  sendMessage() {
+  sendMessage(BuildContext context) {
     if (messageController.text.isNotEmpty) {
       Map<String, dynamic> chatMessage = {
         FirestoreConstants.messages: messageController.text,
-        FirestoreConstants.sender: widget.userName,
+        FirestoreConstants.sender: userName,
         FirestoreConstants.time: DateTime.now().microsecondsSinceEpoch
       };
-      ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
-          .sendGropMessage(widget.groupId, chatMessage);
-      setState(() {
-        messageController.clear();
-      });
+      context
+          .read<GroupChatBloc>()
+          .add(SendGroupMessageEvent(groupId, chatMessage, messageController));
     }
   }
 }

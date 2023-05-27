@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,9 +31,7 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print('hi');
     var imageBytes;
-    // print('on buile >>>>>>>>>>>>>>>>>>>>>>${imageBytes.toString()}');
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state.errorMessage.isNotEmpty) {
@@ -46,12 +42,6 @@ class SignUpForm extends StatelessWidget {
         } else if (state.isFormValidateFailed) {
           showSnackbar(context, kRed, "Please fill the data correctly!");
         }
-        // else if (state.isImage == true) {
-        //   log('message to hi>>>>>>>>>>>>>>>>>>>>');
-        //   final imageBytes = context.read<ImageBloc>().state.imagebytes;
-        //   context.read<SignInBloc>().add(ProfilePhotoAdd(imageBytes!));
-        //   log('form isImage ${state.isImage.toString()} >>>>>>>>');
-        // }
       },
       builder: (context, state) {
         var sizedBox2 = SizedBox(height: screenHeight / 16);
@@ -80,9 +70,6 @@ class SignUpForm extends StatelessWidget {
                         BlocBuilder<ImageBloc, ImageState>(
                             builder: (context, state) {
                           imageBytes = state.imagebytes;
-                          // print(
-                          //     'on after >>>>>>>>>>>>>>>>>>>>>>${imageBytes.toString()}');
-
                           return Stack(
                             children: [
                               CircleAvatar(
@@ -100,7 +87,7 @@ class SignUpForm extends StatelessWidget {
                                     onTap: () {
                                       bottomSheetCamera(context);
                                     },
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.add_a_photo_outlined,
                                       size: 27,
                                       color: textGrey,
@@ -181,7 +168,7 @@ class SignUpForm extends StatelessWidget {
                             textAlign: TextAlign.center,
                             TextSpan(
                               text: "Already have an account? ",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: textGrey,
                                 fontSize: 15,
                                 letterSpacing: 0.2,
@@ -189,7 +176,7 @@ class SignUpForm extends StatelessWidget {
                               ),
                               children: [
                                 TextSpan(
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: primaryColor,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -225,7 +212,7 @@ class SignUpForm extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 'Choose Profile Photo',
                 style: TextStyle(
                   color: textGrey,
@@ -240,7 +227,7 @@ class SignUpForm extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.photo,
                           size: 35,
                           color: primaryColor,
@@ -261,7 +248,7 @@ class SignUpForm extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.photo_camera,
                           size: 35,
                           color: primaryColor,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
 import 'package:social_app/domain/auth/model/user.dart';
@@ -27,29 +25,6 @@ class DatabaseService {
     DocumentSnapshot documentSnapshot = await documentReference.get();
     return documentSnapshot[FirestoreConstants.admin];
   }
-
-  //get group members
-  getGroupMember(String groupId) async {
-    return groupCollection.doc(groupId).snapshots();
-  }
-
-  // user joined checking
-  // Future<bool> isUserJoined({
-  //   required String groupName,
-  //   required String groupId,
-  // }) async {
-  //   DocumentReference userDocumentReference = userCollection.doc(uid);
-  //   DocumentSnapshot documentSnapshot = await userDocumentReference.get();
-
-  //   List<dynamic> groups = await documentSnapshot['groups'];
-  //   if (groups.contains("${groupId}_$groupName")) {
-  //     // log('contains true>>>>> grp id $groupId');
-  //     return true;
-  //   } else {
-  //     log('no conatains false>>>>> grp id ${groupId}_$groupName');
-  //     return false;
-  //   }
-  // }
 
 // search by name
   searchByName(String groupName) {

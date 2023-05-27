@@ -1,16 +1,11 @@
-import 'dart:developer';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/application/auth/database/database_bloc.dart';
 import 'package:social_app/application/messages/chat_bloc.dart';
-import 'package:social_app/presentation/screens/messages/group_chat/group_chat.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/utils/utils.dart';
-import '../../../../../domain/database/database_service.dart';
 import 'grou_messages.dart';
 
-class SearchGroupTile extends StatefulWidget {
+class SearchGroupTile extends StatelessWidget {
   final String userName;
   final String groupId;
   final String groupName;
@@ -23,34 +18,19 @@ class SearchGroupTile extends StatefulWidget {
       required this.groupName,
       required this.admin});
 
-  @override
-  State<SearchGroupTile> createState() => _SearchGroupTileState();
-}
-
-class _SearchGroupTileState extends State<SearchGroupTile> {
-  bool isJoined = false;
   String getName(String res) {
     return res.substring(res.indexOf("_") + 1);
   }
 
   @override
-  void initState() {
-    isJoined = false;
-
-    context.read<ChatBloc>().add(
-        IsUserJoined(groupName: widget.groupName, groupId: widget.groupId));
-
-    super.initState();
-  }
-
-  joinedOrNot(
-    String groupName,
-    String groupId,
-  ) async {}
-
-  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ChatBloc, ChatState>(
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<GroupChatBloc>()
+          .add(IsUserJoined(groupName: groupName, groupId: groupId));
+    });
+
+    return BlocConsumer<GroupChatBloc, GroupChatState>(
       listener: (context, state) {
         if (state.joinStatusMessage.isNotEmpty &&
             state.joinedOrStatus == false) {
@@ -66,34 +46,30 @@ class _SearchGroupTileState extends State<SearchGroupTile> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => GroupChatMessagesScreen(
-                  groupId: widget.groupId,
-                  groupName: widget.groupName,
-                  userName: widget.userName),
+                  groupId: groupId, groupName: groupName, userName: userName),
             ),
           );
         },
         title: Text(
-          widget.groupName,
+          groupName,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          "Admin ${getName(widget.admin)}",
+          "Admin ${getName(admin)}",
           style: const TextStyle(fontSize: 13),
         ),
         leading: CircleAvatar(
           radius: 30,
           backgroundColor: Theme.of(context).primaryColor,
           child: Text(
-            widget.groupName.substring(0, 1).toUpperCase(),
+            groupName.substring(0, 1).toUpperCase(),
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
         trailing: GestureDetector(
           onTap: () {
-            context.read<ChatBloc>().add(ToggleGroupJoinEvent(
-                groupId: widget.groupId,
-                userName: widget.userName,
-                groupName: widget.groupName));
+            context.read<GroupChatBloc>().add(ToggleGroupJoinEvent(
+                groupId: groupId, userName: userName, groupName: groupName));
           },
           child: state.joinedOrStatus
               ? Container(

@@ -7,7 +7,6 @@ import 'package:social_app/application/auth/database/database_bloc.dart';
 import 'package:social_app/application/messages/chat_bloc.dart';
 import 'package:social_app/core/constants/consts.dart';
 import 'package:social_app/core/constants/firebase_constants.dart';
-import 'package:social_app/domain/messages/chat_database_service.dart';
 import 'package:social_app/presentation/common_widgets/custom_text_field.dart';
 import '../../../../application/messages/message_search/message_search_bloc.dart';
 import '../../../../core/colors/colors.dart';
@@ -16,39 +15,8 @@ import '../../../../core/utils/utils.dart';
 import 'widgets/group_tile.dart';
 import 'widgets/search_grouptile.dart';
 
-class GropChatScreen extends StatefulWidget {
+class GropChatScreen extends StatelessWidget {
   const GropChatScreen({super.key});
-
-  @override
-  State<GropChatScreen> createState() => _GropChatScreenState();
-}
-
-// bool isLoading = false;
-String groupName = "";
-
-Stream? chatUsers;
-
-class _GropChatScreenState extends State<GropChatScreen> {
-  TextEditingController searchController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<MessageSearchBloc>().add(const Empty());
-    BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
-    // isLoading = false;
-    gettingData();
-  }
-
-  gettingData() async {
-    await ChatDatabaseService(FirebaseAuth.instance.currentUser!.uid)
-        .getUserGroups()
-        .then((snapshot) {
-      setState(() {
-        chatUsers = snapshot;
-      });
-    });
-  }
 
   String getId(String res) {
     return res.substring(0, res.indexOf("_"));
@@ -62,6 +30,9 @@ class _GropChatScreenState extends State<GropChatScreen> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
+      context.read<MessageSearchBloc>().add(const Empty());
+      BlocProvider.of<DatabaseBloc>(context).add(const DatabaseFetched());
+      BlocProvider.of<GroupChatBloc>(context).add(const GetUserGroups());
     });
 
     final userName = context.read<DatabaseBloc>().state.userName;
@@ -74,7 +45,7 @@ class _GropChatScreenState extends State<GropChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               kHeight10,
-              buildSearchBar(),
+              buildSearchBar(context),
               BlocBuilder<MessageSearchBloc, MessageSearchState>(
                 builder: (context, state) {
                   return state.isBool
@@ -124,7 +95,7 @@ class _GropChatScreenState extends State<GropChatScreen> {
     );
   }
 
-  Widget buildSearchBar() {
+  Widget buildSearchBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -163,7 +134,7 @@ class _GropChatScreenState extends State<GropChatScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return BlocListener<ChatBloc, ChatState>(
+        return BlocListener<GroupChatBloc, GroupChatState>(
           listener: (context, state) {
             if (state.successMessage.isNotEmpty) {
               showSnackbar(context, Colors.green, state.successMessage);
@@ -200,14 +171,14 @@ class _GropChatScreenState extends State<GropChatScreen> {
                       style: TextStyle(color: kRed),
                     )),
               ),
-              BlocBuilder<ChatBloc, ChatState>(
+              BlocBuilder<GroupChatBloc, GroupChatState>(
                 builder: (context, state) {
                   return TextButton(
                     onPressed: () {
                       final currentUser = FirebaseAuth.instance.currentUser;
                       if (groupTexteditingController.text.isNotEmpty &&
                           currentUser != null) {
-                        context.read<ChatBloc>().add(
+                        context.read<GroupChatBloc>().add(
                               CreateGroupEvent(
                                 id: currentUser.uid,
                                 userName: userName,
@@ -240,40 +211,45 @@ class _GropChatScreenState extends State<GropChatScreen> {
 
   groupList(userName) {
     return Expanded(
-      child: StreamBuilder(
-        stream: chatUsers,
-        builder: (context, AsyncSnapshot snapshot) {
-          // make some checks
-          if (snapshot.hasData) {
-            if (snapshot.data['groups'] != null) {
-              if (snapshot.data['groups'].length != 0) {
-                return ListView.builder(
-                  itemCount: snapshot.data['groups'].length,
-                  itemBuilder: (context, index) {
-                    int reverseIndex =
-                        snapshot.data['groups'].length - index - 1;
-                    return GroupTile(
-                        groupId: getId(snapshot.data['groups'][reverseIndex]),
-                        groupName:
-                            getName(snapshot.data['groups'][reverseIndex]),
-                        userName: snapshot.data['userName']);
-                  },
-                );
+      child: BlocBuilder<GroupChatBloc, GroupChatState>(
+        builder: (context, state) {
+          return StreamBuilder(
+            stream: state.userGroups,
+            builder: (context, AsyncSnapshot snapshot) {
+              // make some checks
+              if (snapshot.hasData) {
+                if (snapshot.data['groups'] != null) {
+                  if (snapshot.data['groups'].length != 0) {
+                    return ListView.builder(
+                      itemCount: snapshot.data['groups'].length,
+                      itemBuilder: (context, index) {
+                        int reverseIndex =
+                            snapshot.data['groups'].length - index - 1;
+                        return GroupTile(
+                            groupId:
+                                getId(snapshot.data['groups'][reverseIndex]),
+                            groupName:
+                                getName(snapshot.data['groups'][reverseIndex]),
+                            userName: snapshot.data['userName']);
+                      },
+                    );
+                  } else {
+                    return noGroupWidget(userName, context);
+                  }
+                } else {
+                  return noGroupWidget(userName, context);
+                }
               } else {
-                return noGroupWidget(userName);
+                return const Loader();
               }
-            } else {
-              return noGroupWidget(userName);
-            }
-          } else {
-            return const Loader();
-          }
+            },
+          );
         },
       ),
     );
   }
 
-  noGroupWidget(userName) {
+  noGroupWidget(userName, context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Column(
@@ -302,3 +278,8 @@ class _GropChatScreenState extends State<GropChatScreen> {
     );
   }
 }
+
+// bool isLoading = false;
+String groupName = "";
+
+Stream? chatUsers;
